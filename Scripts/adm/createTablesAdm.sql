@@ -14,9 +14,9 @@ CREATE TABLE `adm`.`parameter` (
   `ID_Parameter` INT NOT NULL COMMENT 'Parameter identification number',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Parameter name',
   `Value` VARCHAR(45) NOT NULL COMMENT 'Parameter value',
-  `date_creation` VARCHAR(45) NOT NULL COMMENT 'Date of creation',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
-  `date_last_modification` VARCHAR(45) NULL COMMENT 'Date of the last modification',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`ID_Parameter`))
 COMMENT = 'Table that stores parameters for querys';
