@@ -1,0 +1,157 @@
+CREATE TABLE `us`.`gender` (
+  `ID_Gender` INT NOT NULL COMMENT 'Identification number of the gender',
+  `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the gender',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`ID_Gender`))
+COMMENT = 'Table that stores data of genders';
+
+CREATE TABLE `us`.`usertype` (
+  `ID_UserType` INT NOT NULL COMMENT 'Identification number of the user type',
+  `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the user type',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`ID_UserType`))
+COMMENT = 'Table that stores data of user types';
+
+CREATE TABLE `us`.`nationality` (
+  `ID_Nationality` INT NOT NULL COMMENT 'Identification number of the nationality',
+  `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the nationality',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`ID_Nationality`))
+COMMENT = 'Table that stores data of nationalities';
+
+CREATE TABLE `us`.`user` (
+  `Username` VARCHAR(45) NOT NULL COMMENT 'Identification name of the user',
+  `Email` VARCHAR(45) NOT NULL COMMENT 'Email of the user',
+  `Birthdate` DATE NOT NULL COMMENT 'Date of birth of the user',
+  `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the user',
+  `firstLastName` VARCHAR(45) NOT NULL COMMENT 'First last name of the user',
+  `secondLastName` VARCHAR(45) NOT NULL COMMENT 'Second last name of the user',
+  `Password` VARCHAR(45) NOT NULL COMMENT 'Password of the user',
+  `ID` VARCHAR(45) NOT NULL COMMENT 'Identification number of the user',
+  `PhotoDirection` VARCHAR(100) NOT NULL COMMENT 'Direction of photo of the user',
+  `ID_Community` INT NOT NULL COMMENT 'Identification number of community of the user',
+  `ID_UserType` INT NOT NULL COMMENT 'Identification number of type of the user',
+  `ID_Gender` INT NOT NULL COMMENT 'Identification number of gender of the user',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`Username`),
+  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC) VISIBLE,
+  UNIQUE INDEX `PhotoDirection_UNIQUE` (`PhotoDirection` ASC) VISIBLE,
+  INDEX `ID_Community_idx` (`ID_Community` ASC) VISIBLE,
+  INDEX `ID_UserType_idx` (`ID_UserType` ASC) VISIBLE,
+  INDEX `ID_Gender_idx` (`ID_Gender` ASC) VISIBLE,
+  CONSTRAINT `ID_Community`
+    FOREIGN KEY (`ID_Community`)
+    REFERENCES `pl`.`community` (`ID_Community`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ID_UserType`
+    FOREIGN KEY (`ID_UserType`)
+    REFERENCES `us`.`usertype` (`ID_UserType`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ID_Gender`
+    FOREIGN KEY (`ID_Gender`)
+    REFERENCES `us`.`gender` (`ID_Gender`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores data of users';
+
+CREATE TABLE `us`.`userreviews` (
+  `Username_Reviewer` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that makes the review',
+  `Username_Reviewee` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that receives the review',
+  `Customer` TINYINT NOT NULL COMMENT 'Boolean that shows if the reviewer is customer',
+  `Comment` VARCHAR(140) NOT NULL COMMENT 'Comment of the review',
+  `Stars` INT NOT NULL COMMENT 'Calification of the user',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`Username_Reviewer`, `Username_Reviewee`),
+  INDEX `Username_Reviewee_idx` (`Username_Reviewee` ASC) VISIBLE,
+  CONSTRAINT `Username_Reviewer`
+    FOREIGN KEY (`Username_Reviewer`)
+    REFERENCES `us`.`user` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Username_Reviewee`
+    FOREIGN KEY (`Username_Reviewee`)
+    REFERENCES `us`.`user` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores data of reviews of the users';
+
+CREATE TABLE `us`.`receiverxsender` (
+  `Username_Sender` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that sends the message',
+  `Username_Receiver` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that receives the message',
+  `MessageContent` VARCHAR(140) NOT NULL COMMENT 'Comment of the message',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`Username_Sender`, `Username_Receiver`),
+  INDEX `Username_Receiver_idx` (`Username_Receiver` ASC) VISIBLE,
+  CONSTRAINT `Username_Sender`
+    FOREIGN KEY (`Username_Sender`)
+    REFERENCES `us`.`user` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Username_Receiver`
+    FOREIGN KEY (`Username_Receiver`)
+    REFERENCES `us`.`user` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores data of messages of the users';
+
+CREATE TABLE `us`.`userwishesproduct` (
+  `Username` VARCHAR(45) NOT NULL COMMENT 'Identification name the user that owns the wish list',
+  `ID_Product` INT NOT NULL COMMENT 'Identification number of product that is on the wish list',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`Username`, `ID_Product`),
+  INDEX `ID_Product_idx` (`ID_Product` ASC) VISIBLE,
+  CONSTRAINT `Username`
+    FOREIGN KEY (`Username`)
+    REFERENCES `us`.`user` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ID_Product`
+    FOREIGN KEY (`ID_Product`)
+    REFERENCES `sh`.`product` (`ID_Product`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores data of products on the wish list of each user';
+
+CREATE TABLE `us`.`userviewsproduct` (
+  `Username` VARCHAR(45) NOT NULL COMMENT 'Identification name the user that saw the product',
+  `ID_Product` INT NOT NULL COMMENT 'Identification number of product that has been seen',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`Username`, `ID_Product`),
+  INDEX `ID_Product_idx` (`ID_Product` ASC) VISIBLE,
+  CONSTRAINT `Username`
+    FOREIGN KEY (`Username`)
+    REFERENCES `us`.`user` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ID_Product`
+    FOREIGN KEY (`ID_Product`)
+    REFERENCES `sh`.`product` (`ID_Product`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores data of products that have been seen';
