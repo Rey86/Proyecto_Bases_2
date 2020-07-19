@@ -4,7 +4,7 @@ CREATE TABLE `adm`.`generallog` (
   `tableName` VARCHAR(45) NOT NULL COMMENT 'Name of table that underwent change',
   `columnName` VARCHAR(45) NOT NULL COMMENT 'Name of column that underwent change',
   `modificationDate` DATE NOT NULL COMMENT 'Date of the modification',
-  `username` VARCHAR(45) NOT NULL COMMENT 'Username that modificated his password',
+  `ID_Product` INT NOT NULL COMMENT 'ID of the product that modificated his price',
   `current_value` VARCHAR(45) NOT NULL COMMENT 'Actual value',
   `previous_value` VARCHAR(45) NULL COMMENT 'Old value',
   PRIMARY KEY (`ID_GeneralLog`))
