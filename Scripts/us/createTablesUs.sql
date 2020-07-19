@@ -156,3 +156,23 @@ CREATE TABLE `us`.`userviewsproduct` (
     ON UPDATE NO ACTION)
 COMMENT = 'Table that stores data of products that have been seen';
 
+CREATE TABLE `us`.`userxnationality` (
+  `Username` VARCHAR(45) NOT NULL COMMENT 'Identification name the user',
+  `ID_Nationality` INT NOT NULL COMMENT 'Identification number of the nationality',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`Username`, `ID_Nationality`),
+  INDEX `idx_userxnationality_idNationality` (`ID_Nationality` ASC) INVISIBLE,
+  CONSTRAINT `fk_userxnationality_username`
+    FOREIGN KEY (`Username`)
+    REFERENCES `us`.`user` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_userxnationality_idNationality`
+    FOREIGN KEY (`ID_Nationality`)
+    REFERENCES `us`.`nationality` (`ID_Nationality`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores the different nacionalities of each user';
