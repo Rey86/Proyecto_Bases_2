@@ -30,7 +30,7 @@ COMMENT = 'Table that stores data of payment methods';
 
 CREATE TABLE `sh`.`purchase` (
   `ID_Purchase` INT NOT NULL COMMENT 'Identification number of the purchase',
-  `Date` DATE NOT NULL COMMENT 'Date of the purchase',
+  `Date` DATE NOT NULL COMMENT 'Date of tcountryhe purchase',
   `Username_Customer` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that makes the purchase',
   `ID_PaymentMethod` INT NOT NULL COMMENT 'Identification number of the payment method that is being used',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
@@ -38,14 +38,14 @@ CREATE TABLE `sh`.`purchase` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`ID_Purchase`),
-  INDEX `Username_idx` (`Username_Customer` ASC) VISIBLE,
-  INDEX `ID_PaymentMethod_idx` (`ID_PaymentMethod` ASC) VISIBLE,
-  CONSTRAINT `Username_Customer`
+  INDEX `idx_purchase_usernameCustomer` (`Username_Customer` ASC) VISIBLE,
+  INDEX `idx_purchase_idPaymentMethod` (`ID_PaymentMethod` ASC) VISIBLE,
+  CONSTRAINT `fk_purchase_usernameCustomer`
     FOREIGN KEY (`Username_Customer`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `ID_PaymentMethod`
+  CONSTRAINT `fk_purchase_idPaymentMethod`
     FOREIGN KEY (`ID_PaymentMethod`)
     REFERENCES `sh`.`paymentmethod` (`ID_PaymentMethod`)
     ON DELETE NO ACTION
@@ -68,32 +68,32 @@ CREATE TABLE `sh`.`product` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`ID_Product`),
-  INDEX `UsernameCustomer_idx` (`UsernameCustomer` ASC) VISIBLE,
-  INDEX `UsernameSalesman_idx` (`UsernameSalesman` ASC) VISIBLE,
-  INDEX `ID_Category_idx` (`ID_Category` ASC) VISIBLE,
-  INDEX `ID_Purchase_idx` (`ID_Purchase` ASC) VISIBLE,
-  INDEX `ID_DeliveryType_idx` (`ID_DeliveryType` ASC) VISIBLE,
-  CONSTRAINT `UsernameCustomer`
+  INDEX `idx_product_usernameCustomer` (`UsernameCustomer` ASC) VISIBLE,
+  INDEX `idx_product_usernameSalesman` (`UsernameSalesman` ASC) VISIBLE,
+  INDEX `idx_product_idCategory` (`ID_Category` ASC) VISIBLE,
+  INDEX `idx_product_idPurchase` (`ID_Purchase` ASC) VISIBLE,
+  INDEX `idx_product_idDeliveryType` (`ID_DeliveryType` ASC) VISIBLE,
+  CONSTRAINT `fk_product_usernameCustomer`
     FOREIGN KEY (`UsernameCustomer`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `UsernameSalesman`
+  CONSTRAINT `fk_product_usernameSalesman`
     FOREIGN KEY (`UsernameSalesman`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `ID_Category`
+  CONSTRAINT `fk_product_idCategory`
     FOREIGN KEY (`ID_Category`)
     REFERENCES `sh`.`category` (`ID_Category`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `ID_Purchase`
+  CONSTRAINT `fk_product_idPurchase`
     FOREIGN KEY (`ID_Purchase`)
     REFERENCES `sh`.`purchase` (`ID_Purchase`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `ID_DeliveryType`
+  CONSTRAINT `fk_product_idDeliveryType`
     FOREIGN KEY (`ID_DeliveryType`)
     REFERENCES `sh`.`deliverytype` (`ID_DeliveryType`)
     ON DELETE NO ACTION
@@ -110,8 +110,8 @@ CREATE TABLE `sh`.`review` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`ID_Review`),
-  INDEX `ID_Product_idx` (`ID_Product` ASC) VISIBLE,
-  CONSTRAINT `ID_Product`
+  INDEX `idx_review_idProduct` (`ID_Product` ASC) VISIBLE,
+  CONSTRAINT `fk_review_idProduct`
     FOREIGN KEY (`ID_Product`)
     REFERENCES `sh`.`product` (`ID_Product`)
     ON DELETE NO ACTION

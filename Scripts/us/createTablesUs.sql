@@ -46,22 +46,22 @@ CREATE TABLE `us`.`user` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`Username`),
-  UNIQUE INDEX `ID_UNIQUE` (`ID` ASC) VISIBLE,
-  UNIQUE INDEX `PhotoDirection_UNIQUE` (`PhotoDirection` ASC) VISIBLE,
-  INDEX `ID_Community_idx` (`ID_Community` ASC) VISIBLE,
-  INDEX `ID_UserType_idx` (`ID_UserType` ASC) VISIBLE,
-  INDEX `ID_Gender_idx` (`ID_Gender` ASC) VISIBLE,
-  CONSTRAINT `ID_Community`
+  UNIQUE INDEX `user_id_uk` (`ID` ASC) VISIBLE,
+  UNIQUE INDEX `user_photoDirection_uk` (`PhotoDirection` ASC) VISIBLE,
+  INDEX `idx_user_idCommunity` (`ID_Community` ASC) VISIBLE,
+  INDEX `idx_user_idUserType` (`ID_UserType` ASC) VISIBLE,
+  INDEX `idx_user_idGender` (`ID_Gender` ASC) VISIBLE,
+  CONSTRAINT `fk_user_idCommunity`
     FOREIGN KEY (`ID_Community`)
     REFERENCES `pl`.`community` (`ID_Community`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `ID_UserType`
+  CONSTRAINT `fk_user_idUserType`
     FOREIGN KEY (`ID_UserType`)
     REFERENCES `us`.`usertype` (`ID_UserType`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `ID_Gender`
+  CONSTRAINT `fk_user_idGender`
     FOREIGN KEY (`ID_Gender`)
     REFERENCES `us`.`gender` (`ID_Gender`)
     ON DELETE NO ACTION
@@ -79,13 +79,13 @@ CREATE TABLE `us`.`userreviews` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`Username_Reviewer`, `Username_Reviewee`),
-  INDEX `Username_Reviewee_idx` (`Username_Reviewee` ASC) VISIBLE,
-  CONSTRAINT `Username_Reviewer`
+  INDEX `idx_userreviews_usernameReviewee` (`Username_Reviewee` ASC) VISIBLE,
+  CONSTRAINT `fk_userreviews_usernameReviewer`
     FOREIGN KEY (`Username_Reviewer`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `Username_Reviewee`
+  CONSTRAINT `fk_userreviews_usernameReviewee`
     FOREIGN KEY (`Username_Reviewee`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
@@ -101,13 +101,13 @@ CREATE TABLE `us`.`receiverxsender` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`Username_Sender`, `Username_Receiver`),
-  INDEX `Username_Receiver_idx` (`Username_Receiver` ASC) VISIBLE,
-  CONSTRAINT `Username_Sender`
+  INDEX `idx_receiverxsender_usernameSender` (`Username_Receiver` ASC) VISIBLE,
+  CONSTRAINT `fk_receiverxsender_usernameSender`
     FOREIGN KEY (`Username_Sender`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `Username_Receiver`
+  CONSTRAINT `fk_receiverxsender_usernameReceiver`
     FOREIGN KEY (`Username_Receiver`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
@@ -122,13 +122,13 @@ CREATE TABLE `us`.`userwishesproduct` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`Username`, `ID_Product`),
-  INDEX `ID_Product_idx` (`ID_Product` ASC) VISIBLE,
-  CONSTRAINT `Username`
+  INDEX `idx_userwishesproduct_idProduct` (`ID_Product` ASC) VISIBLE,
+  CONSTRAINT `fk_userwishesproduct_username`
     FOREIGN KEY (`Username`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `ID_Product`
+  CONSTRAINT `fk_userwishesproduct_idProduct`
     FOREIGN KEY (`ID_Product`)
     REFERENCES `sh`.`product` (`ID_Product`)
     ON DELETE NO ACTION
@@ -143,13 +143,13 @@ CREATE TABLE `us`.`userviewsproduct` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`Username`, `ID_Product`),
-  INDEX `ID_Product_idx` (`ID_Product` ASC) VISIBLE,
-  CONSTRAINT `Username`
+  INDEX `idx_userviewsproduct_idProduct` (`ID_Product` ASC) VISIBLE,
+  CONSTRAINT `fk_userviewsproduct_username`
     FOREIGN KEY (`Username`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `ID_Product`
+  CONSTRAINT `fk_userviewsproduct_idProduct`
     FOREIGN KEY (`ID_Product`)
     REFERENCES `sh`.`product` (`ID_Product`)
     ON DELETE NO ACTION

@@ -17,8 +17,8 @@ CREATE TABLE `pl`.`province` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`ID_Province`),
-  INDEX `ID_Country_idx` (`ID_Country` ASC) VISIBLE,
-  CONSTRAINT `ID_Country`
+  INDEX `idx_province_idCountry` (`ID_Country` ASC) VISIBLE,
+  CONSTRAINT `fk_province_idCountry`
     FOREIGN KEY (`ID_Country`)
     REFERENCES `pl`.`country` (`ID_Country`)
     ON DELETE NO ACTION
@@ -34,8 +34,8 @@ CREATE TABLE `pl`.`canton` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`ID_Canton`),
-  INDEX `ID_Province_idx` (`ID_Province` ASC) VISIBLE,
-  CONSTRAINT `ID_Province`
+  INDEX `idx_canton_idProvince` (`ID_Province` ASC) VISIBLE,
+  CONSTRAINT `fk_canton_idProvince`
     FOREIGN KEY (`ID_Province`)
     REFERENCES `pl`.`province` (`ID_Province`)
     ON DELETE NO ACTION
@@ -51,8 +51,8 @@ CREATE TABLE `pl`.`community` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`ID_Community`),
-  INDEX `ID_Canton_idx` (`ID_Canton` ASC) VISIBLE,
-  CONSTRAINT `ID_Canton`
+  INDEX `idx_community_idCanton` (`ID_Canton` ASC) VISIBLE,
+  CONSTRAINT `fk_community_idCanton`
     FOREIGN KEY (`ID_Canton`)
     REFERENCES `pl`.`canton` (`ID_Canton`)
     ON DELETE NO ACTION
