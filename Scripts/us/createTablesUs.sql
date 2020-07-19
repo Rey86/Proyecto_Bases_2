@@ -1,5 +1,5 @@
 CREATE TABLE `us`.`gender` (
-  `ID_Gender` INT NOT NULL COMMENT 'Identification number of the gender',
+  `ID_Gender` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the gender',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the gender',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
@@ -9,7 +9,7 @@ CREATE TABLE `us`.`gender` (
 COMMENT = 'Table that stores data of genders';
 
 CREATE TABLE `us`.`usertype` (
-  `ID_UserType` INT NOT NULL COMMENT 'Identification number of the user type',
+  `ID_UserType` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the user type',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the user type',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
@@ -19,7 +19,7 @@ CREATE TABLE `us`.`usertype` (
 COMMENT = 'Table that stores data of user types';
 
 CREATE TABLE `us`.`nationality` (
-  `ID_Nationality` INT NOT NULL COMMENT 'Identification number of the nationality',
+  `ID_Nationality` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the nationality',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the nationality',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
@@ -155,3 +155,4 @@ CREATE TABLE `us`.`userviewsproduct` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 COMMENT = 'Table that stores data of products that have been seen';
+

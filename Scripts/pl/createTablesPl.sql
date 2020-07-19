@@ -1,5 +1,5 @@
 CREATE TABLE `pl`.`country` (
-  `ID_Country` INT NOT NULL COMMENT 'Identification number of the country',
+  `ID_Country` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the country',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the country',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
@@ -9,7 +9,7 @@ CREATE TABLE `pl`.`country` (
 COMMENT = 'Table that stores data of countries';
 
 CREATE TABLE `pl`.`province` (
-  `ID_Province` INT NOT NULL COMMENT 'Identification number of the province',
+  `ID_Province` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the province',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the province',
   `ID_Country` INT NOT NULL COMMENT 'Identification number of its country',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
@@ -26,7 +26,7 @@ CREATE TABLE `pl`.`province` (
 COMMENT = 'Table that stores data of provinces';
 
 CREATE TABLE `pl`.`canton` (
-  `ID_Canton` INT NOT NULL COMMENT 'Identification number of the canton',
+  `ID_Canton` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the canton',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the canton',
   `ID_Province` INT NOT NULL COMMENT 'Identification number of its province',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
@@ -43,7 +43,7 @@ CREATE TABLE `pl`.`canton` (
 COMMENT = 'Table that stores data of cantons';
 
 CREATE TABLE `pl`.`community` (
-  `ID_Community` INT NOT NULL COMMENT 'Identification number of the community',
+  `ID_Community` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the community',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the community',
   `ID_Canton` INT NOT NULL COMMENT 'Identification number of its canton',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',

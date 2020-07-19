@@ -1,5 +1,5 @@
 CREATE TABLE `sh`.`category` (
-  `ID_Category` INT NOT NULL COMMENT 'Identification number of the product category',
+  `ID_Category` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the product category',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the product category',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
@@ -9,7 +9,7 @@ CREATE TABLE `sh`.`category` (
 COMMENT = 'Table that stores data of product categories';
 
 CREATE TABLE `sh`.`deliverytype` (
-  `ID_DeliveryType` INT NOT NULL COMMENT 'Identification number of the delivery type',
+  `ID_DeliveryType` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the delivery type',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the delivery type',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
@@ -19,7 +19,7 @@ CREATE TABLE `sh`.`deliverytype` (
 COMMENT = 'Table that stores data of delivery types';
 
 CREATE TABLE `sh`.`paymentmethod` (
-  `ID_PaymentMethod` INT NOT NULL COMMENT 'Identification number of the payment method',
+  `ID_PaymentMethod` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the payment method',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the payment method',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
@@ -29,7 +29,7 @@ CREATE TABLE `sh`.`paymentmethod` (
 COMMENT = 'Table that stores data of payment methods';
 
 CREATE TABLE `sh`.`purchase` (
-  `ID_Purchase` INT NOT NULL COMMENT 'Identification number of the purchase',
+  `ID_Purchase` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the purchase',
   `Date` DATE NOT NULL COMMENT 'Date of tcountryhe purchase',
   `Username_Customer` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that makes the purchase',
   `ID_PaymentMethod` INT NOT NULL COMMENT 'Identification number of the payment method that is being used',
@@ -53,7 +53,7 @@ CREATE TABLE `sh`.`purchase` (
 COMMENT = 'Table that stores data of purchases';
 
 CREATE TABLE `sh`.`product` (
-  `ID_Product` INT NOT NULL COMMENT 'Identification number of the product',
+  `ID_Product` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the product',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Date of the product',
   `Price` INT NOT NULL COMMENT 'Price of the product',
   `Sold` TINYINT NOT NULL COMMENT 'Boolean that shows if the product is sold',
@@ -101,7 +101,7 @@ CREATE TABLE `sh`.`product` (
 COMMENT = 'Table that stores data of products';
 
 CREATE TABLE `sh`.`review` (
-  `ID_Review` INT NOT NULL COMMENT 'Identification number of the review',
+  `ID_Review` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the review',
   `Stars` INT NOT NULL COMMENT 'Calification of the product that is being reviewed',
   `Comment` VARCHAR(45) NOT NULL COMMENT 'Comment of the product that is being reviewed',
   `ID_Product` INT NOT NULL COMMENT 'Identification number of the product that is being reviewed',
