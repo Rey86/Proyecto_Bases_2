@@ -96,6 +96,7 @@ CREATE TABLE `us`.`receiverxsender` (
   `Username_Sender` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that sends the message',
   `Username_Receiver` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that receives the message',
   `MessageContent` VARCHAR(140) NOT NULL COMMENT 'Comment of the message',
+  `Time` DATETIME NOT NULL COMMENT 'Time when the message was sent',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
