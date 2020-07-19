@@ -96,19 +96,26 @@ CREATE TRIGGER sh.beforeUpdateReview
 
 -- Triggers to fill GENERALLOG table in admscheme.
 
-CREATE TRIGGER sh.beforeUpdateProductPrice
-    BEFORE INSERT
-    ON product.price
+DELIMITER $$
+CREATE TRIGGER sh.afterInsertProductPrice
+    AFTER INSERT
+    ON sh.product
     for each row
-	INSERT INTO adm.generallog
-	(scheme_name, table_name, column_name, modification_date, id_product, current_value)
-	VALUES ('SH', 'PRODUCT', 'PRICE', SYSDATE, new.id_product, new.price);
+    BEGIN
+		INSERT INTO adm.generallog
+		(scheme_name, table_name, column_name, modification_date, id_product, current_value)
+		VALUES ('SH', 'PRODUCT', 'PRICE', SYSDATE, new.id_product, new.price);
+	END$$
 
-    
-CREATE TRIGGER sh.beforeUpdateProductPrice
-    BEFORE UPDATE
-    ON PRODUCT.price
+DELIMITER $$
+CREATE TRIGGER sh.afterUpdateProductPrice
+    AFTER UPDATE
+    ON sh.product
     for each row
-	INSERT INTO adm.generallog
-	(scheme_name, table_name, column_name, modification_date, id_product, previous_value, current_value)
-	VALUES ('SH', 'PRODUCT', 'PRICE', SYSDATE, new.id_product, old.price, new.price);
+    BEGIN
+		IF new.id_product <> old.id_product THEN
+			INSERT INTO adm.generallog
+			(scheme_name, table_name, column_name, modification_date, id_product, previous_value, current_value)
+			VALUES ('SH', 'PRODUCT', 'PRICE', SYSDATE, new.id_product, old.price, new.price);
+		END IF;
+    END$$

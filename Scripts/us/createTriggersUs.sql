@@ -125,3 +125,19 @@ CREATE TRIGGER us.beforeUpdateUserViewsProduct
     For each row SET
 	new.user_last_modification:=USER,
 	new.date_last_modification:=SYSDATE;
+    
+-- Insert and Update Triggers of USERXNATIONALITY table.
+
+CREATE TRIGGER us.beforeInsertUserxNationality
+    BEFORE INSERT
+    ON us.userxnationality
+    For each row SET
+	new.user_creation:=USER,
+	new.date_creation:=SYSDATE;
+    
+CREATE TRIGGER us.beforeUpdateUserxNationality
+    BEFORE UPDATE
+    ON us.userxnationality
+    For each row SET
+	new.user_last_modification:=USER,
+	new.date_last_modification:=SYSDATE;
