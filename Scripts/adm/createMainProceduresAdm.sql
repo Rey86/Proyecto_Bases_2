@@ -7,7 +7,7 @@ BEGIN
 	SELECT id_parameter, name, value
 	FROM PARAMETER
 	WHERE id_parameter = IFNULL(pnIdParameter, id_parameter);
-END;
+END$$
 
 -- Procedure to set a parameter with specific id and the new values wrote by the user  
 DELIMITER $$
@@ -19,7 +19,7 @@ BEGIN
 	value = pnParameterValue
 	WHERE id_parameter = pnIdParameter;
 	Commit;
-END;
+END$$
 
 -- Procedure to delete a specific parameter  
 DELIMITER $$
@@ -29,7 +29,7 @@ BEGIN
 	DELETE FROM PARAMETER
 	WHERE id_parameter = pnIdParameter;
 	Commit;
-END;
+END$$
 
 -- Procedure to insert a new parameter
 DELIMITER $$
@@ -39,4 +39,4 @@ BEGIN
 	INSERT INTO PARAMETER (name, value)
 	VALUES (pcParameterName, pnParameterValue);
 	Commit;
-END;
+END$$

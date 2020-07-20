@@ -8,7 +8,7 @@ BEGIN
 	SELECT id_country, name
 	FROM COUNTRY
 	WHERE id_country = IFNULL(pnIdCountry, id_country);
-END;
+END$$
 
 -- Procedure to set a country with specific id and the new values wrote by the user  
 DELIMITER $$
@@ -19,7 +19,7 @@ BEGIN
 	SET name = pcCountryName
 	WHERE id_country = pnIdCountry;
 	Commit;
-END;
+END$$
 
 -- Procedure to delete a specific country 
 DELIMITER $$
@@ -29,7 +29,7 @@ BEGIN
 	DELETE FROM COUNTRY
 	WHERE id_country = pnIdCountry;
 	Commit;
-END;
+END$$
 
 -- Procedure to insert a new country
 DELIMITER $$
@@ -39,7 +39,7 @@ BEGIN
 	INSERT INTO COUNTRY (name)
 	VALUES (pcCountryName);
 	Commit;
-END;
+END$$
 
 -- Province Table
 -- Procedure to get a province with specific id to show it in the screen  
@@ -51,7 +51,7 @@ BEGIN
 	INNER JOIN COUNTRY c
 	ON p.id_country = c.id_country
 	WHERE p.id_province = IFNULL(pnIdProvince, p.id_province);
-END;
+END$$
 
 -- Procedure to set a province with specific id and the new values wrote by the user  
 DELIMITER $$
@@ -62,7 +62,7 @@ BEGIN
 	id_country = pnIdCountry
 	WHERE id_province = pnIdProvince;
 	Commit;
-END;
+END$$
 
 -- Procedure to delete a specific province 
 DELIMITER $$
@@ -72,7 +72,7 @@ BEGIN
 	DELETE FROM PROVINCE
 	WHERE id_province = pnIdProvince;
 	Commit;
-END;
+END$$
 
 -- Procedure to insert a new province
 DELIMITER $$
@@ -82,7 +82,7 @@ BEGIN
 	INSERT INTO PROVINCE (name, id_country)
 	VALUES (pcProvinceName, pnIdCountry);
 	Commit;
-END;
+END$$
 
 -- Canton Table
 -- Procedure to get a canton with specific id to show it in the screen  
@@ -94,7 +94,7 @@ BEGIN
 	INNER JOIN PROVINCE p
 	ON c.id_province = p.id_province
 	WHERE c.id_canton = IFNULL(pnIdCanton, c.id_canton);
-END;
+END$$
 
 -- Procedure to set a canton with specific id and the new values wrote by the user  
 DELIMITER $$
@@ -105,7 +105,7 @@ BEGIN
 	id_province = pnIdProvince
 	WHERE id_canton = pnIdCanton;
 	Commit;
-END;
+END$$
 
 -- Procedure to delete a specific canton 
 DELIMITER $$
@@ -115,7 +115,7 @@ BEGIN
 	DELETE FROM CANTON
 	WHERE id_canton = pnIdCanton;
 	Commit;
-END;
+END$$
 
 -- Procedure to insert a new canton
 DELIMITER $$
@@ -125,7 +125,7 @@ BEGIN
 	INSERT INTO CANTON (name, id_province)
 	VALUES (pcCantonName, pnIdProvince);
 	Commit;
-END;
+END$$
 
 -- Community Table
 -- Procedure to get a community with specific id to show it in the screen  
@@ -137,7 +137,7 @@ BEGIN
 	INNER JOIN CANTON ca
 	ON c.id_canton = ca.id_canton
 	WHERE c.id_community = IFNULL(pnIdCommunity, c.id_community);
-END;
+END$$
 
 -- Procedure to set a community with specific id and the new values wrote by the user  
 DELIMITER $$
@@ -148,7 +148,7 @@ BEGIN
 	id_canton = pnIdCanton
 	WHERE id_community = pnIdCommunity;
 	Commit;
-END;
+END$$
 
 -- Procedure to delete a specific community 
 DELIMITER $$
@@ -158,14 +158,14 @@ BEGIN
 	DELETE FROM COMMUNITY
 	WHERE id_community = pnIdCommunity;
 	Commit;
-END;
+END$$
 
 -- Procedure to insert a new community
 DELIMITER $$
 CREATE PROCEDURE insertCommunity (pcCommunityName VARCHAR(45), pnIdCanton INT) 
 BEGIN
 	DECLARE vmenError VARCHAR(100);
-	INSERT INTO COMMUNITY (community_name, id_canton)
+	INSERT INTO COMMUNITY (name, id_canton)
 	VALUES (pcCommunityName, pnIdCanton);
 	Commit;
-END;
+END$$
