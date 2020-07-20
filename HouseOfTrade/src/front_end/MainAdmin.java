@@ -5,6 +5,7 @@ public class MainAdmin extends javax.swing.JDialog {
     public MainAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -67,7 +68,7 @@ public class MainAdmin extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(142, 142, 142)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnRegisterProduct)
                     .addComponent(btnEditCatalogs)
@@ -75,7 +76,7 @@ public class MainAdmin extends javax.swing.JDialog {
                     .addComponent(btnQueries)
                     .addComponent(btnStatistics)
                     .addComponent(btnExit))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +93,7 @@ public class MainAdmin extends javax.swing.JDialog {
                 .addComponent(btnStatistics)
                 .addGap(18, 18, 18)
                 .addComponent(btnExit)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
