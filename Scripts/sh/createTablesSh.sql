@@ -117,3 +117,21 @@ CREATE TABLE `sh`.`review` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 COMMENT = 'Table that stores data of review of the products';
+
+CREATE TABLE `sh`.`photo` (
+  `ID_Photo` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the photo',
+  `ID_Product` INT NOT NULL COMMENT 'Identification number of the product that is on the photo',
+  `Description` VARCHAR(140) NOT NULL COMMENT 'Description of the photo',
+  `Direction` VARCHAR(100) NOT NULL COMMENT 'Direction of photo of the product',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`ID_Photo`),
+  INDEX `idx_photo_idProduct` (`ID_Product` ASC) VISIBLE,
+  CONSTRAINT `fk_photo_idProduct`
+    FOREIGN KEY (`ID_Product`)
+    REFERENCES `sh`.`product` (`ID_Product`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores the directions of the photos of products';
