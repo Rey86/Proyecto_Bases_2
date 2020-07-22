@@ -67,7 +67,6 @@ CREATE TABLE `sh`.`product` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`ID_Product`),
-  INDEX `idx_product_usernameCustomer` (`UsernameCustomer` ASC) VISIBLE,
   INDEX `idx_product_usernameSalesman` (`UsernameSalesman` ASC) VISIBLE,
   INDEX `idx_product_idCategory` (`ID_Category` ASC) VISIBLE,
   INDEX `idx_product_idPurchase` (`ID_Purchase` ASC) VISIBLE,
