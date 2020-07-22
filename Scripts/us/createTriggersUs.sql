@@ -141,3 +141,35 @@ CREATE TRIGGER us.beforeUpdateUserxNationality
     For each row SET
 	new.user_last_modification:=USER,
 	new.date_last_modification:=SYSDATE;
+    
+-- Insert and Update Triggers of PHONENUMBER table.
+
+CREATE TRIGGER us.beforeInsertPhoneNumber
+    BEFORE INSERT
+    ON us.phonenumber
+    For each row SET
+	new.user_creation:=USER,
+	new.date_creation:=SYSDATE;
+    
+CREATE TRIGGER us.beforeUpdatePhoneNumberssss
+    BEFORE UPDATE
+    ON us.phonenumber
+    For each row SET
+	new.user_last_modification:=USER,
+	new.date_last_modification:=SYSDATE;
+    
+-- Insert and Update Triggers of USERWANTSPRODUCT table.
+
+CREATE TRIGGER us.beforeInsertUserWantsProduct
+    BEFORE INSERT
+    ON us.userwantsproduct
+    For each row SET
+	new.user_creation:=USER,
+	new.date_creation:=SYSDATE;
+    
+CREATE TRIGGER us.beforeUpdateUserWantsProduct
+    BEFORE UPDATE
+    ON us.userwantsproduct
+    For each row SET
+	new.user_last_modification:=USER,
+	new.date_last_modification:=SYSDATE;

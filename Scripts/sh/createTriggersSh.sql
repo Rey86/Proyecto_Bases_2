@@ -94,6 +94,38 @@ CREATE TRIGGER sh.beforeUpdateReview
 	new.user_last_modification:=USER,
 	new.date_last_modification:=SYSDATE;
 
+-- Insert and Update Triggers of PHOTO table.
+
+CREATE TRIGGER sh.beforeInsertPhoto
+    BEFORE INSERT
+    ON sh.photo
+    For each row SET
+	new.user_creation:=USER,
+	new.date_creation:=SYSDATE;
+    
+CREATE TRIGGER sh.beforeUpdatePhoto
+    BEFORE UPDATE
+    ON sh.photo
+    For each row SET
+	new.user_last_modification:=USER,
+	new.date_last_modification:=SYSDATE;
+
+-- Insert and Update Triggers of PRODUCTXPURCHASE table.
+
+CREATE TRIGGER sh.beforeInsertProductxPurchase
+    BEFORE INSERT
+    ON sh.productxpurchase
+    For each row SET
+	new.user_creation:=USER,
+	new.date_creation:=SYSDATE;
+    
+CREATE TRIGGER sh.beforeUpdateProductxPurchase
+    BEFORE UPDATE
+    ON sh.productxpurchase
+    For each row SET
+	new.user_last_modification:=USER,
+	new.date_last_modification:=SYSDATE;
+
 -- Triggers to fill GENERALLOG table in admscheme.
 
 DELIMITER $$
