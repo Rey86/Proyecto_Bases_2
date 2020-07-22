@@ -193,3 +193,24 @@ CREATE TABLE `us`.`phonenumber` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 COMMENT = 'Table that stores the phone numbers of the user';
+
+CREATE TABLE `us`.`userwantsproduct` (
+  `Username` VARCHAR(45) NOT NULL COMMENT 'Identification name of the user',
+  `ID_Product` INT NOT NULL COMMENT 'Identification number of the product',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`Username`, `ID_Product`),
+  INDEX `fk_userWantsProduct_idProduct_idx` (`ID_Product` ASC) VISIBLE,
+  CONSTRAINT `fk_userWantsProduct_username`
+    FOREIGN KEY (`Username`)
+    REFERENCES `us`.`user` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_userWantsProduct_idProduct`
+    FOREIGN KEY (`ID_Product`)
+    REFERENCES `sh`.`product` (`ID_Product`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+COMMENT = 'Table that stores the products that the user wants to buy';

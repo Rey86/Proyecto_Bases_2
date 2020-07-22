@@ -59,7 +59,6 @@ CREATE TABLE `sh`.`product` (
   `Sold` TINYINT NOT NULL COMMENT 'Boolean that shows if the product is sold',
   `Description` VARCHAR(140) NOT NULL COMMENT 'Description of the product',
   `Quantity` INT NOT NULL COMMENT 'Quantity of the product',
-  `UsernameCustomer` VARCHAR(45) NOT NULL COMMENT 'Identification name of the customer',
   `UsernameSalesman` VARCHAR(45) NOT NULL COMMENT 'Identification name of the salesman',
   `ID_Category` INT NOT NULL COMMENT 'Identification number of the product category',
   `ID_DeliveryType` INT NOT NULL COMMENT 'Identification number of the delivery type of the product',
@@ -73,11 +72,6 @@ CREATE TABLE `sh`.`product` (
   INDEX `idx_product_idCategory` (`ID_Category` ASC) VISIBLE,
   INDEX `idx_product_idPurchase` (`ID_Purchase` ASC) VISIBLE,
   INDEX `idx_product_idDeliveryType` (`ID_DeliveryType` ASC) VISIBLE,
-  CONSTRAINT `fk_product_usernameCustomer`
-    FOREIGN KEY (`UsernameCustomer`)
-    REFERENCES `us`.`user` (`Username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_usernameSalesman`
     FOREIGN KEY (`UsernameSalesman`)
     REFERENCES `us`.`user` (`Username`)
@@ -86,11 +80,6 @@ CREATE TABLE `sh`.`product` (
   CONSTRAINT `fk_product_idCategory`
     FOREIGN KEY (`ID_Category`)
     REFERENCES `sh`.`category` (`ID_Category`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_product_idPurchase`
-    FOREIGN KEY (`ID_Purchase`)
-    REFERENCES `sh`.`purchase` (`ID_Purchase`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_product_idDeliveryType`
@@ -155,4 +144,5 @@ CREATE TABLE `sh`.`productxpurchase` (
     FOREIGN KEY (`ID_Purchase`)
     REFERENCES `sh`.`purchase` (`ID_Purchase`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION)
+	COMMENT = 'Table that stores the products of each purchase';
