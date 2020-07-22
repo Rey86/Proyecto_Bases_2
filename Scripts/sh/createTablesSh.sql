@@ -58,10 +58,10 @@ CREATE TABLE `sh`.`product` (
   `Price` INT NOT NULL COMMENT 'Price of the product',
   `Sold` TINYINT NOT NULL COMMENT 'Boolean that shows if the product is sold',
   `Description` VARCHAR(140) NOT NULL COMMENT 'Description of the product',
+  `Quantity` INT NOT NULL COMMENT 'Quantity of the product',
   `UsernameCustomer` VARCHAR(45) NOT NULL COMMENT 'Identification name of the customer',
   `UsernameSalesman` VARCHAR(45) NOT NULL COMMENT 'Identification name of the salesman',
   `ID_Category` INT NOT NULL COMMENT 'Identification number of the product category',
-  `ID_Purchase` INT NOT NULL COMMENT 'Identification number of the purchase of the product',
   `ID_DeliveryType` INT NOT NULL COMMENT 'Identification number of the delivery type of the product',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
@@ -135,3 +135,24 @@ CREATE TABLE `sh`.`photo` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 COMMENT = 'Table that stores the directions of the photos of products';
+
+CREATE TABLE `sh`.`productxpurchase` (
+  `ID_Product` INT NOT NULL COMMENT 'Identification number of the product',
+  `ID_Purchase` INT NOT NULL COMMENT 'Identification number of the purchase',
+  `Quantity` INT NOT NULL COMMENT 'Quantity of the products in the purchase',
+  `date_creation` DATE NOT NULL COMMENT 'Date of creation',
+  `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
+  `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
+  `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
+  PRIMARY KEY (`ID_Product`, `ID_Purchase`),
+  INDEX `fk_productxpurchase_idPurchase_idx` (`ID_Purchase` ASC) VISIBLE,
+  CONSTRAINT `fk_productxpurchase_idProduct`
+    FOREIGN KEY (`ID_Product`)
+    REFERENCES `sh`.`product` (`ID_Product`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_productxpurchase_idPurchase`
+    FOREIGN KEY (`ID_Purchase`)
+    REFERENCES `sh`.`purchase` (`ID_Purchase`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
