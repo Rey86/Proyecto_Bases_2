@@ -69,7 +69,6 @@ CREATE TABLE `sh`.`product` (
   PRIMARY KEY (`ID_Product`),
   INDEX `idx_product_usernameSalesman` (`UsernameSalesman` ASC) VISIBLE,
   INDEX `idx_product_idCategory` (`ID_Category` ASC) VISIBLE,
-  INDEX `idx_product_idPurchase` (`ID_Purchase` ASC) VISIBLE,
   INDEX `idx_product_idDeliveryType` (`ID_DeliveryType` ASC) VISIBLE,
   CONSTRAINT `fk_product_usernameSalesman`
     FOREIGN KEY (`UsernameSalesman`)
