@@ -68,7 +68,7 @@ CREATE TABLE `us`.`user` (
     ON UPDATE NO ACTION)
 COMMENT = 'Table that stores data of users';
 
-CREATE TABLE `us`.`userreviews` (
+CREATE TABLE `us`.`userreview` (
   `Username_Reviewer` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that makes the review',
   `Username_Reviewee` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that receives the review',
   `Customer` TINYINT NOT NULL COMMENT 'Boolean that shows if the reviewer is customer',
@@ -79,13 +79,13 @@ CREATE TABLE `us`.`userreviews` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`Username_Reviewer`, `Username_Reviewee`),
-  INDEX `idx_userreviews_usernameReviewee` (`Username_Reviewee` ASC) VISIBLE,
-  CONSTRAINT `fk_userreviews_usernameReviewer`
+  INDEX `idx_userreview_usernameReviewee` (`Username_Reviewee` ASC) VISIBLE,
+  CONSTRAINT `fk_userreview_usernameReviewer`
     FOREIGN KEY (`Username_Reviewer`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_userreviews_usernameReviewee`
+  CONSTRAINT `fk_userreview_usernameReviewee`
     FOREIGN KEY (`Username_Reviewee`)
     REFERENCES `us`.`user` (`Username`)
     ON DELETE NO ACTION

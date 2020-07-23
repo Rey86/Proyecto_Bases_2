@@ -119,15 +119,10 @@ DELIMITER $$
 CREATE PROCEDURE getPurchase (pnIdPurchase INT) 
 BEGIN
 	SELECT p.id_purchase id_purchase, p.date purchase_date, p.username_customer username_customer, 
-    p.id_paymentmethod id_paymentmethod, pm.name paymentmethod_name, sum(pr.price*pp.quantity) sub_total, 
-    sum(pr.price*pp.quantity)+sum(pr.price*pp.quantity)*0.13 total
+    p.id_paymentmethod id_paymentmethod, pm.name paymentmethod_name
 	FROM PURCHASE p
 	INNER JOIN PAYMENTMETHOD pm
 	ON p.id_paymentmethod = pm.id_paymentmethod
-    INNER JOIN PRODUCTXPURCHASE pp
-    ON p.id_purchase = pp.id_purchase
-    INNER JOIN PRODUCT pr
-    ON pp.id_product = pr.id_product
 	WHERE p.id_purchase = IFNULL(pnIdPurchase, p.id_purchase)
     GROUP BY p.id_purchase;
 END$$
@@ -309,6 +304,18 @@ BEGIN
 END$$
 
 -- ProductxPurchase Table
+-- Procedure to get a productxpurchase with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getProductxPurchase (pnIdPurchase INT, pnIdProduct INT)
+BEGIN
+	SELECT pp.id_product id_product, p.name product_name, pp.id_purchase id_purchase, pp.quantity quantity
+	FROM PRODUCTXPURCHASE pp
+	INNER JOIN PRODUCT pr
+	ON pp.id_product = pr.id_product
+	WHERE pp.id_purchase = IFNULL(pnIdPurchase, pp.id_purchase) 
+    AND pp.id_product = IFNULL(pnIdProduct, pp.id_product);
+END$$
+
 -- Procedure to set a productxpurchase with specific id and the new values wrote by the user  
 DELIMITER $$
 CREATE PROCEDURE setProductxPurchase (pnIdPurchase INT, pnIdProduct INT, pnQuantity INT)
