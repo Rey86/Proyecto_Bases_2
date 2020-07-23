@@ -219,3 +219,140 @@ BEGIN
 	VALUES (pcUsernameReviewer, pcUsernameReviewee, pnCustomer, pcComment, pnStars);
 	Commit;
 END$$
+
+-- ReceiverxSender Table
+-- Procedure to get a receiverxsender with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getReceiverxSender (pcUsernameSender VARCHAR(45), pcUsernameReceiver VARCHAR(45)) 
+BEGIN
+	SELECT username_sender, username_receiver, messagecontent, time
+	FROM RECEIVERXSENDER
+	WHERE username_sender = IFNULL(pcUsernameSender, username_sender) AND
+    username_receiver = IFNULL(pcUsernameReceiver, username_receiver);
+END$$
+
+-- Procedure to set a receiverxsender with specific id and the new values wrote by the user  
+DELIMITER $$
+CREATE PROCEDURE setReceiverxSender (pcUsernameSender VARCHAR(45), pcUsernameReceiver VARCHAR(45), 
+	pcMessageContent VARCHAR(140), pdtTime DATETIME)
+BEGIN
+	UPDATE RECEIVERXSENDER
+	SET messagecontent = pcMessageContent,
+    time = pdtTime
+	WHERE username_sender = pcUsernameSender AND username_receiver = pcUsernameReceiver;
+	Commit;
+END$$
+
+-- Procedure to delete a specific receiverxsender
+DELIMITER $$
+CREATE PROCEDURE deleteReceiverxSender (pcUsernameSender VARCHAR(45), pcUsernameReceiver VARCHAR(45)) 
+BEGIN
+	DELETE FROM RECEIVERXSENDER
+	WHERE username_sender = pcUsernameSender AND username_receiver = pcUsernameReceiver;
+	Commit;
+END$$
+
+-- Procedure to insert a new receiverxsender
+DELIMITER $$
+CREATE PROCEDURE insertReceiverxSender (pcUsernameSender VARCHAR(45), pcUsernameReceiver VARCHAR(45), 
+	pcMessageContent VARCHAR(140), pdtTime DATETIME) 
+BEGIN
+	INSERT INTO RECEIVERXSENDER (username_sender, username_receiver, messagecontent, time)
+	VALUES (pcUsernameSender, pcUsernameReceiver, pcMessageContent, pdtTime);
+	Commit;
+END$$
+
+-- UserWishesProduct Table
+-- Procedure to delete a specific userwishesproduct
+DELIMITER $$
+CREATE PROCEDURE deleteUserWishesProduct (pcUsername VARCHAR(45), pnIdProduct INT) 
+BEGIN
+	DELETE FROM USERWISHESPRODUCT
+	WHERE username = pcUsername AND id_product = pnIdProduct;
+	Commit;
+END$$
+
+-- Procedure to insert a new userwishesproduct
+DELIMITER $$
+CREATE PROCEDURE insertUserWishesProduct (pcUsername VARCHAR(45), pnIdProduct INT) 
+BEGIN
+	INSERT INTO USERWISHESPRODUCT (username, id_product)
+	VALUES (pcUsername, pnIdProduct);
+	Commit;
+END$$
+
+-- UserViewsProduct Table
+-- Procedure to delete a specific userviewsproduct
+DELIMITER $$
+CREATE PROCEDURE deleteUserViewsProduct (pcUsername VARCHAR(45), pnIdProduct INT) 
+BEGIN
+	DELETE FROM USERVIEWSPRODUCT
+	WHERE username = pcUsername AND id_product = pnIdProduct;
+	Commit;
+END$$
+
+-- Procedure to insert a new userviewsproduct
+DELIMITER $$
+CREATE PROCEDURE insertUserViewsProduct (pcUsername VARCHAR(45), pnIdProduct INT) 
+BEGIN
+	INSERT INTO USERVIEWSPRODUCT (username, id_product)
+	VALUES (pcUsername, pnIdProduct);
+	Commit;
+END$$
+
+-- UserxNationality Table
+-- Procedure to delete a specific userxnationality
+DELIMITER $$
+CREATE PROCEDURE deleteUserxNationality (pcUsername VARCHAR(45), pnIdNationality INT) 
+BEGIN
+	DELETE FROM USERXNATIONALITY
+	WHERE username = pcUsername AND id_nationality = pnIdNationality;
+	Commit;
+END$$
+
+-- Procedure to insert a new userxnationality
+DELIMITER $$
+CREATE PROCEDURE insertUserxNationality (pcUsername VARCHAR(45), pnIdNationality INT) 
+BEGIN
+	INSERT INTO USERXNATIONALITY (username, id_nationality)
+	VALUES (pcUsername, pnIdNationality);
+	Commit;
+END$$
+
+-- PhoneNumber Table
+-- Procedure to delete a specific phone number
+DELIMITER $$
+CREATE PROCEDURE deletePhoneNumber(pnPhoneNumber INT, pcUsername VARCHAR(45)) 
+BEGIN
+	DELETE FROM PHONENUMBER
+	WHERE phonenumer = pnPhoneNumber AND username = pcUsername;
+	Commit;
+END$$
+
+-- Procedure to insert a new phone number
+DELIMITER $$
+CREATE PROCEDURE insertPhoneNumber (pnPhoneNumber INT, pcUsername VARCHAR(45)) 
+BEGIN
+	INSERT INTO PHONENUMBER (phonenumer, username)
+	VALUES (pnPhoneNumber, pcUsername);
+	Commit;
+END$$
+
+-- UserWantsProduct Table
+-- Procedure to delete a specific userwantsproduct
+DELIMITER $$
+CREATE PROCEDURE deleteUserWantsProduct (pcUsername VARCHAR(45), pnIdProduct INT) 
+BEGIN
+	DELETE FROM USERWANTSPRODUCT
+	WHERE username = pcUsername AND id_product = pnIdProduct;
+	Commit;
+END$$
+
+-- Procedure to insert a new userwantsproduct
+DELIMITER $$
+CREATE PROCEDURE insertUserWantsProduct (pcUsername VARCHAR(45), pnIdProduct INT) 
+BEGIN
+	INSERT INTO USERWANTSPRODUCT (username, id_product)
+	VALUES (pcUsername, pnIdProduct);
+	Commit;
+END$$
