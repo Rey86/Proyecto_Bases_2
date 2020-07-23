@@ -4,7 +4,6 @@
 DELIMITER $$
 CREATE PROCEDURE getCountry (pnIdCountry INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	SELECT id_country, name
 	FROM COUNTRY
 	WHERE id_country = IFNULL(pnIdCountry, id_country);
@@ -14,7 +13,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setCountry (pnIdCountry INT, pcCountryName VARCHAR(45)) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	UPDATE COUNTRY
 	SET name = pcCountryName
 	WHERE id_country = pnIdCountry;
@@ -25,7 +23,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteCountry (pnIdCountry INT) 
 BEGIN 
-	DECLARE vmenError VARCHAR(100);
 	DELETE FROM COUNTRY
 	WHERE id_country = pnIdCountry;
 	Commit;
@@ -35,7 +32,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertCountry (pcCountryName VARCHAR(45))
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	INSERT INTO COUNTRY (name)
 	VALUES (pcCountryName);
 	Commit;
@@ -68,7 +64,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteProvince (pnIdProvince INT) 
 BEGIN 
-	DECLARE vmenError VARCHAR(100);
 	DELETE FROM PROVINCE
 	WHERE id_province = pnIdProvince;
 	Commit;
@@ -78,7 +73,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertProvince (pcProvinceName VARCHAR(45), pnIdCountry INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	INSERT INTO PROVINCE (name, id_country)
 	VALUES (pcProvinceName, pnIdCountry);
 	Commit;
@@ -111,7 +105,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteCanton (pnIdCanton INT) 
 BEGIN 
-	DECLARE vmenError VARCHAR(100);
 	DELETE FROM CANTON
 	WHERE id_canton = pnIdCanton;
 	Commit;
@@ -121,7 +114,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertCanton (pcCantonName VARCHAR(45), pnIdProvince INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	INSERT INTO CANTON (name, id_province)
 	VALUES (pcCantonName, pnIdProvince);
 	Commit;
@@ -154,7 +146,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteCommunity (pnIdCommunity INT) 
 BEGIN 
-	DECLARE vmenError VARCHAR(100);
 	DELETE FROM COMMUNITY
 	WHERE id_community = pnIdCommunity;
 	Commit;
@@ -164,7 +155,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertCommunity (pcCommunityName VARCHAR(45), pnIdCanton INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	INSERT INTO COMMUNITY (name, id_canton)
 	VALUES (pcCommunityName, pnIdCanton);
 	Commit;

@@ -4,7 +4,6 @@
 DELIMITER $$
 CREATE PROCEDURE getCategory (pnIdCategory INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	SELECT id_category, name
 	FROM CATEGORY 
 	WHERE id_category = IFNULL(pnIdCategory, id_category);
@@ -14,7 +13,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setCategory (pnIdCategory INT, pcCategoryName VARCHAR(45)) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	UPDATE CATEGORY
 	SET name = pcCategoryName
 	WHERE id_category = pnIdCategory;
@@ -25,7 +23,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteCategory (pnIdCategory INT) 
 BEGIN 
-	DECLARE vmenError VARCHAR(100);
 	DELETE FROM CATEGORY
 	WHERE id_category = pnIdCategory;
 	Commit;
@@ -35,7 +32,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertCategory (pcCategoryName VARCHAR(45))
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	INSERT INTO CATEGORY (name)
 	VALUES (pcCategoryName);
 	Commit;
@@ -46,7 +42,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getDeliveryType (pnIdDeliveryType INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	SELECT id_deliverytype, name
 	FROM DELIVERYTYPE
 	WHERE id_deliverytype = IFNULL(pnIdDeliveryType, id_deliverytype);
@@ -56,7 +51,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setDeliveryType (pnIdDeliveryType INT, pcDeliveryTypeName VARCHAR(45)) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	UPDATE DELIVERYTYPE
 	SET name = pcDeliveryTypeName
 	WHERE id_deliverytype = pnIdDeliveryType;
@@ -67,7 +61,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteDeliveryType (pnIdDeliveryType INT) 
 BEGIN 
-	DECLARE vmenError VARCHAR(100);
 	DELETE FROM DELIVERYTYPE
 	WHERE id_deliverytype = pnIdDeliveryType;
 	Commit;
@@ -77,7 +70,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertDeliveryType (pcDeliveryTypeName VARCHAR(45))
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	INSERT INTO DELIVERYTYPE (name)
 	VALUES (pcDeliveryTypeName);
 	Commit;
@@ -88,7 +80,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getPaymentMethod (pnIdPaymentMethod INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	SELECT id_paymentmethod, name
 	FROM PAYMENTMETHOD
 	WHERE id_paymentmethod = IFNULL(pnIdPaymentMethod, id_paymentmethod);
@@ -98,7 +89,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setPaymentMethod (pnIdPaymentMethod INT, pcPaymentMethodName VARCHAR(45)) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	UPDATE PAYMENTMETHOD
 	SET name = pcPaymentMethodName
 	WHERE id_paymentmethod = pnIdPaymentMethod;
@@ -108,8 +98,7 @@ END$$
 -- Procedure to delete a specific payment method 
 DELIMITER $$
 CREATE PROCEDURE deletePaymentMethod (pnIdPaymentMethod INT) 
-BEGIN 
-	DECLARE vmenError VARCHAR(100);
+BEGIN
 	DELETE FROM PAYMENTMETHOD
 	WHERE id_paymentmethod = pnIdPaymentMethod;
 	Commit;
@@ -119,69 +108,8 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertPaymentMethod (pcPaymentMethodName VARCHAR(45))
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	INSERT INTO PAYMENTMETHOD (name)
 	VALUES (pcPaymentMethodName);
-	Commit;
-END$$
-
--- Product Table
--- Procedure to get a product with specific id to show it in the screen  
-DELIMITER $$
-CREATE PROCEDURE getProduct (pnIdProduct INT) 
-BEGIN
-	SELECT p.id_product id_product, p.name product_name, p.price price, p.sold sold, p.description description,
-    p.usernamecustomer username_customer, usernamesalesman username_salesman, p.id_category id_category,
-    c.name category_name, p.id_purchase id_purchase, p.id_deliverytype id_deliverytype, dt.name deliverytype_name
-	FROM PRODUCT p
-	INNER JOIN CATEGORY c
-	ON p.id_category = c.id_category
-    INNER JOIN DELIVERYTYPE dt
-    ON p.id_deliverytype = dt.id_deliverytype
-	WHERE p.id_product = IFNULL(pnIdProduct, p.id_product);
-END$$
-
--- Procedure to set a product with specific id and the new values wrote by the user  
-DELIMITER $$
-CREATE PROCEDURE setProduct (pnIdProduct INT, pcProductName VARCHAR(45), pnPrice INT, pnSold TINYINT, 
-	pcDescription VARCHAR(140), pcUsernameCustomer VARCHAR(45), pcUsernameSalesman VARCHAR(45),
-	pnIdCategory INT, pnIdPurchase INT, pnIdDeliveryType INT) 
-BEGIN
-	UPDATE PRODUCT
-	SET name = pcProductName,
-	price = pnPrice,
-    sold = pnSold,
-    description = pcDescription,
-    usernamecustomer = pcUsernameCustomer,
-    usernamesalesman = pcUsernameSalesman,
-    id_category = pnIdCategory,
-    id_purchase = pnIdPurchase,
-    id_deliverytype = pnIdDeliveryType
-	WHERE id_product = pnIdProduct;
-	Commit;
-END$$
-
--- Procedure to delete a specific product 
-DELIMITER $$
-CREATE PROCEDURE deleteProduct (pnIdProduct INT) 
-BEGIN 
-	DECLARE vmenError VARCHAR(100);
-	DELETE FROM PRODUCT
-	WHERE id_product = pnIdProduct;
-	Commit;
-END$$
-
--- Procedure to insert a new product
-DELIMITER $$
-CREATE PROCEDURE insertProduct (pcProductName VARCHAR(45), pnPrice INT, pnSold TINYINT, 
-	pcDescription VARCHAR(140), pcUsernameCustomer VARCHAR(45), pcUsernameSalesman VARCHAR(45),
-	pnIdCategory INT, pnIdPurchase INT, pnIdDeliveryType INT) 
-BEGIN
-	DECLARE vmenError VARCHAR(100);
-	INSERT INTO PRODUCT (name, price, sold, description, usernamecustomer, usernamesalesman, id_category, 
-		id_purchase, id_deliverytype)
-	VALUES (pcProductName, pnPrice, pnSold, pcDescription, pcUsernameCustomer, pcUsernameSalesman,
-		pnIdCategory, pnIdPurchase, pnIdDeliveryType);
 	Commit;
 END$$
 
@@ -243,5 +171,63 @@ BEGIN
 		id_purchase, id_deliverytype)
 	VALUES (pcProductName, pnPrice, pnSold, pcDescription, pcUsernameCustomer, pcUsernameSalesman,
 		pnIdCategory, pnIdPurchase, pnIdDeliveryType);
+	Commit;
+END$$
+
+-- Product Table
+-- Procedure to get a product with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getProduct (pnIdProduct INT) 
+BEGIN
+	SELECT p.id_product id_product, p.name product_name, p.price price, p.sold sold, 
+    p.description description, p.quantity quantity, usernamesalesman username_salesman, 
+    p.id_category id_category, c.name category_name, p.id_deliverytype id_deliverytype, 
+    dt.name deliverytype_name
+	FROM PRODUCT p
+	INNER JOIN CATEGORY c
+	ON p.id_category = c.id_category
+    INNER JOIN DELIVERYTYPE dt
+    ON p.id_deliverytype = dt.id_deliverytype
+	WHERE p.id_product = IFNULL(pnIdProduct, p.id_product);
+END$$
+
+-- Procedure to set a product with specific id and the new values wrote by the user  
+DELIMITER $$
+CREATE PROCEDURE setProduct (pnIdProduct INT, pcProductName VARCHAR(45), pnPrice INT, pnSold INT, 
+	pcDescription VARCHAR(140), pnQuantity INT, pcUsernameSalesman VARCHAR(45), 
+    pnIdCategory INT, pnIdDeliveryType INT) 
+BEGIN
+	UPDATE PRODUCT
+	SET name = pcProductName,
+	price = pnPrice,
+    sold = pnSold,
+    description = pcDescription,
+    quantity = pnQuantity,
+    usernamesalesman = pcUsernameSalesman,
+    id_category = pnIdCategory,
+    id_deliverytype = pnIdDeliveryType
+	WHERE id_product = pnIdProduct;
+	Commit;
+END$$
+
+-- Procedure to delete a specific product 
+DELIMITER $$
+CREATE PROCEDURE deleteProduct (pnIdProduct INT) 
+BEGIN
+	DELETE FROM PRODUCT
+	WHERE id_product = pnIdProduct;
+	Commit;
+END$$
+
+-- Procedure to insert a new product
+DELIMITER $$
+CREATE PROCEDURE insertProduct (pcProductName VARCHAR(45), pnPrice INT, pnSold INT, 
+	pcDescription VARCHAR(140), pnQuantity INT, pcUsernameSalesman VARCHAR(45),
+	pnIdCategory INT, pnIdDeliveryType INT) 
+BEGIN
+	INSERT INTO PRODUCT (name, price, sold, description, quantity, usernamesalesman, id_category, 
+		id_deliverytype)
+	VALUES (pcProductName, pnPrice, pnSold, pcDescription, pnQuantity, pcUsernameSalesman,
+		pnIdCategory, pnIdDeliveryType);
 	Commit;
 END$$

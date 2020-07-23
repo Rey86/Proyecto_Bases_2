@@ -3,7 +3,6 @@
 DELIMITER $$
 CREATE PROCEDURE getParameter (pnIdParameter INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	SELECT id_parameter, name, value
 	FROM PARAMETER
 	WHERE id_parameter = IFNULL(pnIdParameter, id_parameter);
@@ -13,7 +12,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setParameter (pnIdParameter INT, pcParameterName VARCHAR(45), pnParameterValue INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	UPDATE PARAMETER
 	SET name = pcParameterName,
 	value = pnParameterValue
@@ -25,7 +23,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteParameter (pnIdParameter INT) 
 BEGIN 
-	DECLARE vmenError VARCHAR(100);
 	DELETE FROM PARAMETER
 	WHERE id_parameter = pnIdParameter;
 	Commit;
@@ -35,7 +32,6 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertParameter (pcParameterName VARCHAR(45), pnParameterValue INT)
 BEGIN
-	DECLARE vmenError VARCHAR(100);
 	INSERT INTO PARAMETER (name, value)
 	VALUES (pcParameterName, pnParameterValue);
 	Commit;
