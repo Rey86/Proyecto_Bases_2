@@ -1,3 +1,5 @@
+-- Admin Queries Us
+-- Procedure that gets the top n most expensive sales done by all users
 DELIMITER $$
 CREATE PROCEDURE getTopUserSales (n INT) 
 BEGIN
@@ -9,6 +11,7 @@ BEGIN
     where rownum <= n;
 END$$
 
+-- Procedure that gets the top n most expensive purchases made by all users
 DELIMITER $$
 CREATE PROCEDURE getTopUserPurchases (n INT) 
 BEGIN
@@ -20,6 +23,7 @@ BEGIN
     where rownum <= n;
 END$$
 
+-- Procedure that gets a list of the best reviewed users
 DELIMITER $$
 CREATE PROCEDURE getBestReviewedUsers ()
 BEGIN
@@ -30,6 +34,7 @@ BEGIN
     order by average_review desc;
 END$$
 
+-- Procedure that gets a list of the worst reviewed users
 DELIMITER $$
 CREATE PROCEDURE getWorstReviewedUsers ()
 BEGIN
