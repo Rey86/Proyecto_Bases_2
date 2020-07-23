@@ -1,10 +1,11 @@
 DELIMITER $$
-CREATE PROCEDURE getViewsHistory () 
+CREATE PROCEDURE getViewsHistory (psUsername varchar(45)) 
 BEGIN
-	Select p.name, u.username from userviewsproduct up
-    inner join product p on p.ID_Product = up.ID_Product
-    inner join user u on u.Username = up.Username
-    where up.date_creation = sysdate();
+	Select p.name, uv.username viewed_by from user u
+    inner join sh.product p on p.UsernameSalesman = u.username
+    inner join userviewsproduct up on up.ID_Product = p.ID_Product
+    inner join user uv on uv.Username = up.Username
+    where u.Username = psUsername and up.date_creation = sysdate();
 END$$
 
 DELIMITER $$
