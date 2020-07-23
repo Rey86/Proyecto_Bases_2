@@ -119,58 +119,47 @@ DELIMITER $$
 CREATE PROCEDURE getPurchase (pnIdPurchase INT) 
 BEGIN
 	SELECT p.id_purchase id_purchase, p.date purchase_date, p.username_customer username_customer, 
-    p.id_paymentmethod id_paymentmethod, pm.name paymentmethod_name, sum(pr.price) sub_total, 
-    sum(pr.price)+sum(pr.price)*0.13 total
+    p.id_paymentmethod id_paymentmethod, pm.name paymentmethod_name, sum(pr.price*pp.quantity) sub_total, 
+    sum(pr.price*pp.quantity)+sum(pr.price*pp.quantity)*0.13 total
 	FROM PURCHASE p
 	INNER JOIN PAYMENTMETHOD pm
 	ON p.id_paymentmethod = pm.id_paymentmethod
+    INNER JOIN PRODUCTXPURCHASE pp
+    ON p.id_purchase = pp.id_purchase
     INNER JOIN PRODUCT pr
-    ON p.id_product = pr.id_product
+    ON pp.id_product = pr.id_product
 	WHERE p.id_purchase = IFNULL(pnIdPurchase, p.id_purchase)
-    GROUP BY id_purchase;
+    GROUP BY p.id_purchase;
 END$$
 
 -- Procedure to set a purchase with specific id and the new values wrote by the user  
 DELIMITER $$
-CREATE PROCEDURE setPurchase (pnIdPurchase INT, pcProductName VARCHAR(45), pnPrice INT, pnSold TINYINT, 
-	pcDescription VARCHAR(140), pcUsernameCustomer VARCHAR(45), pcUsernameSalesman VARCHAR(45),
-	pnIdCategory INT, pnIdPurchase INT, pnIdDeliveryType INT) 
+CREATE PROCEDURE setPurchase (pnIdPurchase INT, pcPurchaseDate DATE, pcUsernameCustomer VARCHAR(45), 
+	pnIdPaymentMethod INT) 
 BEGIN
-	UPDATE PRODUCT
-	SET name = pcProductName,
-	price = pnPrice,
-    sold = pnSold,
-    description = pcDescription,
-    usernamecustomer = pcUsernameCustomer,
-    usernamesalesman = pcUsernameSalesman,
-    id_category = pnIdCategory,
-    id_purchase = pnIdPurchase,
-    id_deliverytype = pnIdDeliveryType
-	WHERE id_product = pnIdProduct;
+	UPDATE PURCHASE
+	SET date = pcPurchaseDate,
+	username_customer = pcUsernameCustomer,
+    id_paymentmethod = pnIdPaymentMethod
+	WHERE id_purchase = pnIdPurchase;
 	Commit;
 END$$
 
 -- Procedure to delete a specific purchase 
 DELIMITER $$
-CREATE PROCEDURE deletePurchase (pnIdProduct INT) 
-BEGIN 
-	DECLARE vmenError VARCHAR(100);
-	DELETE FROM PRODUCT
-	WHERE id_product = pnIdProduct;
+CREATE PROCEDURE deletePurchase (pnIdPurchase INT) 
+BEGIN
+	DELETE FROM PURCHASE
+	WHERE id_purchase = pnIdPurchase;
 	Commit;
 END$$
 
 -- Procedure to insert a new purchase
 DELIMITER $$
-CREATE PROCEDURE insertPurchase (pcProductName VARCHAR(45), pnPrice INT, pnSold TINYINT, 
-	pcDescription VARCHAR(140), pcUsernameCustomer VARCHAR(45), pcUsernameSalesman VARCHAR(45),
-	pnIdCategory INT, pnIdPurchase INT, pnIdDeliveryType INT) 
+CREATE PROCEDURE insertPurchase (pcPurchaseDate DATE, pcUsernameCustomer VARCHAR(45), pnIdPaymentMethod INT) 
 BEGIN
-	DECLARE vmenError VARCHAR(100);
-	INSERT INTO PRODUCT (name, price, sold, description, usernamecustomer, usernamesalesman, id_category, 
-		id_purchase, id_deliverytype)
-	VALUES (pcProductName, pnPrice, pnSold, pcDescription, pcUsernameCustomer, pcUsernameSalesman,
-		pnIdCategory, pnIdPurchase, pnIdDeliveryType);
+	INSERT INTO PURCHASE (date, username_customer, id_paymentmethod)
+	VALUES (pcPurchaseDate, pcUsernameCustomer, pnIdPaymentMethod);
 	Commit;
 END$$
 
