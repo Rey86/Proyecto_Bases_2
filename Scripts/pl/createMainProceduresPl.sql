@@ -4,6 +4,10 @@
 DELIMITER $$
 CREATE PROCEDURE getCountry (pnIdCountry INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT id_country, name
 	FROM COUNTRY
 	WHERE id_country = IFNULL(pnIdCountry, id_country);
@@ -13,6 +17,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setCountry (pnIdCountry INT, pcCountryName VARCHAR(45)) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE COUNTRY
 	SET name = pcCountryName
 	WHERE id_country = pnIdCountry;
@@ -23,6 +32,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteCountry (pnIdCountry INT) 
 BEGIN 
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM COUNTRY
 	WHERE id_country = pnIdCountry;
 	Commit;
@@ -32,6 +44,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertCountry (pcCountryName VARCHAR(45))
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO COUNTRY (name)
 	VALUES (pcCountryName);
 	Commit;
@@ -42,6 +58,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getProvince (pnIdProvince INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT p.id_province id_province, p.name province_name, p.id_country id_country, c.name country_name
 	FROM PROVINCE p
 	INNER JOIN COUNTRY c
@@ -53,6 +73,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setProvince (pnIdProvince INT, pcProvinceName VARCHAR(45), pnIdCountry INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE PROVINCE
 	SET name = pcProvinceName,
 	id_country = pnIdCountry
@@ -64,6 +89,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteProvince (pnIdProvince INT) 
 BEGIN 
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM PROVINCE
 	WHERE id_province = pnIdProvince;
 	Commit;
@@ -73,6 +101,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertProvince (pcProvinceName VARCHAR(45), pnIdCountry INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO PROVINCE (name, id_country)
 	VALUES (pcProvinceName, pnIdCountry);
 	Commit;
@@ -83,6 +115,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getCanton (pnIdCanton INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT c.id_canton id_canton, c.name canton_name, c.id_province id_province, p.name province_name
 	FROM CANTON c
 	INNER JOIN PROVINCE p
@@ -94,6 +130,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setCanton (pnIdCanton INT, pcCantonName VARCHAR(45), pnIdProvince INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE CANTON
 	SET name = pcCantonName,
 	id_province = pnIdProvince
@@ -105,6 +146,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteCanton (pnIdCanton INT) 
 BEGIN 
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM CANTON
 	WHERE id_canton = pnIdCanton;
 	Commit;
@@ -114,6 +158,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertCanton (pcCantonName VARCHAR(45), pnIdProvince INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO CANTON (name, id_province)
 	VALUES (pcCantonName, pnIdProvince);
 	Commit;
@@ -124,6 +172,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getCommunity (pnIdCommunity INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT c.id_community id_community, c.name community_name, c.id_canton id_canton, ca.name canton_name
 	FROM COMMUNITY c
 	INNER JOIN CANTON ca
@@ -135,6 +187,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setCommunity (pnIdCommunity INT, pcCommunityName VARCHAR(45), pnIdCanton INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE COMMUNITY
 	SET name = pcCommunityName,
 	id_canton = pnIdCanton
@@ -146,6 +203,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteCommunity (pnIdCommunity INT) 
 BEGIN 
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM COMMUNITY
 	WHERE id_community = pnIdCommunity;
 	Commit;
@@ -155,6 +215,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertCommunity (pcCommunityName VARCHAR(45), pnIdCanton INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO COMMUNITY (name, id_canton)
 	VALUES (pcCommunityName, pnIdCanton);
 	Commit;

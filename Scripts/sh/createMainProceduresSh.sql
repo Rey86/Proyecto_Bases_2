@@ -4,6 +4,10 @@
 DELIMITER $$
 CREATE PROCEDURE getCategory (pnIdCategory INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT id_category, name
 	FROM CATEGORY 
 	WHERE id_category = IFNULL(pnIdCategory, id_category);
@@ -13,6 +17,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setCategory (pnIdCategory INT, pcCategoryName VARCHAR(45)) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE CATEGORY
 	SET name = pcCategoryName
 	WHERE id_category = pnIdCategory;
@@ -23,6 +32,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteCategory (pnIdCategory INT) 
 BEGIN 
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM CATEGORY
 	WHERE id_category = pnIdCategory;
 	Commit;
@@ -32,6 +44,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertCategory (pcCategoryName VARCHAR(45))
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO CATEGORY (name)
 	VALUES (pcCategoryName);
 	Commit;
@@ -42,6 +58,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getDeliveryType (pnIdDeliveryType INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT id_deliverytype, name
 	FROM DELIVERYTYPE
 	WHERE id_deliverytype = IFNULL(pnIdDeliveryType, id_deliverytype);
@@ -51,6 +71,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setDeliveryType (pnIdDeliveryType INT, pcDeliveryTypeName VARCHAR(45)) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE DELIVERYTYPE
 	SET name = pcDeliveryTypeName
 	WHERE id_deliverytype = pnIdDeliveryType;
@@ -61,6 +86,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteDeliveryType (pnIdDeliveryType INT) 
 BEGIN 
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM DELIVERYTYPE
 	WHERE id_deliverytype = pnIdDeliveryType;
 	Commit;
@@ -70,6 +98,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertDeliveryType (pcDeliveryTypeName VARCHAR(45))
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO DELIVERYTYPE (name)
 	VALUES (pcDeliveryTypeName);
 	Commit;
@@ -80,6 +112,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getPaymentMethod (pnIdPaymentMethod INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT id_paymentmethod, name
 	FROM PAYMENTMETHOD
 	WHERE id_paymentmethod = IFNULL(pnIdPaymentMethod, id_paymentmethod);
@@ -89,6 +125,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setPaymentMethod (pnIdPaymentMethod INT, pcPaymentMethodName VARCHAR(45)) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE PAYMENTMETHOD
 	SET name = pcPaymentMethodName
 	WHERE id_paymentmethod = pnIdPaymentMethod;
@@ -99,6 +140,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deletePaymentMethod (pnIdPaymentMethod INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM PAYMENTMETHOD
 	WHERE id_paymentmethod = pnIdPaymentMethod;
 	Commit;
@@ -108,6 +152,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertPaymentMethod (pcPaymentMethodName VARCHAR(45))
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO PAYMENTMETHOD (name)
 	VALUES (pcPaymentMethodName);
 	Commit;
@@ -118,6 +166,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getPurchase (pnIdPurchase INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT p.id_purchase id_purchase, p.date purchase_date, p.username_customer username_customer, 
     p.id_paymentmethod id_paymentmethod, pm.name paymentmethod_name
 	FROM PURCHASE p
@@ -132,6 +184,11 @@ DELIMITER $$
 CREATE PROCEDURE setPurchase (pnIdPurchase INT, pcPurchaseDate DATE, pcUsernameCustomer VARCHAR(45), 
 	pnIdPaymentMethod INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE PURCHASE
 	SET date = pcPurchaseDate,
 	username_customer = pcUsernameCustomer,
@@ -144,6 +201,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deletePurchase (pnIdPurchase INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM PURCHASE
 	WHERE id_purchase = pnIdPurchase;
 	Commit;
@@ -153,6 +213,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertPurchase (pcPurchaseDate DATE, pcUsernameCustomer VARCHAR(45), pnIdPaymentMethod INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO PURCHASE (date, username_customer, id_paymentmethod)
 	VALUES (pcPurchaseDate, pcUsernameCustomer, pnIdPaymentMethod);
 	Commit;
@@ -163,6 +227,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getProduct (pnIdProduct INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT p.id_product id_product, p.name product_name, p.price price, p.sold sold, 
     p.description description, p.quantity quantity, usernamesalesman username_salesman, 
     p.id_category id_category, c.name category_name, p.id_deliverytype id_deliverytype, 
@@ -181,6 +249,11 @@ CREATE PROCEDURE setProduct (pnIdProduct INT, pcProductName VARCHAR(45), pnPrice
 	pcDescription VARCHAR(140), pnQuantity INT, pcUsernameSalesman VARCHAR(45), 
     pnIdCategory INT, pnIdDeliveryType INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE PRODUCT
 	SET name = pcProductName,
 	price = pnPrice,
@@ -198,6 +271,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteProduct (pnIdProduct INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM PRODUCT
 	WHERE id_product = pnIdProduct;
 	Commit;
@@ -209,6 +285,10 @@ CREATE PROCEDURE insertProduct (pcProductName VARCHAR(45), pnPrice INT, pnSold I
 	pcDescription VARCHAR(140), pnQuantity INT, pcUsernameSalesman VARCHAR(45),
 	pnIdCategory INT, pnIdDeliveryType INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO PRODUCT (name, price, sold, description, quantity, usernamesalesman, id_category, 
 		id_deliverytype)
 	VALUES (pcProductName, pnPrice, pnSold, pcDescription, pnQuantity, pcUsernameSalesman,
@@ -221,6 +301,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getReview (pnIdReview INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT r.id_review id_review, r.stars stars, r.comment comment, r.id_product id_product, 
 	p.name product_name
 	FROM REVIEW r
@@ -233,6 +317,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setReview (pnIdReview INT, pnStars INT, pcComment VARCHAR(45), pnIdProduct INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE REVIEW
 	SET stars = pnStars,
 	comment = pcComment,
@@ -245,6 +334,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteReview (pnIdReview INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM REVIEW
 	WHERE id_review = pnIdReview;
 	Commit;
@@ -254,6 +346,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertReview (pnStars INT, pcComment VARCHAR(45), pnIdProduct INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO REVIEW (stars, comment, id_product)
 	VALUES (pnStars, pcComment, pnIdProduct);
 	Commit;
@@ -264,6 +360,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getPhoto (pnIdPhoto INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT p.id_photo id_photo, p.description description, p.direction direction, p.id_product id_product, 
 	pr.name product_name
 	FROM PHOTO p
@@ -277,6 +377,11 @@ DELIMITER $$
 CREATE PROCEDURE setPhoto (pnIdPhoto INT, pnIdProduct INT, pcDescription VARCHAR(140), 
 	pcDirection VARCHAR(100)) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE PHOTO
 	SET id_product = pnIdProduct,
 	description = pcDescription,
@@ -289,6 +394,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deletePhoto (pnIdPhoto INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM PHOTO
 	WHERE id_photo = pnIdPhoto;
 	Commit;
@@ -298,6 +406,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertPhoto (pnIdProduct INT, pcDescription VARCHAR(140), pcDirection VARCHAR(100)) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO PHOTO (id_product, description, direction)
 	VALUES (pnIdProduct, pcDescription, pcDirection);
 	Commit;
@@ -308,6 +420,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getProductxPurchase (pnIdPurchase INT, pnIdProduct INT)
 BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT pp.id_product id_product, p.name product_name, pp.id_purchase id_purchase, pp.quantity quantity
 	FROM PRODUCTXPURCHASE pp
 	INNER JOIN PRODUCT pr
@@ -320,6 +436,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE setProductxPurchase (pnIdPurchase INT, pnIdProduct INT, pnQuantity INT)
 BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE PRODUCTXPURCHASE
 	SET quantity = pnQuantity
 	WHERE id_purchase = pnIdPurchase AND id_product = pnIdProduct;
@@ -330,6 +451,9 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE deleteProductxPurchase (pnIdPurchase INT, pnIdProduct INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	DELETE FROM PRODUCTXPURCHASE
 	WHERE id_purchase = pnIdPurchase AND id_product = pnIdProduct;
 	Commit;
@@ -339,6 +463,10 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE insertProductxPurchase (pnIdPurchase INT, pnIdProduct INT, pnQuantity INT) 
 BEGIN
+	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO PRODUCTXPURCHASE (id_purchase, id_product, quantity)
 	VALUES (pnIdPurchase, pnIdProduct, pnQuantity);
 	Commit;

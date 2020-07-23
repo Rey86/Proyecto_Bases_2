@@ -3,7 +3,11 @@
 DELIMITER $$
 CREATE PROCEDURE getViewsHistory (psUsername varchar(45)) 
 BEGIN
-	Select p.name, uv.username viewed_by from user u
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+    Select p.name, uv.username viewed_by from user u
     inner join sh.product p on p.UsernameSalesman = u.username
     inner join userviewsproduct up on up.ID_Product = p.ID_Product
     inner join user uv on uv.Username = up.Username
@@ -14,7 +18,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getSoldProduct (psUsername varchar(45))
 BEGIN
-	-- Revisar esta
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+    -- Revisar esta
 	Select p.name product_name, p.Sold sales from user u 
     inner join sh.product p on p.UsernameSalesman = u.Username
     where u.Username = psUsername and sold >= 1;
@@ -24,7 +32,11 @@ END$$
 DELIMITER $$
 CREATE PROCEDURE getPurchasesOver1000PerCategory (psUsername varchar(45),  pnID_Category INT)
 BEGIN
-	select pu.ID_Purchase, sum(pr.price) Total_Price from user u
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+    select pu.ID_Purchase, sum(pr.price) Total_Price from user u
     inner join sh.purchase pu on pu.Username_Customer = u.Username
     inner join sh.productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
     inner join sh.product pr on pr.ID_Product = pp.ID_Product
