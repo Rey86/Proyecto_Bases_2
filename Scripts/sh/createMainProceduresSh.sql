@@ -220,3 +220,119 @@ BEGIN
 		pnIdCategory, pnIdDeliveryType);
 	Commit;
 END$$
+
+-- Review Table
+-- Procedure to get a review with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getReview (pnIdReview INT) 
+BEGIN
+	SELECT r.id_review id_review, r.stars stars, r.comment comment, r.id_product id_product, 
+	p.name product_name
+	FROM REVIEW r
+	INNER JOIN PRODUCT p
+	ON r.id_product = p.id_product
+	WHERE r.id_review = IFNULL(pnIdReview, r.id_review);
+END$$
+
+-- Procedure to set a review with specific id and the new values wrote by the user  
+DELIMITER $$
+CREATE PROCEDURE setReview (pnIdReview INT, pnStars INT, pcComment VARCHAR(45), pnIdProduct INT) 
+BEGIN
+	UPDATE REVIEW
+	SET stars = pnStars,
+	comment = pcComment,
+    id_product = pnIdProduct
+	WHERE id_review = pnIdReview;
+	Commit;
+END$$
+
+-- Procedure to delete a specific review 
+DELIMITER $$
+CREATE PROCEDURE deleteReview (pnIdReview INT) 
+BEGIN
+	DELETE FROM REVIEW
+	WHERE id_review = pnIdReview;
+	Commit;
+END$$
+
+-- Procedure to insert a new review
+DELIMITER $$
+CREATE PROCEDURE insertReview (pnStars INT, pcComment VARCHAR(45), pnIdProduct INT) 
+BEGIN
+	INSERT INTO REVIEW (stars, comment, id_product)
+	VALUES (pnStars, pcComment, pnIdProduct);
+	Commit;
+END$$
+
+-- Photo Table
+-- Procedure to get a photo with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getPhoto (pnIdPhoto INT) 
+BEGIN
+	SELECT p.id_photo id_photo, p.description description, p.direction direction, p.id_product id_product, 
+	pr.name product_name
+	FROM PHOTO p
+	INNER JOIN PRODUCT pr
+	ON p.id_product = pr.id_product
+	WHERE p.id_photo = IFNULL(pnIdPhoto, p.id_photo);
+END$$
+
+-- Procedure to set a photo with specific id and the new values wrote by the user  
+DELIMITER $$
+CREATE PROCEDURE setPhoto (pnIdPhoto INT, pnIdProduct INT, pcDescription VARCHAR(140), 
+	pcDirection VARCHAR(100)) 
+BEGIN
+	UPDATE PHOTO
+	SET id_product = pnIdProduct,
+	description = pcDescription,
+    direction = pcDirection
+	WHERE id_photo = pnIdPhoto;
+	Commit;
+END$$
+
+-- Procedure to delete a specific photo 
+DELIMITER $$
+CREATE PROCEDURE deletePhoto (pnIdPhoto INT) 
+BEGIN
+	DELETE FROM PHOTO
+	WHERE id_photo = pnIdPhoto;
+	Commit;
+END$$
+
+-- Procedure to insert a new photo
+DELIMITER $$
+CREATE PROCEDURE insertPhoto (pnIdProduct INT, pcDescription VARCHAR(140), pcDirection VARCHAR(100)) 
+BEGIN
+	INSERT INTO PHOTO (id_product, description, direction)
+	VALUES (pnIdProduct, pcDescription, pcDirection);
+	Commit;
+END$$
+
+-- ProductxPurchase Table
+-- Procedure to set a productxpurchase with specific id and the new values wrote by the user  
+DELIMITER $$
+CREATE PROCEDURE setProductxPurchase (pnIdPurchase INT, pnIdProduct INT, pnQuantity INT)
+BEGIN
+	UPDATE PRODUCTXPURCHASE
+	SET quantity = pnQuantity
+	WHERE id_purchase = pnIdPurchase AND id_product = pnIdProduct;
+	Commit;
+END$$
+
+-- Procedure to delete a specific productxpurchase 
+DELIMITER $$
+CREATE PROCEDURE deleteProductxPurchase (pnIdPurchase INT, pnIdProduct INT) 
+BEGIN
+	DELETE FROM PRODUCTXPURCHASE
+	WHERE id_purchase = pnIdPurchase AND id_product = pnIdProduct;
+	Commit;
+END$$
+
+-- Procedure to insert a new productxpurchase
+DELIMITER $$
+CREATE PROCEDURE insertProductxPurchase (pnIdPurchase INT, pnIdProduct INT, pnQuantity INT) 
+BEGIN
+	INSERT INTO PRODUCTXPURCHASE (id_purchase, id_product, quantity)
+	VALUES (pnIdPurchase, pnIdProduct, pnQuantity);
+	Commit;
+END$$
