@@ -22,7 +22,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	Select purchase  from(Select pu.ID_Purchase purchase, sum(pr.Price) purchase_amount from productxpurchase pp
+	Select purchase, purchase_amount from(Select pu.ID_Purchase purchase, sum(pr.Price) purchase_amount from productxpurchase pp
     inner join product pr on p.ID_Product = pp.ID_Purchase
     inner join purchase pu on p.ID_Product = pp.ID_Product
     inner join category c on c.ID_Category = p.ID_Category
