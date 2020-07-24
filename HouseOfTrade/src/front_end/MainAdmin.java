@@ -109,7 +109,8 @@ public class MainAdmin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnViewProductsActionPerformed
 
     private void btnEditCatalogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCatalogsActionPerformed
-        // TODO add your handling code here:
+        EditCatalogs dialog = new EditCatalogs(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnEditCatalogsActionPerformed
 
     private void btnQueriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQueriesActionPerformed
