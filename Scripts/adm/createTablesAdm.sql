@@ -1,5 +1,5 @@
 CREATE TABLE `adm`.`generallog` (
-  `ID_GeneralLog` INT NOT NULL COMMENT 'Log identification number',
+  `ID_GeneralLog` INT NOT NULL AUTO_INCREMENT COMMENT 'Log identification number',
   `schemeName` VARCHAR(45) NOT NULL COMMENT 'Name of scheme that underwent change',
   `tableName` VARCHAR(45) NOT NULL COMMENT 'Name of table that underwent change',
   `columnName` VARCHAR(45) NOT NULL COMMENT 'Name of column that underwent change',
@@ -11,7 +11,7 @@ CREATE TABLE `adm`.`generallog` (
 COMMENT = 'Table that register every change of value in the database';
 
 CREATE TABLE `adm`.`parameter` (
-  `ID_Parameter` INT NOT NULL COMMENT 'Parameter identification number',
+  `ID_Parameter` INT NOT NULL AUTO_INCREMENT COMMENT 'Parameter identification number',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Parameter name',
   `Value` VARCHAR(45) NOT NULL COMMENT 'Parameter value',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
