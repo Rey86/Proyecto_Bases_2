@@ -175,6 +175,24 @@ BEGIN
 	FROM PURCHASE p
 	INNER JOIN PAYMENTMETHOD pm
 	ON p.id_paymentmethod = pm.id_paymentmethod
+	WHERE p.id_purchase = IFNULL(pnIdPurchase, p.id_purchase);
+END$$
+
+-- Procedure to get a purchase subtotal and total with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getPurchaseTotal (pnIdPurchase INT) 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	SELECT p.id_purchase, sum(pr.price*pp.quantity) subtotal, 
+	sum(pr.price*pp.quantity) + sum(pr.price*pp.quantity) * 0.13 total
+	FROM PURCHASE p
+	INNER JOIN PRODUCTXPURCHASE pp
+	ON p.id_purchase = pp.id_purchase
+    INNER JOIN PRODUCT pr
+    ON pp.id_product = pr.id_product
 	WHERE p.id_purchase = IFNULL(pnIdPurchase, p.id_purchase)
     GROUP BY p.id_purchase;
 END$$
@@ -245,7 +263,7 @@ END$$
 
 -- Procedure to set a product with specific id and the new values wrote by the user  
 DELIMITER $$
-CREATE PROCEDURE setProduct (pnIdProduct INT, pcProductName VARCHAR(45), pnPrice INT, pnSold INT, 
+CREATE PROCEDURE setProduct (pnIdProduct INT, pcProductName VARCHAR(45), pnSold INT, 
 	pcDescription VARCHAR(140), pnQuantity INT, pcUsernameSalesman VARCHAR(45), 
     pnIdCategory INT, pnIdDeliveryType INT) 
 BEGIN
@@ -256,13 +274,27 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	UPDATE PRODUCT
 	SET name = pcProductName,
-	price = pnPrice,
     sold = pnSold,
     description = pcDescription,
     quantity = pnQuantity,
     usernamesalesman = pcUsernameSalesman,
     id_category = pnIdCategory,
     id_deliverytype = pnIdDeliveryType
+	WHERE id_product = pnIdProduct;
+	Commit;
+END$$
+
+-- Procedure to update the price of a specific product
+DELIMITER $$
+CREATE PROCEDURE setProductPrice (pnIdProduct INT, pnPrice INT) 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
+    DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	UPDATE PRODUCT
+	SET price = pnPrice
 	WHERE id_product = pnIdProduct;
 	Commit;
 END$$
