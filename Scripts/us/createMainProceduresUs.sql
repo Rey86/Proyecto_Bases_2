@@ -185,11 +185,44 @@ BEGIN
 	WHERE u.username = IFNULL(pcUsername, u.username);
 END$$
 
+-- Procedure to get a user salesmanaverage with specific username
+DELIMITER $$
+CREATE PROCEDURE getUserSalesmanAverage (pcUsername VARCHAR(45)) 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	SELECT u.username, avg(us.stars) averagesalesman
+	FROM USER u
+    INNER JOIN USERREVIEW us
+    ON u.username = us.username_reviewee
+	WHERE u.username = pcUsername and us.customer = 0
+    GROUP BY u.username;
+END$$
+
+-- Procedure to get a user customeraverage with specific username
+DELIMITER $$
+CREATE PROCEDURE getUserCustomerAverage (pcUsername VARCHAR(45)) 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	SELECT u.username, avg(us.stars) averagecustomer
+	FROM USER u
+    INNER JOIN USERREVIEW us
+    ON u.username = us.username_reviewee
+	WHERE u.username = pcUsername and us.customer = 1
+    GROUP BY u.username;
+END$$
+
 -- Procedure to set a user with specific id and the new values wrote by the user  
 DELIMITER $$
 CREATE PROCEDURE setUser (pcUsername VARCHAR(45), pcEmail VARCHAR(45), pdBirthdate DATE, 
-	pcFirstName VARCHAR(45), pcFirstLastName VARCHAR(45), pcSecondLastName VARCHAR(45), pnIdUser VARCHAR(45),
-    pcPhotoDirection VARCHAR(100), pnIdCommunity INT, pnIdUserType INT, pnIdGender INT) 
+	pcFirstName VARCHAR(45), pcFirstLastName VARCHAR(45), pcSecondLastName VARCHAR(45), 
+    pcPassword VARCHAR(45), pnIdUser VARCHAR(45), pcPhotoDirection VARCHAR(100), pnIdCommunity INT, 
+    pnIdUserType INT, pnIdGender INT) 
 BEGIN
 	DECLARE EXIT HANDLER FOR 1263 SELECT 'Column set to default value; NULL supplied to NOT NULL column' Message;
     DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
@@ -202,6 +235,7 @@ BEGIN
     name = pcFirstName,
     firstlastname = pcFirstLastName,
     secondlastname = pcSecondLastName,
+    password = pcPassword,
     id = pnIdUser,
     photodirection = pcPhotoDirection,
     id_community = pnIdCommunity,
