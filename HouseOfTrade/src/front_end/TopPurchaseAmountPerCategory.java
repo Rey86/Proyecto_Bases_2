@@ -30,11 +30,11 @@ public class TopPurchaseAmountPerCategory extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Purchase", "Total Amount"
+                "Product", "Price", "Category"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
