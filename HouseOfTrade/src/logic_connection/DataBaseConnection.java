@@ -613,7 +613,7 @@ public class DataBaseConnection {
         stmt.execute();
     }
     
-    //Photo
+    // Photo
     // Function to get all photos of the system
     public static ResultSet getPhotos() throws SQLException{
         Connection con = getConnectionDataBase();
@@ -667,7 +667,7 @@ public class DataBaseConnection {
         stmt.execute();
     }
     
-    //ProductxPurchase
+    // ProductxPurchase
     // Function to get a productxpurchase of the system
     public static ResultSet getProductxPurchase(Integer pnIdPurchase, Integer pnIdProduct) throws SQLException{
         Connection con = getConnectionDataBase();
@@ -708,6 +708,450 @@ public class DataBaseConnection {
         stmt.setInt(1, pnIdPurchase);
         stmt.setInt(2, pnIdProduct);
         stmt.setInt(3, pnQuantity);
+        stmt.execute();
+    }
+    
+    // Gender
+    // Function to get all genders of the system
+    public static ResultSet getGenders() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getGender(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a gender of the system
+    public static ResultSet getGender(Integer pnIdGender) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getGender(?)}");
+        
+        stmt.setInt(1, pnIdGender);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a gender of the system
+    public static void setGender(Integer pnIdGender, String pcGenderName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.setGender(?,?)}");
+        
+        stmt.setInt(1, pnIdGender);
+        stmt.setString(2, pcGenderName);
+        stmt.execute();
+    }
+    
+    // Function to delete a gender of the system
+    public static void deleteGender(Integer pnIdGender) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteGender(?)}");
+        
+        stmt.setInt(1, pnIdGender);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a gender in the system
+    public static void insertGender(String pcGenderName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertGender(?)}");
+        
+        stmt.setString(1, pcGenderName);
+        stmt.execute();
+    }
+    
+    // UserType
+    // Function to get all user types of the system
+    public static ResultSet getUserTypes() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUserType(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a user type of the system
+    public static ResultSet getUserType(Integer pnIdUserType) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUserType(?)}");
+        
+        stmt.setInt(1, pnIdUserType);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a user type of the system
+    public static void setUserType(Integer pnIdUserType, String pcUserTypeName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.setUserType(?,?)}");
+        
+        stmt.setInt(1, pnIdUserType);
+        stmt.setString(2, pcUserTypeName);
+        stmt.execute();
+    }
+    
+    // Function to delete a user type of the system
+    public static void deleteUserType(Integer pnIdUserType) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteUserType(?)}");
+        
+        stmt.setInt(1, pnIdUserType);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a user type in the system
+    public static void insertUserType(String pcUserTypeName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertUserType(?)}");
+        
+        stmt.setString(1, pcUserTypeName);
+        stmt.execute();
+    }
+    
+    // Nationality
+    // Function to get all nationalities of the system
+    public static ResultSet getNationalities() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getNationality(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a nationality of the system
+    public static ResultSet getNationality(Integer pnIdNationality) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getNationality(?)}");
+        
+        stmt.setInt(1, pnIdNationality);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a nationality of the system
+    public static void setNationality(Integer pnIdNationality, String pcNationalityName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.setNationality(?,?)}");
+        
+        stmt.setInt(1, pnIdNationality);
+        stmt.setString(2, pcNationalityName);
+        stmt.execute();
+    }
+    
+    // Function to delete a nationality of the system
+    public static void deleteNationality(Integer pnIdNationality) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteNationality(?)}");
+        
+        stmt.setInt(1, pnIdNationality);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a nationality in the system
+    public static void insertNationality(String pcNationalityName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertNationality(?)}");
+        
+        stmt.setString(1, pcNationalityName);
+        stmt.execute();
+    }
+    
+    // User
+    // Function to get all users of the system
+    public static ResultSet getUsers() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUser(?)}");
+        
+        stmt.setNull(1, Types.VARCHAR);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a user of the system
+    public static ResultSet getUser(String pcUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUser(?)}");
+        
+        stmt.setString(1, pcUsername);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a user salesman average of the system
+    public static ResultSet getUserSalesmanAverage(String pcUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUserSalesmanAverage(?)}");
+        
+        stmt.setString(1, pcUsername);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a user customer average of the system
+    public static ResultSet getUserCustomerAverage(String pcUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUserCustomerAverage(?)}");
+        
+        stmt.setString(1, pcUsername);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a user of the system
+    public static void setUser(String pcUsername, String pcEmail, String pdBirthdate, String pcFirstName, 
+            String pcFirstLastName, String pcSecondLastName, String pcPassword, String pnIdUser, String pcPhotoDirection, 
+            Integer pnIdCommunity, Integer pnIdUserType, Integer pnIdGender) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.setUser(?,?,?,?,?,?,?,?,?,?,?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setString(2, pcEmail);
+        stmt.setString(3, pdBirthdate);
+        stmt.setString(4, pcFirstName);
+        stmt.setString(5, pcFirstLastName);
+        stmt.setString(6, pcSecondLastName);
+        stmt.setString(7, pcPassword);
+        stmt.setString(8, pnIdUser);
+        stmt.setString(9, pcPhotoDirection);
+        stmt.setInt(10, pnIdCommunity);
+        stmt.setInt(11, pnIdUserType);
+        stmt.setInt(12, pnIdGender);
+        stmt.execute();
+    }
+    
+    // Function to delete a user of the system
+    public static void deleteUser(String pcUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteUser(?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a user in the system
+    public static void insertUser(String pcUsername, String pcEmail, String pdBirthdate, String pcFirstName, 
+            String pcFirstLastName, String pcSecondLastName, String pcPassword, String pnIdUser, String pcPhotoDirection, 
+            Integer pnIdCommunity, Integer pnIdUserType, Integer pnIdGender) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertUser(?,?,?,?,?,?,?,?,?,?,?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setString(2, pcEmail);
+        stmt.setString(3, pdBirthdate);
+        stmt.setString(4, pcFirstName);
+        stmt.setString(5, pcFirstLastName);
+        stmt.setString(6, pcSecondLastName);
+        stmt.setString(7, pcPassword);
+        stmt.setString(8, pnIdUser);
+        stmt.setString(9, pcPhotoDirection);
+        stmt.setInt(10, pnIdCommunity);
+        stmt.setInt(11, pnIdUserType);
+        stmt.setInt(12, pnIdGender);
+        stmt.execute();
+    }
+    
+    // UserReview 
+    // Function to get a user review of the system
+    public static ResultSet getUserReview(String pcUsernameReviewer, String pcUsernameReviewee) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUserReview(?,?)}");
+        
+        stmt.setString(1, pcUsernameReviewer);
+        stmt.setString(2, pcUsernameReviewee);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a user review of the system
+    public static void setUserReview(String pcUsernameReviewer, String pcUsernameReviewee, Integer pnCustomer,
+            String pcComment, Integer pnStars) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.setUserReview(?,?,?,?,?)}");
+        
+        stmt.setString(1, pcUsernameReviewer);
+        stmt.setString(2, pcUsernameReviewee);
+        stmt.setInt(3, pnCustomer);
+        stmt.setString(4, pcComment);
+        stmt.setInt(5, pnStars);
+        stmt.execute();
+    }
+    
+    // Function to delete a user review of the system
+    public static void deleteUserReview(String pcUsernameReviewer, String pcUsernameReviewee) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteUserReview(?,?)}");
+        
+        stmt.setString(1, pcUsernameReviewer);
+        stmt.setString(2, pcUsernameReviewee);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a user review in the system
+    public static void insertUserReview(String pcUsernameReviewer, String pcUsernameReviewee, Integer pnCustomer,
+            String pcComment, Integer pnStars) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertUserReview(?,?,?,?,?)}");
+        
+        stmt.setString(1, pcUsernameReviewer);
+        stmt.setString(2, pcUsernameReviewee);
+        stmt.setInt(3, pnCustomer);
+        stmt.setString(4, pcComment);
+        stmt.setInt(5, pnStars);
+        stmt.execute();
+    }
+    
+    // ReceiverxSender
+    // Function to get a receiverxsender of the system
+    public static ResultSet getReceiverxSender(String pcUsernameSender, String pcUsernameReceiver) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getReceiverxSender(?,?)}");
+        
+        stmt.setString(1, pcUsernameSender);
+        stmt.setString(2, pcUsernameReceiver);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a receiverxsender of the system
+    public static void setReceiverxSender(String pcUsernameSender, String pcUsernameReceiver, String pcMessageContent,
+            String pdtTime) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.setReceiverxSender(?,?,?,?}");
+        
+        stmt.setString(1, pcUsernameSender);
+        stmt.setString(2, pcUsernameReceiver);
+        stmt.setString(3, pcMessageContent);
+        stmt.setString(4, pdtTime);
+        stmt.execute();
+    }
+    
+    // Function to delete a receiverxsender of the system
+    public static void deleteReceiverxSender(String pcUsernameSender, String pcUsernameReceiver) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteReceiverxSender(?,?)}");
+        
+        stmt.setString(1, pcUsernameSender);
+        stmt.setString(2, pcUsernameReceiver);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a receiverxsender in the system
+    public static void insertReceiverxSender(String pcUsernameSender, String pcUsernameReceiver, String pcMessageContent,
+            String pdtTime) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertReceiverxSender(?,?,?,?)}");
+        
+        stmt.setString(1, pcUsernameSender);
+        stmt.setString(2, pcUsernameReceiver);
+        stmt.setString(3, pcMessageContent);
+        stmt.setString(4, pdtTime);
+        stmt.execute();
+    }
+    
+    // UserWishesProduct
+    // Function to delete a userwhishesproduct of the system
+    public static void deleteUserWishesProduct(String pcUsername, Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteUserWishesProduct(?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setInt(2, pnIdProduct);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a userwhishesproduct in the system
+    public static void insertUserWishesProduct(String pcUsername, Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertUserWishesProduct(?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setInt(2, pnIdProduct);
+        stmt.execute();
+    }
+    
+    // UserViewsProduct
+    // Function to delete a userviewsproduct of the system
+    public static void deleteUserViewsProduct(String pcUsername, Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteUserViewsProduct(?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setInt(2, pnIdProduct);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a userviewsproduct in the system
+    public static void insertUserViewsProduct(String pcUsername, Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertUserViewsProduct(?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setInt(2, pnIdProduct);
+        stmt.execute();
+    }
+    
+    // UserxNationality
+    // Function to delete a userxnationality of the system
+    public static void deleteUserxNationality(String pcUsername, Integer pnIdNationality) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteUserxNationality(?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setInt(2, pnIdNationality);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a userxnationality in the system
+    public static void insertUserxNationality(String pcUsername, Integer pnIdNationality) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertUserxNationality(?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setInt(2, pnIdNationality);
+        stmt.execute();
+    }
+    
+    // PhoneNumber
+    // Function to delete a phone number of the system
+    public static void deletePhoneNumber(Integer pnPhoneNumber, String pcUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deletePhoneNumber(?,?)}");
+        
+        stmt.setInt(1, pnPhoneNumber);
+        stmt.setString(2, pcUsername);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a phone number in the system
+    public static void insertPhoneNumber(Integer pnPhoneNumber, String pcUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertPhoneNumber(?,?)}");
+        
+        stmt.setInt(1, pnPhoneNumber);
+        stmt.setString(2, pcUsername);
+        stmt.execute();
+    }
+    
+    // UserWantsProduct
+    // Function to delete a userwantsproduct of the system
+    public static void deleteUserWantsProduct(String pcUsername, Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.deleteUserWantsProduct(?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setInt(2, pnIdProduct);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a userwantsproduct in the system
+    public static void insertUserWantsProduct(String pcUsername, Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.insertUserWantsProduct(?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setInt(2, pnIdProduct);
         stmt.execute();
     }
 }
