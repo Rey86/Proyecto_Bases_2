@@ -62,18 +62,18 @@ CREATE TRIGGER us.beforeUpdateUser
 	new.user_last_modification:=SYSTEM_USER(),
 	new.date_last_modification:=SYSDATE();
     
--- Insert and Update Triggers of USERREVIEWS table.
+-- Insert and Update Triggers of USERREVIEW table.
 
-CREATE TRIGGER us.beforeInsertUserReviews
+CREATE TRIGGER us.beforeInsertUserReview
     BEFORE INSERT
-    ON us.userreviews
+    ON us.userreview
     For each row SET
 	new.user_creation:=SYSTEM_USER(),
 	new.date_creation:=SYSDATE();
     
-CREATE TRIGGER us.beforeUpdateUserReviews
+CREATE TRIGGER us.beforeUpdateUserReview
     BEFORE UPDATE
-    ON us.userreviews
+    ON us.userreview
     For each row SET
 	new.user_last_modification:=SYSTEM_USER(),
 	new.date_last_modification:=v;
@@ -151,13 +151,13 @@ CREATE TRIGGER us.beforeInsertPhoneNumber
 	new.user_creation:=SYSTEM_USER(),
 	new.date_creation:=SYSDATE();
     
-CREATE TRIGGER us.beforeUpdatePhoneNumberssss
+CREATE TRIGGER us.beforeUpdatePhoneNumber
     BEFORE UPDATE
     ON us.phonenumber
     For each row SET
 	new.user_last_modification:=SYSTEM_USER(),
 	new.date_last_modification:=SYSDATE();
-    
+
 -- Insert and Update Triggers of USERWANTSPRODUCT table.
 
 CREATE TRIGGER us.beforeInsertUserWantsProduct
