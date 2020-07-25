@@ -270,4 +270,444 @@ public class DataBaseConnection {
         stmt.setInt(2, pnIdDistrict);
         stmt.execute();
     }
+    
+    // Category
+    // Function to get all categories of the system
+    public static ResultSet getCategories() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getCategory(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a category of the system
+    public static ResultSet getCategory(Integer pnIdCategory) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getCategory(?)}");
+        
+        stmt.setInt(1, pnIdCategory);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a category of the system
+    public static void setCategory(Integer pnIdCategory, String pcCategoryName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.setCategory(?,?)}");
+        
+        stmt.setInt(1, pnIdCategory);
+        stmt.setString(2, pcCategoryName);
+        stmt.execute();
+    }
+    
+    // Function to delete a category of the system
+    public static void deleteCategory(Integer pnIdCategory) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.deleteCategory(?)}");
+        
+        stmt.setInt(1, pnIdCategory);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a category in the system
+    public static void insertCategory(String pcCategoryName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.insertCategory(?)}");
+        
+        stmt.setString(1, pcCategoryName);
+        stmt.execute();
+    }
+    
+    // DeliveryType
+    // Function to get all delivery types of the system
+    public static ResultSet getDeliveryTypes() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getDeliveryType(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a delivery type of the system
+    public static ResultSet getDeliveryType(Integer pnIdDeliveryType) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getDeliveryType(?)}");
+        
+        stmt.setInt(1, pnIdDeliveryType);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a delivery type of the system
+    public static void setDeliveryType(Integer pnIdDeliveryType, String pcDeliveryTypeName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.setDeliveryType(?,?)}");
+        
+        stmt.setInt(1, pnIdDeliveryType);
+        stmt.setString(2, pcDeliveryTypeName);
+        stmt.execute();
+    }
+    
+    // Function to delete a delivery type of the system
+    public static void deleteDeliveryType(Integer pnIdDeliveryType) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.deleteDeliveryType(?)}");
+        
+        stmt.setInt(1, pnIdDeliveryType);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a delivery type in the system
+    public static void insertDeliveryType(String pcDeliveryTypeName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.insertDeliveryType(?)}");
+        
+        stmt.setString(1, pcDeliveryTypeName);
+        stmt.execute();
+    }
+    
+    // PaymentMethod
+    // Function to get all payment methods of the system
+    public static ResultSet getPaymentMethods() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getPaymentMethod(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a payment method of the system
+    public static ResultSet getPaymentMethod(Integer pnIdPaymentMethod) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getPaymentMethod(?)}");
+        
+        stmt.setInt(1, pnIdPaymentMethod);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a payment method of system
+    public static void setPaymentMethod(Integer pnIdPaymentMethod, String pcPaymentMethodName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.setPaymentMethod(?,?)}");
+        
+        stmt.setInt(1, pnIdPaymentMethod);
+        stmt.setString(2, pcPaymentMethodName);
+        stmt.execute();
+    }
+    
+    // Function to delete a payment method of the system
+    public static void deletePaymentMethod(Integer pnIdPaymentMethod) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.deletePaymentMethod(?)}");
+        
+        stmt.setInt(1, pnIdPaymentMethod);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a payment method in the system
+    public static void insertPaymentMethod(String pcPaymentMethodName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.insertPaymentMethod(?)}");
+        
+        stmt.setString(1, pcPaymentMethodName);
+        stmt.execute();
+    }
+    
+    // Purchase
+    // Function to get all purchases of the system
+    public static ResultSet getPurchases() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getPurchase(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a purchase of the system
+    public static ResultSet getPurchase(Integer pnIdPurchase) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getPurchase(?)}");
+        
+        stmt.setInt(1, pnIdPurchase);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a total of a purchase of the system
+    public static ResultSet getPurchaseTotal(Integer pnIdPurchase) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getPurchaseTotal(?)}");
+        
+        stmt.setInt(1, pnIdPurchase);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a purchase of the system
+    public static void setPurchase(Integer pnIdPurchase, String pcPurchaseDate, String pcUsernameCustomer,
+            Integer pnIdPaymentMethod) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.setPurchase(?,?,?,?)}");
+        
+        stmt.setInt(1, pnIdPurchase);
+        stmt.setString(2, pcPurchaseDate);
+        stmt.setString(3, pcUsernameCustomer);
+        stmt.setInt(4, pnIdPaymentMethod);
+        stmt.execute();
+    }
+    
+    // Function to delete a purchase of the system
+    public static void deletePurchase(Integer pnIdPurchase) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.deletePurchase(?)}");
+        
+        stmt.setInt(1, pnIdPurchase);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a purchase in the system
+    public static void insertPurchase(String pcPurchaseDate, String pcUsernameCustomer, 
+            Integer pnIdPaymentMethod) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.insertPurchase(?,?,?)}");
+        
+        stmt.setString(1, pcPurchaseDate);
+        stmt.setString(2, pcUsernameCustomer);
+        stmt.setInt(3, pnIdPaymentMethod);
+        stmt.execute();
+    }
+    
+    // Product
+    // Function to get all products of the system
+    public static ResultSet getProducts() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getProduct(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a product of the system
+    public static ResultSet getProduct(Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getProduct(?)}");
+        
+        stmt.setInt(1, pnIdProduct);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a product of the system
+    public static void setProduct(Integer pnIdProduct, String pcProductName, Integer pnSold,
+            String pcDescription, Integer pnQuantity, String pcUsernameSalesman, Integer pnIdCategory,
+            Integer pnIdDeliveryType) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.setProduct(?,?,?,?,?,?,?,?)}");
+        
+        stmt.setInt(1, pnIdProduct);
+        stmt.setString(2, pcProductName);
+        stmt.setInt(3, pnSold);
+        stmt.setString(4, pcDescription);
+        stmt.setInt(5, pnQuantity);
+        stmt.setString(6, pcUsernameSalesman);
+        stmt.setInt(7, pnIdCategory);
+        stmt.setInt(8, pnIdDeliveryType);
+        stmt.execute();
+    }
+    
+    // Function to set a product price of the system
+    public static void setProductPrice(Integer pnIdProduct, Integer pnPrice) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.setProductPrice(?,?)}");
+        
+        stmt.setInt(1, pnIdProduct);
+        stmt.setInt(2, pnPrice);
+        stmt.execute();
+    }
+    
+    // Function to delete a product of the system
+    public static void deleteProduct(Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.deleteProduct(?)}");
+        
+        stmt.setInt(1, pnIdProduct);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a product in the system
+    public static void insertProduct(String pcProductName, Integer pnPrice, Integer pnSold,
+            String pcDescription, Integer pnQuantity, String pcUsernameSalesman, Integer pnIdCategory,
+            Integer pnIdDeliveryType) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.insertProduct(?,?,?)}");
+        
+        stmt.setString(1, pcProductName);
+        stmt.setInt(2, pnPrice);
+        stmt.setInt(3, pnSold);
+        stmt.setString(4, pcDescription);
+        stmt.setInt(5, pnQuantity);
+        stmt.setString(6, pcUsernameSalesman);
+        stmt.setInt(7, pnIdCategory);
+        stmt.setInt(8, pnIdDeliveryType);
+        stmt.execute();
+    }
+    
+    // Review
+    // Function to get all reviews of the system
+    public static ResultSet getReviews() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getReview(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a review of the system
+    public static ResultSet getReview(Integer pnIdReview) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getReview(?)}");
+        
+        stmt.setInt(1, pnIdReview);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a review of the system
+    public static void setReview(Integer pnIdReview, Integer pnStars, String pcComment, 
+            Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.setReview(?,?,?,?)}");
+        
+        stmt.setInt(1, pnIdReview);
+        stmt.setInt(2, pnStars);
+        stmt.setString(3, pcComment);
+        stmt.setInt(4, pnIdProduct);
+        stmt.execute();
+    }
+    
+    // Function to delete a review of the system
+    public static void deleteReview(Integer pnIdReview) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.deleteReview(?)}");
+        
+        stmt.setInt(1, pnIdReview);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a review in the system
+    public static void insertReview(Integer pnStars, String pcComment, Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.insertReview(?,?,?)}");
+        
+        stmt.setInt(1, pnStars);
+        stmt.setString(2, pcComment);
+        stmt.setInt(3, pnIdProduct);
+        stmt.execute();
+    }
+    
+    //Photo
+    // Function to get all photos of the system
+    public static ResultSet getPhotos() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getPhoto(?)}");
+        
+        stmt.setNull(1, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a photo of the system
+    public static ResultSet getPhoto(Integer pnIdPhoto) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getPhoto(?)}");
+        
+        stmt.setInt(1, pnIdPhoto);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a photo of the system
+    public static void setPhoto(Integer pnIdPhoto, Integer pnIdProduct, String pcDescription, 
+            String pcDirection) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.setPhoto(?,?,?,?)}");
+        
+        stmt.setInt(1, pnIdPhoto);
+        stmt.setInt(2, pnIdProduct);
+        stmt.setString(3, pcDescription);
+        stmt.setString(4, pcDirection);
+        stmt.execute();
+    }
+    
+    // Function to delete a photo of the system
+    public static void deletePhoto(Integer pnIdPhoto) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.deletePhoto(?)}");
+        
+        stmt.setInt(1, pnIdPhoto);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a photo in the system
+    public static void insertPhoto(Integer pnIdProduct, String pcDescription, String pcDirection) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.insertPhoto(?,?,?)}");
+        
+        stmt.setInt(1, pnIdProduct);
+        stmt.setString(2, pcDescription);
+        stmt.setString(3, pcDirection);
+        stmt.execute();
+    }
+    
+    //ProductxPurchase
+    // Function to get a productxpurchase of the system
+    public static ResultSet getProductxPurchase(Integer pnIdPurchase, Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getProductxPurchase(?,?)}");
+        
+        stmt.setInt(1, pnIdPurchase);
+        stmt.setInt(2, pnIdProduct);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to set a productxpurchase of the system
+    public static void setProductxPurchase(Integer pnIdPurchase, Integer pnIdProduct, Integer pnQuantity) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.setProductxPurchase(?,?,?)}");
+        
+        stmt.setInt(1, pnIdPurchase);
+        stmt.setInt(2, pnIdProduct);
+        stmt.setInt(3, pnQuantity);
+        stmt.execute();
+    }
+    
+    // Function to delete a productxpurchase of the system
+    public static void deleteProductxPurchase(Integer pnIdPurchase, Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.deleteProductxPurchase(?,?)}");
+        
+        stmt.setInt(1, pnIdPurchase);
+        stmt.setInt(2, pnIdProduct);
+        stmt.execute();
+    }
+    
+    // Procedure to insert a productxpurchase in the system
+    public static void insertProductxPurchase(Integer pnIdPurchase, Integer pnIdProduct, Integer pnQuantity) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.insertProductxPurchase(?,?,?)}");
+        
+        stmt.setInt(1, pnIdPurchase);
+        stmt.setInt(2, pnIdProduct);
+        stmt.setInt(3, pnQuantity);
+        stmt.execute();
+    }
 }
