@@ -1154,4 +1154,138 @@ public class DataBaseConnection {
         stmt.setInt(2, pnIdProduct);
         stmt.execute();
     }
+    
+    public static ResultSet getTopUserSales(Integer n) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getTopUserSales(?)}");
+        
+        stmt.setInt(1,n);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getTopUserPurchases(Integer n) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getTopUserPurchases(?)}");
+        
+        stmt.setInt(1,n);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getBestReviewedUsers() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getBestReviewedUsers()}");
+
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getWorstReviewedUsers() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getWorstReviewedUsers()}");
+
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getTopPricesPerCategory(Integer n, Integer pnID_Category) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getTopPricesPerCategory(?, ?)}");
+
+        stmt.setInt(1, n);
+        stmt.setInt(2, pnID_Category);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getTopPurchaseAmountPerCategory(Integer n, Integer pnID_Category) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getTopPurchaseAmountPerCategory(?, ?)}");
+
+        stmt.setInt(1, n);
+        stmt.setInt(2, pnID_Category);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getSearchedProducts(String psSearchWord) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getSearchedProducts(?)}");
+
+        stmt.setString(1, psSearchWord);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getViewsHistory(String psUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getViewsHistory(?)}");
+
+        stmt.setString(1, psUsername);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getSoldProduct(String psUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getSoldProduct(?)}");
+
+        stmt.setString(1, psUsername);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getPurchasesOver1000PerCategory(String psUsername, Integer pnID_Category) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getPurchasesOver1000PerCategory(?, ?)}");
+
+        stmt.setString(1, psUsername);
+        stmt.setInt(2, pnID_Category);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getPurhaseHistory(String psUsername, Integer month) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getPurhaseHistory(?, ?)}");
+
+        stmt.setString(1, psUsername);
+        stmt.setInt(2, month);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getUserAgeRangePerGender(Integer pnID_Gender) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUserAgeRangePerGender(?)}");
+
+        stmt.setInt(1, pnID_Gender);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getProductPercentagePerCategory() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getProductPercentagePerCategory()}");
+
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getSalesPercentagePerGender() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getSalesPercentagePerGender()}");
+
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getPurchaseAmountPercentagePerGender() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getPurchaseAmountPercentagePerGender()}");
+
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
 }
