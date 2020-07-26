@@ -1,13 +1,28 @@
 package front_end;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class SoldProduct extends javax.swing.JDialog {
 
-    /**
-     * Creates new form SoldProduct
-     */
     public SoldProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void ProductList() throws SQLException{
+        ResultSet r = logic_connection.DataBaseConnection.getSoldProducts(); 
+        DefaultTableModel dtb = (DefaultTableModel) jTableSoldProducts.getModel();
+        while(r.next()){
+            dtb.addRow(new Object[]{r.getString("PRODUCT"), r.getInt("SALES")});
+        }
+    }
+    
+    public void ProductCleanList(){
+        DefaultTableModel dtb = (DefaultTableModel) jTableSoldProducts.getModel();
+        for (int i = dtb.getRowCount()-1;i>=0;i--) dtb.removeRow(i);
     }
     
     @SuppressWarnings("unchecked")
@@ -43,6 +58,11 @@ public class SoldProduct extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTableSoldProducts);
 
         jButtonSearch.setText("Search");
+        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchActionPerformed(evt);
+            }
+        });
 
         jButtonClose.setText("Close");
         jButtonClose.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +107,16 @@ public class SoldProduct extends javax.swing.JDialog {
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCloseActionPerformed
+
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+        try{
+            ProductCleanList();
+            ProductList();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClose;

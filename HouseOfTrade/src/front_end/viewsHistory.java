@@ -1,11 +1,28 @@
-
 package front_end;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class viewsHistory extends javax.swing.JDialog {
 
     public viewsHistory(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void ProductList() throws SQLException{
+        ResultSet r = logic_connection.DataBaseConnection.getviewsHistory(); 
+        DefaultTableModel dtb = (DefaultTableModel) jTableRecentViews.getModel();
+        while(r.next()){
+            dtb.addRow(new Object[]{r.getInt("ID_PURCHASE"), r.getString("VIEWED_BY"), r.getString("VIEWED")});
+        }
+    }
+    
+    public void ProductCleanList(){
+        DefaultTableModel dtb = (DefaultTableModel) jTableRecentViews.getModel();
+        for (int i = dtb.getRowCount()-1;i>=0;i--) dtb.removeRow(i);
     }
     
     @SuppressWarnings("unchecked")
@@ -48,6 +65,11 @@ public class viewsHistory extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTableRecentViews);
 
         jButtonSearch.setText("Search");
+        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchActionPerformed(evt);
+            }
+        });
 
         jButtonClose.setText("Close");
         jButtonClose.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +114,16 @@ public class viewsHistory extends javax.swing.JDialog {
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCloseActionPerformed
+
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+        try{
+            ProductCleanList();
+            ProductList();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClose;

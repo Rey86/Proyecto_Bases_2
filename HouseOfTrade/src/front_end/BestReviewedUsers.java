@@ -1,12 +1,36 @@
 package front_end;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class BestReviewedUsers extends javax.swing.JDialog {
 
     public BestReviewedUsers(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
+    public void UserList() throws SQLException{
+        if (!jTextFieldTop.getText().equals("")){
+            try {
+                ResultSet r = logic_connection.DataBaseConnection.getBestReviewedUsers(Integer.parseInt(jTextFieldTop.getText())); 
+                DefaultTableModel dtb = (DefaultTableModel) jTableUserReviews.getModel();
+                while(r.next()){
+                    dtb.addRow(new Object[]{r.getString("USERNAME"), r.getInt("AVERAGE_REVIEW")});
+                }
+            }
+            catch (NumberFormatException nfe){
+                JOptionPane.showMessageDialog(this, "The parameter must be a number", "Warning", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    public void UserCleanList(){
+        DefaultTableModel dtb = (DefaultTableModel) jTableUserReviews.getModel();
+        for (int i = dtb.getRowCount()-1;i>=0;i--) dtb.removeRow(i);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -16,6 +40,8 @@ public class BestReviewedUsers extends javax.swing.JDialog {
         jTableUserReviews = new javax.swing.JTable();
         jButtonSearch = new javax.swing.JButton();
         jButtonClose = new javax.swing.JButton();
+        jTextFieldTop = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -40,6 +66,11 @@ public class BestReviewedUsers extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTableUserReviews);
 
         jButtonSearch.setText("Search");
+        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchActionPerformed(evt);
+            }
+        });
 
         jButtonClose.setText("Close");
         jButtonClose.addActionListener(new java.awt.event.ActionListener() {
@@ -47,6 +78,8 @@ public class BestReviewedUsers extends javax.swing.JDialog {
                 jButtonCloseActionPerformed(evt);
             }
         });
+
+        jLabel3.setText("Top:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -61,7 +94,11 @@ public class BestReviewedUsers extends javax.swing.JDialog {
                             .addComponent(jButtonSearch)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonClose))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(30, 30, 30)
+                        .addComponent(jTextFieldTop, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -70,12 +107,16 @@ public class BestReviewedUsers extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSearch)
                     .addComponent(jButtonClose))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -85,11 +126,23 @@ public class BestReviewedUsers extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButtonCloseActionPerformed
 
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+        try{
+            UserCleanList();
+            UserList();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonSearchActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableUserReviews;
+    private javax.swing.JTextField jTextFieldTop;
     // End of variables declaration//GEN-END:variables
 }

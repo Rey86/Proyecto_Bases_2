@@ -7,9 +7,9 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	Select product_name, price from(Select p.name product_name, p.price price from product p 
+	Select product_name, price, category from(Select p.name product_name, p.price price, c.Name category from product p 
     inner join category c on c.ID_Category = p.ID_Category
-    where ID_category = IFNULL(pnID_Category, ID_category)
+    where p.ID_category = IFNULL(pnID_Category, p.ID_category)
     group by product_name 
     order by price desc) TopPricesPerCategory
     where rownum <= n;
@@ -22,7 +22,8 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	Select pr.name product, pr.price price, c.name category from product pr
+	Select product, price, category from (Select pr.name product, pr.price price, c.name category from product pr
     inner join category c on c.ID_Category = pr.ID_category
-    where sold >=1 and pr.ID_category = IFNULL(pnID_Category, pr.ID_category);
+    where sold >=1 and pr.ID_category = IFNULL(pnID_Category, pr.ID_category))
+    where rownum <= n;
 END$$

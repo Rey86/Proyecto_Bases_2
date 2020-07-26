@@ -1173,18 +1173,20 @@ public class DataBaseConnection {
         return r;
     }
     
-    public static ResultSet getBestReviewedUsers() throws SQLException{
+    public static ResultSet getBestReviewedUsers(Integer n) throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{ call us.getBestReviewedUsers()}");
+        CallableStatement stmt = con.prepareCall("{ call us.getBestReviewedUsers(?)}");
 
+        stmt.setInt(1,n);
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
     
-    public static ResultSet getWorstReviewedUsers() throws SQLException{
+    public static ResultSet getWorstReviewedUsers(Integer n) throws SQLException{
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call us.getWorstReviewedUsers()}");
 
+        stmt.setInt(1,n);
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }

@@ -1,10 +1,43 @@
 package front_end;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class PurchasesOver1000 extends javax.swing.JDialog {
     
     public PurchasesOver1000(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+    }
+    
+    public void PurchaseList() throws SQLException{
+        String current_category = (String) jComboBoxCategories.getSelectedItem();
+        Integer id_category = Integer.valueOf(current_category.split(" ")[0]);
+        ResultSet r = logic_connection.DataBaseConnection.getPurchasesOver1000(); 
+        DefaultTableModel dtb = (DefaultTableModel) jTablePurchasesOver1000.getModel();
+        while(r.next()){
+            dtb.addRow(new Object[]{r.getString("ID_PURCHASE"), r.getString("PAYMENT_METHOD"), r.getInt("TOTAL_PRICE")});
+        }
+    }
+    
+    public void initial(){
+        try{
+            ResultSet c = logic_connection.DataBaseConnection.getCategories();
+            jComboBoxCategories.addItem("0 No aplica"); 
+            while(c.next()){
+                jComboBoxCategories.addItem(String.valueOf(c.getInt("ID_CATEGORY")) + " " + c.getString("NAME"));
+            }
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Cuidado", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void PurchaseCleanList(){
+        DefaultTableModel dtb = (DefaultTableModel) jTablePurchasesOver1000.getModel();
+        for (int i = dtb.getRowCount()-1;i>=0;i--) dtb.removeRow(i);
     }
 
     @SuppressWarnings("unchecked")
@@ -44,6 +77,11 @@ public class PurchasesOver1000 extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTablePurchasesOver1000);
 
         jButtoSearch.setText("Search");
+        jButtoSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtoSearchActionPerformed(evt);
+            }
+        });
 
         jButtonClose.setText("Close");
         jButtonClose.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +134,16 @@ public class PurchasesOver1000 extends javax.swing.JDialog {
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCloseActionPerformed
+
+    private void jButtoSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoSearchActionPerformed
+        try{
+            PurchaseCleanList();
+            PurchaseList();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtoSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtoSearch;

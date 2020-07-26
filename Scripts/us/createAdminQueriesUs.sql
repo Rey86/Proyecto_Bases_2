@@ -33,17 +33,18 @@ END$$
 
 -- Procedure that gets a list of the best reviewed users
 DELIMITER $$
-CREATE PROCEDURE getBestReviewedUsers ()
+CREATE PROCEDURE getBestReviewedUsers (n Int)
 BEGIN
 	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-    select u.username username, avg(r.stars) average_review
+    Select username, average_review from (select u.username username, avg(r.stars) average_review
     from user u
     inner join userreviews r on r.Username_Reviewee = u.Username
     group by username
-    order by average_review desc;
+    order by average_review desc) 
+    where rownum <= n;
 END$$
 
 -- Procedure that gets a list of the worst reviewed users
@@ -54,11 +55,12 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-    select u.username username, avg(r.stars) average_review
+    Select username, average_review from (select u.username username, avg(r.stars) average_review
     from user u
     inner join userreviews r on r.Username_Reviewee = u.Username
     group by username
-    order by average_review;
+    order by average_review)
+    where rownum <= n;
 END$$
 
 

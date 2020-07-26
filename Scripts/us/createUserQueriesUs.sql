@@ -23,7 +23,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
     -- Revisar esta
-	Select p.name product_name, p.Sold sales from user u 
+	Select p.name product, p.Sold sales from user u 
     inner join sh.product p on p.UsernameSalesman = u.Username
     where u.Username = psUsername and sold >= 1;
 END$$
@@ -36,7 +36,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-    select pu.ID_Purchase ID_Purchase, pm.Name, sum(pr.price) Total_Price from user u
+    select pu.ID_Purchase ID_Purchase, pm.Name payment_method, sum(pr.price) Total_Price from user u
     inner join sh.purchase pu on pu.Username_Customer = u.Username
     inner join sh.productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
     inner join sh.product pr on pr.ID_Product = pp.ID_Product
@@ -46,7 +46,7 @@ END$$
 
 -- Procedure that gets the list of the most recent purchases
 DELIMITER $$
-CREATE PROCEDURE getPurhaseHistory (month int, psUsername varchar(45)) 
+CREATE PROCEDURE getPurhaseHistory (psUsername varchar(45), month int) 
 BEGIN
 	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
