@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class Register extends javax.swing.JDialog {
     private String username;
+    private String photoDirection;
     
     public Register(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
@@ -53,7 +54,8 @@ public class Register extends javax.swing.JDialog {
                     txtSecondLastName.setText(u.getString("SECOND_LASTNAME"));
                     txtPassword.setText(u.getString("PASSWORD"));
                     txtID.setText(u.getString("ID_USER"));
-                    lblPhoto.setIcon(ResizeImage(u.getString("PHOTO_DIRECTION")));
+                    photoDirection = u.getString("PHOTO_DIRECTION");
+                    lblPhoto.setIcon(ResizeImage(photoDirection));
                     cmbGender.setSelectedItem(current_gender);
                     cmbCommunity.setSelectedItem(current_community);
                 }
@@ -272,6 +274,7 @@ public class Register extends javax.swing.JDialog {
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
             lblPhoto.setIcon(ResizeImage(path));
+            photoDirection = path;
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
