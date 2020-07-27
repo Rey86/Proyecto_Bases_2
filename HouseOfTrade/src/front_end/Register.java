@@ -19,6 +19,7 @@ public class Register extends javax.swing.JDialog {
         super(parent, modal);
         this.username = username;
         initComponents();
+        initial();
         setLocationRelativeTo(null);
     }
     
@@ -38,13 +39,13 @@ public class Register extends javax.swing.JDialog {
                 cmbGender.addItem(String.valueOf(g.getInt("ID_GENDER")) + " " + g.getString("NAME"));
             }
             while(c.next()){
-                cmbCommunity.addItem(String.valueOf(c.getInt("ID_COMMUNITY")) + " " + c.getString("NAME"));
+                cmbCommunity.addItem(String.valueOf(c.getInt("ID_COMMUNITY")) + " " + c.getString("COMMUNITY_NAME"));
             }
             if(!username.equals("")){
                 ResultSet u = logic_connection.DataBaseConnection.getUser(username);
                 if(u.next()) {
-                    String current_gender = u.getInt("ID_GENDER") + " " + u.getString("NAME");
-                    String current_community = u.getInt("ID_COMMUNITY") + " " + u.getString("NAME");
+                    String current_gender = u.getInt("ID_GENDER") + " " + u.getString("GENDER_NAME");
+                    String current_community = u.getInt("ID_COMMUNITY") + " " + u.getString("COMMUNITY_NAME");
                     String[] date = String.valueOf(u.getDate("BIRTHDATE")).split("-");
                     txtUsername.setText(u.getString("USERNAME"));
                     txtEmail.setText(u.getString("EMAIL"));
@@ -62,10 +63,22 @@ public class Register extends javax.swing.JDialog {
             }
         }
         catch (SQLException e){
-            JOptionPane.showMessageDialog(this, e.toString(), "Cuidado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
+    public ArrayList<String> allforeigns(){
+        ArrayList<String> users = new ArrayList<>();
+        try{
+            ResultSet r = logic_connection.DataBaseConnection.getUsers();
+            while(r.next()) users.add(r.getString("ID_USER"));
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
+        }
+        return users;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -87,7 +100,6 @@ public class Register extends javax.swing.JDialog {
         txtFirstName = new javax.swing.JTextField();
         txtFirstLastName = new javax.swing.JTextField();
         txtSecondLastName = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
         txtID = new javax.swing.JTextField();
         cmbCommunity = new javax.swing.JComboBox<>();
         cmbGender = new javax.swing.JComboBox<>();
@@ -95,6 +107,7 @@ public class Register extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
         lblPhoto = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -146,7 +159,7 @@ public class Register extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAccept)
@@ -163,7 +176,7 @@ public class Register extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,7 +192,7 @@ public class Register extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -200,7 +213,7 @@ public class Register extends javax.swing.JDialog {
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,7 +292,62 @@ public class Register extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        
+        String current_gender = (String) cmbGender.getSelectedItem();
+        String current_community = (String) cmbCommunity.getSelectedItem();
+        Integer id_gender = Integer.valueOf(current_gender.split(" ")[0]);
+        Integer id_community = Integer.valueOf(current_community.split(" ")[0]);
+        if(!txtUsername.getText().equals("")){
+            if(!txtPassword.getPassword().equals("")){
+                if(!txtFirstName.getText().equals("")){
+                    if(!txtFirstLastName.getText().equals("")){
+                        if(!txtSecondLastName.getText().equals("")){
+                            if(!txtBirthDate.getText().equals("")){
+                                if(!txtID.getText().equals("")){
+                                    if(!txtEmail.getText().equals("")){
+                                        if(!photoDirection.equals("")){
+                                            try{
+                                                if(!username.equals("")){
+                                                    logic_connection.DataBaseConnection.setUser(txtUsername.getText(), txtEmail.getText(), txtBirthDate.getText(), txtFirstName.getText(), txtFirstLastName.getText(), txtSecondLastName.getText(), String.valueOf(txtPassword.getPassword()), txtID.getText(), photoDirection, id_community, 2, id_gender);
+                                                    dispose();                                       
+                                                }
+                                                else{
+                                                    logic_connection.DataBaseConnection.insertUser(txtUsername.getText(), txtEmail.getText(), txtBirthDate.getText(), txtFirstName.getText(), txtFirstLastName.getText(), txtSecondLastName.getText(), String.valueOf(txtPassword.getPassword()), txtID.getText(), photoDirection, id_community, 2, id_gender);
+                                                    dispose(); 
+                                                }
+                                            }
+                                            catch (SQLException e){
+                                                JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
+                                            }
+                                            catch (NumberFormatException nfe){
+                                                JOptionPane.showMessageDialog(this, "Some of the entered data must be a number", "Watch out", JOptionPane.ERROR_MESSAGE);
+                                            }
+                                        }else{
+                                            JOptionPane.showMessageDialog(this, "You must select a photo", "Watch out", JOptionPane.WARNING_MESSAGE);
+                                        }
+                                    }else{
+                                        JOptionPane.showMessageDialog(this, "The email box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
+                                    }
+                                }else {
+                                    JOptionPane.showMessageDialog(this, "The ID box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
+                                }
+                            }else {
+                                JOptionPane.showMessageDialog(this, "The birthdate box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
+                            }
+                        }else {
+                            JOptionPane.showMessageDialog(this, "The second last name box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(this, "The first last name box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(this, "The first name box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
+                }
+            }else {
+                JOptionPane.showMessageDialog(this, "The password box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "The username box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -305,7 +373,7 @@ public class Register extends javax.swing.JDialog {
     private javax.swing.JTextField txtFirstLastName;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtSecondLastName;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

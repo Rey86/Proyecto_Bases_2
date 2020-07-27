@@ -174,8 +174,8 @@ public class EditCatalogs extends javax.swing.JDialog {
     }//GEN-LAST:event_btnNationalityActionPerformed
 
     private void btnCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityActionPerformed
-        /*ListCommunity dialog = new ListCommunity(new javax.swing.JFrame(), true);
-        dialog.setVisible(true);*/
+        ListCommunity dialog = new ListCommunity(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnCommunityActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed

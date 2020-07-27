@@ -170,20 +170,20 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	SELECT u.username username, u.email email, u.birthdate birthdate, (SYSDATE-u.birthdate) age, 
-	u.name first_name, u.firstlastname first_lastname, u.secondlastname second_lastname, 
+	SELECT u.username username, u.email email, u.birthdate birthdate, TIMESTAMPDIFF(YEAR,u.birthdate,CURDATE()) age, 
+	u.name first_name, u.firstlastname first_lastname, u.secondlastname second_lastname, u.password password,
     u.id id_user, u.photodirection photo_direction, u.id_community id_community, c.name community_name, 
     u.id_usertype id_usertype, ut.name usertype_name, u.id_gender id_gender, g.name gender_name
 	FROM USER u
-    INNER JOIN COMMUNITY c
+    INNER JOIN PL.COMMUNITY c
     ON u.id_community = c.id_community
     INNER JOIN USERTYPE ut
     ON u.id_usertype = ut.id_usertype
     INNER JOIN GENDER g
     ON u.id_gender = g.id_gender
-	WHERE u.username = IFNULL(pcUsername, u.username);
+	WHERE u.username = IFNULL('Rey86', u.username);
 END$$
-
+SELECT * FROM USER;
 -- Procedure to get a user salesmanaverage with specific username
 DELIMITER $$
 CREATE PROCEDURE getUserSalesmanAverage (pcUsername VARCHAR(45)) 

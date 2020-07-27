@@ -211,12 +211,12 @@ public class DataBaseConnection {
     }
     
     // Procedure to insert a district in the system
-    public static void insertCanton(String pcCantonName, Integer pnIdDistrict) throws SQLException{
+    public static void insertCanton(String pcCantonName, Integer pnIdProvince) throws SQLException{
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call pl.insertCanton(?,?)}");
         
         stmt.setString(1, pcCantonName);
-        stmt.setInt(2, pnIdDistrict);
+        stmt.setInt(2, pnIdProvince);
         stmt.execute();
     }
     
@@ -234,7 +234,7 @@ public class DataBaseConnection {
     // Function to get a community of the system
     public static ResultSet getCommunity(Integer pnIdCommunity) throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{?= call pl.getCommunity(?)}");
+        CallableStatement stmt = con.prepareCall("{ call pl.getCommunity(?)}");
 
         stmt.setInt(1, pnIdCommunity);
         ResultSet r = (ResultSet) stmt.executeQuery();
@@ -242,13 +242,13 @@ public class DataBaseConnection {
     }
     
     // Function to set a community of the system
-    public static void setCommunity(Integer pnIdCommunity, String pcCommunityName, Integer pnIdDistrict) throws SQLException{
+    public static void setCommunity(Integer pnIdCommunity, String pcCommunityName, Integer pnIdCanton) throws SQLException{
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call pl.setCommunity(?,?,?)}");
         
         stmt.setInt(1, pnIdCommunity);
         stmt.setString(2, pcCommunityName);
-        stmt.setInt(3, pnIdDistrict);
+        stmt.setInt(3, pnIdCanton);
         stmt.execute();
     }
     
@@ -262,12 +262,12 @@ public class DataBaseConnection {
     }
     
     // Procedure to insert a community in the system
-    public static void insertCommunity(String pcCommunityName, Integer pnIdDistrict) throws SQLException{
+    public static void insertCommunity(String pcCommunityName, Integer pnIdCanton) throws SQLException{
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call pl.insertCommunity(?,?)}");
         
         stmt.setString(1, pcCommunityName);
-        stmt.setInt(2, pnIdDistrict);
+        stmt.setInt(2, pnIdCanton);
         stmt.execute();
     }
     

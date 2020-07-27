@@ -19,6 +19,7 @@ public class MainUser extends javax.swing.JDialog {
         btnViewProducts = new javax.swing.JButton();
         btnQueries = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        btnEditProfile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -50,6 +51,13 @@ public class MainUser extends javax.swing.JDialog {
             }
         });
 
+        btnEditProfile.setText("Edit Profile");
+        btnEditProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditProfileActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -60,7 +68,8 @@ public class MainUser extends javax.swing.JDialog {
                     .addComponent(btnQueries)
                     .addComponent(btnExit)
                     .addComponent(btnRegisterProduct)
-                    .addComponent(btnViewProducts))
+                    .addComponent(btnViewProducts)
+                    .addComponent(btnEditProfile))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -72,6 +81,8 @@ public class MainUser extends javax.swing.JDialog {
                 .addComponent(btnViewProducts)
                 .addGap(18, 18, 18)
                 .addComponent(btnQueries)
+                .addGap(18, 18, 18)
+                .addComponent(btnEditProfile)
                 .addGap(18, 18, 18)
                 .addComponent(btnExit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -98,7 +109,13 @@ public class MainUser extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
+        Register dialog = new Register(new javax.swing.JFrame(), true, username);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnEditProfileActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditProfile;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnQueries;
     private javax.swing.JButton btnRegisterProduct;

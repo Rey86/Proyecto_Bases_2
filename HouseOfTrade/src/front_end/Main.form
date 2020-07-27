@@ -42,7 +42,7 @@
               <Component id="jLabel1" min="-2" pref="14" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="btnSignIn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnSignUp" min="-2" pref="23" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnExit" min="-2" pref="23" max="-2" attributes="0"/>

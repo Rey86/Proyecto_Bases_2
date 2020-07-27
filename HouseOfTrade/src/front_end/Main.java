@@ -76,7 +76,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
-        Register dialog = new Register(new javax.swing.JFrame(), true);
+        Register dialog = new Register(new javax.swing.JFrame(), true, "");
         dialog.setVisible(true);
     }//GEN-LAST:event_btnSignUpActionPerformed
 

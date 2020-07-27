@@ -14,7 +14,7 @@ public class ListCommunity extends javax.swing.JDialog {
             CommunityList();
         }
         catch (SQLException e){
-            JOptionPane.showMessageDialog(this, e.toString(), "Cuidado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -149,10 +149,10 @@ public class ListCommunity extends javax.swing.JDialog {
                 CommunityList();
             }
             catch (SQLException e){
-                JOptionPane.showMessageDialog(this, e.toString(), "Cuidado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un valor a editar", "Cuidado", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Select a row to edit", "Watch out", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonEditActionPerformed
 
@@ -164,7 +164,7 @@ public class ListCommunity extends javax.swing.JDialog {
             CommunityList();
         }
         catch (SQLException e){
-            JOptionPane.showMessageDialog(this, e.toString(), "Cuidado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonInsertActionPerformed
 
@@ -177,10 +177,10 @@ public class ListCommunity extends javax.swing.JDialog {
                 CommunityList();
             }
             catch (SQLException e){
-                JOptionPane.showMessageDialog(this, e.toString(), "Cuidado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un valor a editar", "Cuidado", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Select a row to delete", "Watch out", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_jButtonDeleteActionPerformed

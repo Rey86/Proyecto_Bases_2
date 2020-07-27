@@ -30,6 +30,7 @@
                   <Component id="btnExit" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRegisterProduct" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnViewProducts" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEditProfile" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -44,6 +45,8 @@
               <Component id="btnViewProducts" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnQueries" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnEditProfile" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnExit" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -82,6 +85,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExitActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnEditProfile">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Edit Profile"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditProfileActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

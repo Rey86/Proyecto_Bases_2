@@ -87,27 +87,36 @@ public class SignIn extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-
+        String user_password = "";
+        String usertype_description = "";
         try{
             ResultSet password = logic_connection.DataBaseConnection.getUserPassword(txtUsername.getText());
-            String user_password = password.getString("PASSWORD");
+            while(password.next()){
+                user_password = password.getString("PASSWORD");
+            }
             String current_password = String.valueOf(txtPassword.getPassword());
-            if (user_password.equals(current_password)){
-                ResultSet usertype = logic_connection.DataBaseConnection.getCurrentUserType(txtUsername.getText());
-                String usertype_description = usertype.getString("NAME"); 
-                if(usertype_description.equals("Administrador")){
-                    MainAdmin dialog = new  MainAdmin(new javax.swing.JFrame(), true, txtUsername.getText());
-                    dialog.setVisible(true);
+            if (!current_password.equals("")){
+                if (user_password.equals(current_password)){
+                    ResultSet usertype = logic_connection.DataBaseConnection.getCurrentUserType(txtUsername.getText());
+                    while(usertype.next()){
+                        usertype_description = usertype.getString("NAME");
+                    }
+                    if(usertype_description.equals("Administrador")){
+                        MainAdmin dialog = new  MainAdmin(new javax.swing.JFrame(), true, txtUsername.getText());
+                        dialog.setVisible(true);
+                    } else {
+                        MainUser dialog = new  MainUser(new javax.swing.JFrame(), true, txtUsername.getText());
+                        dialog.setVisible(true);
+                    }
                 } else {
-                    MainUser dialog = new  MainUser(new javax.swing.JFrame(), true, txtUsername.getText());
-                    dialog.setVisible(true);
+                    JOptionPane.showMessageDialog(this, "Your password is wrong", "Access Denied", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Su contraseña es incorrecta", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Your password is empty", "Access Denied", JOptionPane.ERROR_MESSAGE);
             }
         }
         catch (SQLException e){
-            JOptionPane.showMessageDialog(this, e.toString(), "Cuidado", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnAcceptActionPerformed
 

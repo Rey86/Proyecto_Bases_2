@@ -24,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
                   <Group type="102" alignment="2" attributes="0">
                       <Component id="btnAccept" min="-2" max="-2" attributes="0"/>
@@ -44,7 +44,7 @@
                   <Group type="102" alignment="2" attributes="0">
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtPassword" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="txtPassword" min="-2" pref="101" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="2" attributes="0">
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
@@ -64,7 +64,7 @@
                   <Group type="102" alignment="2" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtEmail" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="txtEmail" min="-2" pref="227" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="2" attributes="0">
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -93,7 +93,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
+              <EmptySpace pref="46" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -234,8 +234,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtSecondLastName">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtPassword">
-    </Component>
     <Component class="javax.swing.JTextField" name="txtID">
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbCommunity">
@@ -283,6 +281,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="txtPassword">
     </Component>
   </SubComponents>
 </Form>
