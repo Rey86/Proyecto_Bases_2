@@ -12,6 +12,7 @@ public class PurchasesOver1000 extends javax.swing.JDialog {
         this.username = username;
         initComponents();
         setLocationRelativeTo(null);
+        initial();
     }
     
     public void PurchaseList() throws SQLException{
