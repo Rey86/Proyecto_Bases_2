@@ -5,9 +5,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PurchasesOver1000 extends javax.swing.JDialog {
+    private String username;
     
-    public PurchasesOver1000(java.awt.Frame parent, boolean modal) {
+    public PurchasesOver1000(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -15,7 +17,7 @@ public class PurchasesOver1000 extends javax.swing.JDialog {
     public void PurchaseList() throws SQLException{
         String current_category = (String) jComboBoxCategories.getSelectedItem();
         Integer id_category = Integer.valueOf(current_category.split(" ")[0]);
-        ResultSet r = logic_connection.DataBaseConnection.getPurchasesOver1000(); 
+        ResultSet r = logic_connection.DataBaseConnection.getPurchasesOver1000PerCategory(username, id_category); 
         DefaultTableModel dtb = (DefaultTableModel) jTablePurchasesOver1000.getModel();
         while(r.next()){
             dtb.addRow(new Object[]{r.getString("ID_PURCHASE"), r.getString("PAYMENT_METHOD"), r.getInt("TOTAL_PRICE")});

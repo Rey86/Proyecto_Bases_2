@@ -1,9 +1,11 @@
 package front_end;
 
 public class MainAdmin extends javax.swing.JDialog {
+    private String username;
 
-    public MainAdmin(java.awt.Frame parent, boolean modal) {
+    public MainAdmin(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -114,7 +116,7 @@ public class MainAdmin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEditCatalogsActionPerformed
 
     private void btnQueriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQueriesActionPerformed
-        QueriesAdmin dialog = new QueriesAdmin(new javax.swing.JFrame(), true);
+        QueriesAdmin dialog = new QueriesAdmin(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnQueriesActionPerformed
 

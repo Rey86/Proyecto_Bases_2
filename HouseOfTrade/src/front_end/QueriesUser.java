@@ -73,54 +73,47 @@ public class QueriesUser extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(166, 166, 166)
-                .addComponent(jLabel1)
-                .addContainerGap(171, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(132, 132, 132)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(btnViewsHistory)
-                        .addComponent(btnSoldProduct)
-                        .addComponent(btnSearchProducts)
-                        .addComponent(btnPurchasesOver1000)
-                        .addComponent(btnExit)
-                        .addComponent(btnPurchaseHistory))
-                    .addContainerGap(133, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnViewsHistory)
+                    .addComponent(btnSoldProduct)
+                    .addComponent(btnSearchProducts)
+                    .addComponent(btnPurchasesOver1000)
+                    .addComponent(btnExit)
+                    .addComponent(btnPurchaseHistory)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(298, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(47, 47, 47)
-                    .addComponent(btnSearchProducts)
-                    .addGap(18, 18, 18)
-                    .addComponent(btnPurchaseHistory)
-                    .addGap(18, 18, 18)
-                    .addComponent(btnViewsHistory)
-                    .addGap(18, 18, 18)
-                    .addComponent(btnSoldProduct)
-                    .addGap(18, 18, 18)
-                    .addComponent(btnPurchasesOver1000)
-                    .addGap(18, 18, 18)
-                    .addComponent(btnExit)
-                    .addContainerGap(48, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(btnSearchProducts)
+                .addGap(18, 18, 18)
+                .addComponent(btnPurchaseHistory)
+                .addGap(18, 18, 18)
+                .addComponent(btnViewsHistory)
+                .addGap(18, 18, 18)
+                .addComponent(btnSoldProduct)
+                .addGap(18, 18, 18)
+                .addComponent(btnPurchasesOver1000)
+                .addGap(18, 18, 18)
+                .addComponent(btnExit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnViewsHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewsHistoryActionPerformed
-        viewsHistory dialog = new viewsHistory(new javax.swing.JFrame(), true);
+        viewsHistory dialog = new viewsHistory(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnViewsHistoryActionPerformed
 
     private void btnSoldProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoldProductActionPerformed
-        SoldProduct dialog = new SoldProduct(new javax.swing.JFrame(), true);
+        SoldProduct dialog = new SoldProduct(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnSoldProductActionPerformed
 
@@ -130,7 +123,7 @@ public class QueriesUser extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSearchProductsActionPerformed
 
     private void btnPurchasesOver1000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPurchasesOver1000ActionPerformed
-        PurchasesOver1000 dialog = new PurchasesOver1000(new javax.swing.JFrame(), true);
+        PurchasesOver1000 dialog = new PurchasesOver1000(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnPurchasesOver1000ActionPerformed
 
@@ -139,7 +132,7 @@ public class QueriesUser extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnPurchaseHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPurchaseHistoryActionPerformed
-        PurchaseHistory dialog = new PurchaseHistory(new javax.swing.JFrame(), true);
+        PurchaseHistory dialog = new PurchaseHistory(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnPurchaseHistoryActionPerformed
 

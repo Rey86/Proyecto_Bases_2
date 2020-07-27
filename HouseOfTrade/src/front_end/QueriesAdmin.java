@@ -1,9 +1,11 @@
 package front_end;
 
 public class QueriesAdmin extends javax.swing.JDialog {
+    private String username;
 
-    public QueriesAdmin(java.awt.Frame parent, boolean modal) {
+    public QueriesAdmin(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -207,22 +209,22 @@ public class QueriesAdmin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSearchProductsActionPerformed
 
     private void btnPurchaseHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPurchaseHistoryActionPerformed
-        PurchaseHistory dialog = new PurchaseHistory(new javax.swing.JFrame(), true);
+        PurchaseHistory dialog = new PurchaseHistory(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnPurchaseHistoryActionPerformed
 
     private void btnViewsHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewsHistoryActionPerformed
-        viewsHistory dialog = new viewsHistory(new javax.swing.JFrame(), true);
+        viewsHistory dialog = new viewsHistory(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnViewsHistoryActionPerformed
 
     private void btnSoldProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSoldProductActionPerformed
-        SoldProduct dialog = new SoldProduct(new javax.swing.JFrame(), true);
+        SoldProduct dialog = new SoldProduct(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnSoldProductActionPerformed
 
     private void btnPurchasesOver1000ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPurchasesOver1000ActionPerformed
-        PurchasesOver1000 dialog = new PurchasesOver1000(new javax.swing.JFrame(), true);
+        PurchasesOver1000 dialog = new PurchasesOver1000(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnPurchasesOver1000ActionPerformed
 

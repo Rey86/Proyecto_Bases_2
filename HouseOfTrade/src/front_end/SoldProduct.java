@@ -5,15 +5,17 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class SoldProduct extends javax.swing.JDialog {
+    private String username;
 
-    public SoldProduct(java.awt.Frame parent, boolean modal) {
+    public SoldProduct(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }
     
     public void ProductList() throws SQLException{
-        ResultSet r = logic_connection.DataBaseConnection.getSoldProducts(); 
+        ResultSet r = logic_connection.DataBaseConnection.getSoldProducts(username); 
         DefaultTableModel dtb = (DefaultTableModel) jTableSoldProducts.getModel();
         while(r.next()){
             dtb.addRow(new Object[]{r.getString("PRODUCT"), r.getInt("SALES")});

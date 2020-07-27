@@ -5,15 +5,17 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class viewsHistory extends javax.swing.JDialog {
+    private String username;
 
-    public viewsHistory(java.awt.Frame parent, boolean modal) {
+    public viewsHistory(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }
     
     public void ProductList() throws SQLException{
-        ResultSet r = logic_connection.DataBaseConnection.getviewsHistory(); 
+        ResultSet r = logic_connection.DataBaseConnection.getViewsHistory(username); 
         DefaultTableModel dtb = (DefaultTableModel) jTableRecentViews.getModel();
         while(r.next()){
             dtb.addRow(new Object[]{r.getInt("ID_PURCHASE"), r.getString("VIEWED_BY"), r.getString("VIEWED")});

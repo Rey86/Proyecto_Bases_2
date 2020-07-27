@@ -1229,7 +1229,7 @@ public class DataBaseConnection {
         return r;
     }
     
-    public static ResultSet getSoldProduct(String psUsername) throws SQLException{
+    public static ResultSet getSoldProducts(String psUsername) throws SQLException{
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call us.getSoldProduct(?)}");
 
