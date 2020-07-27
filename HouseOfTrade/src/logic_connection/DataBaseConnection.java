@@ -1248,7 +1248,7 @@ public class DataBaseConnection {
         return r;
     }
     
-    public static ResultSet getPurhaseHistory(String psUsername, Integer month) throws SQLException{
+    public static ResultSet getPurchaseHistory(String psUsername, Integer month) throws SQLException{
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call us.getPurhaseHistory(?, ?)}");
 

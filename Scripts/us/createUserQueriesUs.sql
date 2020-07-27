@@ -53,11 +53,11 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	-- Corregir calculo de meses
-	Select pu.ID_Purchase ID_Purchase, pu.Date Date, pm.Name,  sum(pr.price) Total_Price
+	Select pu.ID_Purchase ID_Purchase, pu.Date Date, pm.Name Payment_Method,  sum(pr.price) Total_Price
     from user u
     inner join sh.purchase pu on pu.Username_Customer = u.Username
     inner join sh.productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
     inner join sh.product pr on pr.ID_Product = pp.ID_Product
     inner join paymentmethod pm on pm.ID_PaymentMethod = pu.ID_PaymentMethod
-    where u.username = psUsername and month(date) = month;
+    where u.username = psUsername and sysdate()- month(date) = ifnull(month, sysdate()- month(date));
 END$$
