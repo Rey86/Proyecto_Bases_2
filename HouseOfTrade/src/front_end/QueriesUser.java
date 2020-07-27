@@ -1,9 +1,11 @@
 package front_end;
 
 public class QueriesUser extends javax.swing.JDialog {
-
-    public QueriesUser(java.awt.Frame parent, boolean modal) {
+    private String username;
+   
+    public QueriesUser(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }

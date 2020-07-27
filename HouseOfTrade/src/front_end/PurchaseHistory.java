@@ -5,15 +5,17 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PurchaseHistory extends javax.swing.JDialog {
+    private String username;
 
-    public PurchaseHistory(java.awt.Frame parent, boolean modal) {
+    public PurchaseHistory(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }
 
     public void PurchaseList() throws SQLException{
-        ResultSet r = logic_connection.DataBaseConnection.getPurchaseHistory(, Integer.parseInt(jTextFieldMonths.getText()) ); 
+        ResultSet r = logic_connection.DataBaseConnection.getPurchaseHistory(username, Integer.parseInt(jTextFieldMonths.getText())); 
         DefaultTableModel dtb = (DefaultTableModel) jTablePurchaseHistory.getModel();
         while(r.next()){
             dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("DATE"), r.getString("PAYMENT_METHOD"), r.getInt("TOTAL_PRICE")});

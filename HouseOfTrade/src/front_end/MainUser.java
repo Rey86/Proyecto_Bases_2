@@ -1,10 +1,11 @@
 package front_end;
 
 public class MainUser extends javax.swing.JDialog {
-
+    private String username;
     
-    public MainUser(java.awt.Frame parent, boolean modal) {
+    public MainUser(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -89,7 +90,7 @@ public class MainUser extends javax.swing.JDialog {
     }//GEN-LAST:event_btnViewProductsActionPerformed
 
     private void btnQueriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQueriesActionPerformed
-        QueriesUser dialog = new QueriesUser(new javax.swing.JFrame(), true);
+        QueriesUser dialog = new QueriesUser(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnQueriesActionPerformed
 
