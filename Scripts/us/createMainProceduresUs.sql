@@ -181,9 +181,9 @@ BEGIN
     ON u.id_usertype = ut.id_usertype
     INNER JOIN GENDER g
     ON u.id_gender = g.id_gender
-	WHERE u.username = IFNULL('Rey86', u.username);
+	WHERE u.username = IFNULL(pcUsername, u.username);
 END$$
-SELECT * FROM USER;
+
 -- Procedure to get a user salesmanaverage with specific username
 DELIMITER $$
 CREATE PROCEDURE getUserSalesmanAverage (pcUsername VARCHAR(45)) 

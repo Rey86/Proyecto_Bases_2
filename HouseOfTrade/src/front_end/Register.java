@@ -307,7 +307,9 @@ public class Register extends javax.swing.JDialog {
                                         if(!photoDirection.equals("")){
                                             try{
                                                 if(!username.equals("")){
-                                                    logic_connection.DataBaseConnection.setUser(txtUsername.getText(), txtEmail.getText(), txtBirthDate.getText(), txtFirstName.getText(), txtFirstLastName.getText(), txtSecondLastName.getText(), String.valueOf(txtPassword.getPassword()), txtID.getText(), photoDirection, id_community, 2, id_gender);
+                                                    String[] numbers = txtBirthDate.getText().split("-");
+                                                    String birthdate = numbers[2] + "-" + numbers[1] + "-" + numbers[0];
+                                                    logic_connection.DataBaseConnection.setUser(txtUsername.getText(), txtEmail.getText(), birthdate, txtFirstName.getText(), txtFirstLastName.getText(), txtSecondLastName.getText(), String.valueOf(txtPassword.getPassword()), txtID.getText(), photoDirection, id_community, 2, id_gender);
                                                     dispose();                                       
                                                 }
                                                 else{
