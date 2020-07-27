@@ -53,6 +53,7 @@ public class Register extends javax.swing.JDialog {
                     txtSecondLastName.setText(u.getString("SECOND_LASTNAME"));
                     txtPassword.setText(u.getString("PASSWORD"));
                     txtID.setText(u.getString("ID_USER"));
+                    
                     cmbGender.setSelectedItem(current_gender);
                     cmbCommunity.setSelectedItem(current_community);
                 }
