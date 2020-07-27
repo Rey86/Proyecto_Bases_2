@@ -10,6 +10,7 @@ public class TopPricesPerCategory extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        initial();
     }
     
     public void ProductsList() throws SQLException{
