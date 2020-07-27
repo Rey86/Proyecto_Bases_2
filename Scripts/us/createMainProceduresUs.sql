@@ -171,10 +171,9 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT u.username username, u.email email, u.birthdate birthdate, (SYSDATE-u.birthdate) age, 
-	u.name first_name, u.firstlastname first_lastname, u.secondlastname second_lastname,
-    u.password password, u.id id_user, u.photodirection photo_direction, u.id_community id_community,
-    c.name community_name, u.id_usertype id_usertype, ut.name usertype_name, u.id_gender id_gender, 
-	g.name gender_name
+	u.name first_name, u.firstlastname first_lastname, u.secondlastname second_lastname, 
+    u.id id_user, u.photodirection photo_direction, u.id_community id_community, c.name community_name, 
+    u.id_usertype id_usertype, ut.name usertype_name, u.id_gender id_gender, g.name gender_name
 	FROM USER u
     INNER JOIN COMMUNITY c
     ON u.id_community = c.id_community
@@ -215,6 +214,34 @@ BEGIN
     ON u.username = us.username_reviewee
 	WHERE u.username = pcUsername and us.customer = 1
     GROUP BY u.username;
+END$$
+
+-- Procedure to get a user password with specific username
+DELIMITER $$
+CREATE PROCEDURE getUserPassword (pcUsername VARCHAR(45)) 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	SELECT password
+	FROM USER
+	WHERE username = pcUserName;
+END$$
+
+-- Procedure to get a user type with specific username
+DELIMITER $$
+CREATE PROCEDURE getCurrentUserType (pcUsername VARCHAR(45)) 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	SELECT ut.name
+	FROM USER u
+    INNER JOIN USERTYPE ut
+    ON u.id_usertype = ut.id_usertype
+	WHERE username = pcUserName;
 END$$
 
 -- Procedure to set a user with specific id and the new values wrote by the user  

@@ -21,6 +21,11 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setText("House of Trade");
 
         btnSignIn.setText("Sign In");
+        btnSignIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignInActionPerformed(evt);
+            }
+        });
 
         btnSignUp.setText("Sign Up");
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +79,11 @@ public class Main extends javax.swing.JFrame {
         Register dialog = new Register(new javax.swing.JFrame(), true);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnSignUpActionPerformed
+
+    private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
+        SignIn dialog = new SignIn(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnSignInActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -899,6 +899,25 @@ public class DataBaseConnection {
         return r;
     }
     
+    public static ResultSet getUserPassword(String pcUserName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUserPassword(?)}");
+        
+        stmt.setString(1, pcUserName);
+        stmt.executeQuery();
+        ResultSet password = (ResultSet) stmt.executeQuery();
+        return password;
+    }
+    
+    public static ResultSet getCurrentUserType(String pcUserName) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getCurrentUserType(?)}");
+        
+        stmt.setString(1, pcUserName);
+        ResultSet usertype_name = (ResultSet) stmt.executeQuery();
+        return usertype_name;
+    }
+    
     // Function to set a user of the system
     public static void setUser(String pcUsername, String pcEmail, String pdBirthdate, String pcFirstName, 
             String pcFirstLastName, String pcSecondLastName, String pcPassword, String pnIdUser, String pcPhotoDirection, 

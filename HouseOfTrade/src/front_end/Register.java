@@ -5,11 +5,18 @@ import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 
 public class Register extends javax.swing.JDialog {
-
-    public Register(java.awt.Frame parent, boolean modal) {
+    private String username;
+    
+    public Register(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -20,6 +27,40 @@ public class Register extends javax.swing.JDialog {
         Image newImg = img.getScaledInstance(lblPhoto.getWidth(), lblPhoto.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
+    }
+    
+    public void initial(){
+        try{
+            ResultSet g = logic_connection.DataBaseConnection.getGenders();
+            ResultSet c = logic_connection.DataBaseConnection.getCommunities();
+            while(g.next()){
+                cmbGender.addItem(String.valueOf(g.getInt("ID_GENDER")) + " " + g.getString("NAME"));
+            }
+            while(c.next()){
+                cmbCommunity.addItem(String.valueOf(c.getInt("ID_COMMUNITY")) + " " + c.getString("NAME"));
+            }
+            if(!username.equals("")){
+                ResultSet u = logic_connection.DataBaseConnection.getUser(username);
+                if(u.next()) {
+                    String current_gender = u.getInt("ID_GENDER") + " " + u.getString("NAME");
+                    String current_community = u.getInt("ID_COMMUNITY") + " " + u.getString("NAME");
+                    String[] date = String.valueOf(u.getDate("BIRTHDATE")).split("-");
+                    txtUsername.setText(u.getString("USERNAME"));
+                    txtEmail.setText(u.getString("EMAIL"));
+                    txtBirthDate.setText(date[2] + "-" + date[1] + "-" + date[0]);
+                    txtFirstName.setText(u.getString("FIRST_NAME"));  
+                    txtFirstLastName.setText(u.getString("FIRST_LASTNAME"));
+                    txtSecondLastName.setText(u.getString("SECOND_LASTNAME"));
+                    txtPassword.setText(u.getString("PASSWORD"));
+                    txtID.setText(u.getString("ID_USER"));
+                    cmbGender.setSelectedItem(current_gender);
+                    cmbCommunity.setSelectedItem(current_community);
+                }
+            }
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Cuidado", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -42,7 +83,7 @@ public class Register extends javax.swing.JDialog {
         txtBirthDate = new javax.swing.JTextField();
         txtFirstName = new javax.swing.JTextField();
         txtFirstLastName = new javax.swing.JTextField();
-        txtSecorndLastName = new javax.swing.JTextField();
+        txtSecondLastName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
         txtID = new javax.swing.JTextField();
         cmbCommunity = new javax.swing.JComboBox<>();
@@ -115,7 +156,7 @@ public class Register extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSecorndLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtSecondLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,7 +225,7 @@ public class Register extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtSecorndLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSecondLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -234,7 +275,7 @@ public class Register extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -261,7 +302,7 @@ public class Register extends javax.swing.JDialog {
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtSecorndLastName;
+    private javax.swing.JTextField txtSecondLastName;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
