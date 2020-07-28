@@ -55,10 +55,10 @@ COMMENT = 'Table that stores data of purchases';
 CREATE TABLE `sh`.`product` (
   `ID_Product` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the product',
   `Name` VARCHAR(45) NOT NULL COMMENT 'Date of the product',
-  `Price` INT NOT NULL COMMENT 'Price of the product',
-  `Sold` INT NOT NULL COMMENT 'Boolean that shows if the product is sold',
+  `Price` INT UNSIGNED NOT NULL COMMENT 'Price of the product',
+  `Sold` INT UNSIGNED NOT NULL COMMENT 'Boolean that shows if the product is sold',
   `Description` VARCHAR(140) NOT NULL COMMENT 'Description of the product',
-  `Quantity` INT NOT NULL COMMENT 'Quantity of the product',
+  `Quantity` INT UNSIGNED NOT NULL COMMENT 'Quantity of the product',
   `UsernameSalesman` VARCHAR(45) NOT NULL COMMENT 'Identification name of the salesman',
   `ID_Category` INT NOT NULL COMMENT 'Identification number of the product category',
   `ID_DeliveryType` INT NOT NULL COMMENT 'Identification number of the delivery type of the product',
@@ -89,7 +89,7 @@ COMMENT = 'Table that stores data of products';
 
 CREATE TABLE `sh`.`review` (
   `ID_Review` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the review',
-  `Stars` INT NOT NULL COMMENT 'Calification of the product that is being reviewed',
+  `Stars` INT UNSIGNED NOT NULL COMMENT 'Calification of the product that is being reviewed',
   `Comment` VARCHAR(45) NOT NULL COMMENT 'Comment of the product that is being reviewed',
   `ID_Product` INT NOT NULL COMMENT 'Identification number of the product that is being reviewed',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
@@ -126,7 +126,7 @@ COMMENT = 'Table that stores the directions of the photos of products';
 CREATE TABLE `sh`.`productxpurchase` (
   `ID_Product` INT NOT NULL COMMENT 'Identification number of the product',
   `ID_Purchase` INT NOT NULL COMMENT 'Identification number of the purchase',
-  `Quantity` INT NOT NULL COMMENT 'Quantity of the products in the purchase',
+  `Quantity` INT UNSIGNED NOT NULL COMMENT 'Quantity of the products in the purchase',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
