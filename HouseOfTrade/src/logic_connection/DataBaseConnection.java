@@ -1220,12 +1220,10 @@ public class DataBaseConnection {
         return r;
     }
     
-    public static ResultSet getTopPurchaseAmountPerCategory(Integer n, Integer pnID_Category) throws SQLException{
+    public static ResultSet getMaxMinPurchaseAmountPerCategory() throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{ call sh.getTopPurchaseAmountPerCategory(?, ?)}");
+        CallableStatement stmt = con.prepareCall("{ call sh.getMaxMinPurchaseAmountPerCategory()}");
 
-        stmt.setInt(1, n);
-        stmt.setInt(2, pnID_Category);
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }

@@ -199,7 +199,7 @@ public class QueriesAdmin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnTopPricesPerCategoryActionPerformed
 
     private void btnTopPurchaseAmountPerCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTopPurchaseAmountPerCategoryActionPerformed
-        TopPurchaseAmountPerCategory dialog = new TopPurchaseAmountPerCategory(new javax.swing.JFrame(), true);
+        MaxMinPurchaseAmountPerCategory dialog = new MaxMinPurchaseAmountPerCategory(new javax.swing.JFrame(), true);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnTopPurchaseAmountPerCategoryActionPerformed
 
