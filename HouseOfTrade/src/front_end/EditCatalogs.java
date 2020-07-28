@@ -23,7 +23,6 @@ public class EditCatalogs extends javax.swing.JDialog {
         btnGender = new javax.swing.JButton();
         btnCategory = new javax.swing.JButton();
         btnDeliveryType = new javax.swing.JButton();
-        btnUserType = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -99,13 +98,6 @@ public class EditCatalogs extends javax.swing.JDialog {
             }
         });
 
-        btnUserType.setText("User Type");
-        btnUserType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUserTypeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,9 +116,8 @@ public class EditCatalogs extends javax.swing.JDialog {
                     .addComponent(btnGender)
                     .addComponent(btnCategory)
                     .addComponent(btnDeliveryType)
-                    .addComponent(btnUserType)
                     .addComponent(btnPaymentMethod))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExit)
@@ -151,12 +142,10 @@ public class EditCatalogs extends javax.swing.JDialog {
                     .addComponent(btnProvince, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUserType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCountry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCountry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPaymentMethod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPaymentMethod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNationality))
+                .addComponent(btnNationality)
                 .addGap(18, 18, 18)
                 .addComponent(btnExit)
                 .addContainerGap())
@@ -166,11 +155,13 @@ public class EditCatalogs extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPaymentMethodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentMethodActionPerformed
-        // TODO add your handling code here:
+        ListPaymentMethod dialog = new ListPaymentMethod(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnPaymentMethodActionPerformed
 
     private void btnNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNationalityActionPerformed
-        // TODO add your handling code here:
+        ListNationality dialog = new ListNationality(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnNationalityActionPerformed
 
     private void btnCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityActionPerformed
@@ -198,21 +189,19 @@ public class EditCatalogs extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCountryActionPerformed
 
     private void btnGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenderActionPerformed
-        /*ListGender dialog = new ListGender(new javax.swing.JFrame(), true);
-        dialog.setVisible(true);*/
+        ListGender dialog = new ListGender(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnGenderActionPerformed
 
     private void btnCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoryActionPerformed
-        // TODO add your handling code here:
+        ListCategory dialog = new ListCategory(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnCategoryActionPerformed
 
     private void btnDeliveryTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeliveryTypeActionPerformed
-        // TODO add your handling code here:
+        ListDeliveryType dialog = new ListDeliveryType(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnDeliveryTypeActionPerformed
-
-    private void btnUserTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserTypeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUserTypeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCanton;
@@ -225,7 +214,6 @@ public class EditCatalogs extends javax.swing.JDialog {
     private javax.swing.JButton btnNationality;
     private javax.swing.JButton btnPaymentMethod;
     private javax.swing.JButton btnProvince;
-    private javax.swing.JButton btnUserType;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

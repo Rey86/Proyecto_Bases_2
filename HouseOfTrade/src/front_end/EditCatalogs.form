@@ -38,10 +38,9 @@
                   <Component id="btnGender" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCategory" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDeliveryType" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnUserType" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btnPaymentMethod" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="74" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
@@ -72,14 +71,11 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnUserType" alignment="3" max="32767" attributes="0"/>
                   <Component id="btnCountry" alignment="3" max="32767" attributes="0"/>
+                  <Component id="btnPaymentMethod" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnPaymentMethod" alignment="3" max="32767" attributes="0"/>
-                  <Component id="btnNationality" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnNationality" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnExit" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -171,14 +167,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeliveryTypeActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnUserType">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="User Type"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUserTypeActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
