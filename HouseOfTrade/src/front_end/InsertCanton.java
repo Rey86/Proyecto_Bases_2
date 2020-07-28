@@ -1,15 +1,15 @@
 package front_end;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
-public class InsertCommunity extends javax.swing.JDialog {
-    private Integer id_community;
+public class InsertCanton extends javax.swing.JDialog {
+    private Integer id_canton;
 
-    public InsertCommunity(java.awt.Frame parent, boolean modal, Integer id_community) {
+    public InsertCanton(java.awt.Frame parent, boolean modal, Integer id_canton) {
         super(parent, modal);
-        this.id_community = id_community;
+        this.id_canton = id_canton;
         initComponents();
         initial();
         setLocationRelativeTo(null);
@@ -17,12 +17,12 @@ public class InsertCommunity extends javax.swing.JDialog {
 
     public void initial(){
         try{
-            if(id_community > 0){
-                ResultSet r = logic_connection.DataBaseConnection.getCommunity(id_community);
+            if(id_canton > 0){
+                ResultSet r = logic_connection.DataBaseConnection.getCanton(id_canton);
                 if(r.next()) {
-                    jLabelID.setText(String.valueOf(r.getInt("ID_COMMUNITY")));
-                    jTextFieldName.setText(r.getString("COMMUNITY_NAME")); 
-                    jTextFieldForeignId.setText(String.valueOf(r.getInt("ID_CANTON"))); 
+                    jLabelID.setText(String.valueOf(r.getInt("ID_CANTON")));
+                    jTextFieldName.setText(r.getString("CANTON_NAME")); 
+                    jTextFieldForeignId.setText(String.valueOf(r.getInt("ID_PROVINCE"))); 
                 }
             }
         }
@@ -32,45 +32,32 @@ public class InsertCommunity extends javax.swing.JDialog {
     }
     
     public ArrayList<Integer> allforeigns(){
-        ArrayList<Integer> cantons = new ArrayList<>();
+        ArrayList<Integer> provinces = new ArrayList<>();
         try{
             ResultSet r = logic_connection.DataBaseConnection.getCantons();
-            while(r.next()) cantons.add(r.getInt("ID_CANTON"));
+            while(r.next()) provinces.add(r.getInt("ID_PROVINCE"));
         }
         catch (SQLException e){
             JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
         }
-        return cantons;
+        return provinces;
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButtonCancel = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldForeignId = new javax.swing.JTextField();
         jLabelID = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextFieldName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButtonAccept = new javax.swing.JButton();
-        jButtonCancel = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldForeignId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel1.setText("ID: ");
-
-        jLabel2.setText("Name:");
-
-        jLabel3.setText("Community");
-
-        jButtonAccept.setText("Accept");
-        jButtonAccept.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAcceptActionPerformed(evt);
-            }
-        });
 
         jButtonCancel.setText("Cancel");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -79,33 +66,49 @@ public class InsertCommunity extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setText("ID Canton:");
+        jLabel4.setText("ID Province:");
+
+        jLabel1.setText("ID: ");
+
+        jLabel2.setText("Name:");
+
+        jLabel3.setText("Canton");
+
+        jButtonAccept.setText("Accept");
+        jButtonAccept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAcceptActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldForeignId)
-                            .addComponent(jTextFieldName)
-                            .addComponent(jLabelID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(jLabelID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldForeignId)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -122,7 +125,7 @@ public class InsertCommunity extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldForeignId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -136,25 +139,29 @@ public class InsertCommunity extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
+
     private void jButtonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcceptActionPerformed
-        ArrayList<Integer> cantons = allforeigns();
+        ArrayList<Integer> provinces = allforeigns();
         if (!jTextFieldName.getText().equals("")){
             if (!jTextFieldForeignId.getText().equals("")){
                 try{
-                    if(id_community > 0){
-                        if (cantons.contains(Integer.parseInt(jTextFieldForeignId.getText()))){
-                            logic_connection.DataBaseConnection.setCommunity(Integer.valueOf(jLabelID.getText()), jTextFieldName.getText(), Integer.valueOf(jTextFieldForeignId.getText()));
+                    if(id_canton > 0){
+                        if (provinces.contains(Integer.parseInt(jTextFieldForeignId.getText()))){
+                            logic_connection.DataBaseConnection.setCanton(Integer.valueOf(jLabelID.getText()), jTextFieldName.getText(), Integer.valueOf(jTextFieldForeignId.getText()));
                             dispose();
                         } else {
-                            JOptionPane.showMessageDialog(this, "The canton doesn't exist", "Watch out", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "The province doesn't exist", "Watch out", JOptionPane.WARNING_MESSAGE);
                         }
                     }
                     else{
-                        if (cantons.contains(Integer.parseInt(jTextFieldForeignId.getText()))){
-                            logic_connection.DataBaseConnection.insertCommunity(jTextFieldName.getText(), Integer.valueOf(jTextFieldForeignId.getText()));
+                        if (provinces.contains(Integer.parseInt(jTextFieldForeignId.getText()))){
+                            logic_connection.DataBaseConnection.insertCanton(jTextFieldName.getText(), Integer.valueOf(jTextFieldForeignId.getText()));
                             dispose();
                         } else {
-                            JOptionPane.showMessageDialog(this, "The canton doesn't exist", "Watch out", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "The province doesn't exist", "Watch out", JOptionPane.WARNING_MESSAGE);
                         }
                     }
                 }
@@ -162,7 +169,7 @@ public class InsertCommunity extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
                 }
                 catch (NumberFormatException nfe){
-                    JOptionPane.showMessageDialog(this, "The ID Community box is empty", "Watch out", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The ID Canton box is empty", "Watch out", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else {
@@ -173,10 +180,6 @@ public class InsertCommunity extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "The name box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonAcceptActionPerformed
-
-    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        dispose();
-    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAccept;

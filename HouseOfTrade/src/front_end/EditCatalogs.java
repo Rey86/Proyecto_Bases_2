@@ -183,18 +183,18 @@ public class EditCatalogs extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnCantonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCantonActionPerformed
-        /*ListCanton dialog = new ListCanton(new javax.swing.JFrame(), true);
-        dialog.setVisible(true);*/
+        ListCanton dialog = new ListCanton(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnCantonActionPerformed
 
     private void btnProvinceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProvinceActionPerformed
-        /*ListProvince dialog = new ListProvince(new javax.swing.JFrame(), true);
-        dialog.setVisible(true);*/
+        ListProvince dialog = new ListProvince(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnProvinceActionPerformed
 
     private void btnCountryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCountryActionPerformed
-        /*ListCountry dialog = new ListCountry(new javax.swing.JFrame(), true);
-        dialog.setVisible(true);*/
+        ListCountry dialog = new ListCountry(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnCountryActionPerformed
 
     private void btnGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenderActionPerformed

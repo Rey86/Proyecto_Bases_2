@@ -1,28 +1,28 @@
 package front_end;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
-public class InsertCommunity extends javax.swing.JDialog {
-    private Integer id_community;
+public class InsertProvince extends javax.swing.JDialog {
+    private Integer id_province;
 
-    public InsertCommunity(java.awt.Frame parent, boolean modal, Integer id_community) {
+    public InsertProvince(java.awt.Frame parent, boolean modal, Integer id_province) {
         super(parent, modal);
-        this.id_community = id_community;
+        this.id_province = id_province;
         initComponents();
         initial();
         setLocationRelativeTo(null);
     }
-
+    
     public void initial(){
         try{
-            if(id_community > 0){
-                ResultSet r = logic_connection.DataBaseConnection.getCommunity(id_community);
+            if(id_province > 0){
+                ResultSet r = logic_connection.DataBaseConnection.getProvince(id_province);
                 if(r.next()) {
-                    jLabelID.setText(String.valueOf(r.getInt("ID_COMMUNITY")));
-                    jTextFieldName.setText(r.getString("COMMUNITY_NAME")); 
-                    jTextFieldForeignId.setText(String.valueOf(r.getInt("ID_CANTON"))); 
+                    jLabelID.setText(String.valueOf(r.getInt("ID_PROVINCE")));
+                    jTextFieldName.setText(r.getString("PROVINCE_NAME")); 
+                    jTextFieldForeignId.setText(String.valueOf(r.getInt("ID_COUNTRY"))); 
                 }
             }
         }
@@ -32,21 +32,23 @@ public class InsertCommunity extends javax.swing.JDialog {
     }
     
     public ArrayList<Integer> allforeigns(){
-        ArrayList<Integer> cantons = new ArrayList<>();
+        ArrayList<Integer> countries = new ArrayList<>();
         try{
-            ResultSet r = logic_connection.DataBaseConnection.getCantons();
-            while(r.next()) cantons.add(r.getInt("ID_CANTON"));
+            ResultSet r = logic_connection.DataBaseConnection.getProvinces();
+            while(r.next()) countries.add(r.getInt("ID_COUNTRY"));
         }
         catch (SQLException e){
             JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
         }
-        return cantons;
+        return countries;
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel4 = new javax.swing.JLabel();
+        jTextFieldForeignId = new javax.swing.JTextField();
         jLabelID = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -54,16 +56,16 @@ public class InsertCommunity extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jButtonAccept = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldForeignId = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel4.setText("ID Country:");
 
         jLabel1.setText("ID: ");
 
         jLabel2.setText("Name:");
 
-        jLabel3.setText("Community");
+        jLabel3.setText("Province");
 
         jButtonAccept.setText("Accept");
         jButtonAccept.addActionListener(new java.awt.event.ActionListener() {
@@ -79,33 +81,34 @@ public class InsertCommunity extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setText("ID Canton:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4))
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldForeignId)
-                            .addComponent(jTextFieldName)
-                            .addComponent(jLabelID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(jLabelID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldForeignId)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -137,24 +140,24 @@ public class InsertCommunity extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAcceptActionPerformed
-        ArrayList<Integer> cantons = allforeigns();
+        ArrayList<Integer> countries = allforeigns();
         if (!jTextFieldName.getText().equals("")){
             if (!jTextFieldForeignId.getText().equals("")){
                 try{
-                    if(id_community > 0){
-                        if (cantons.contains(Integer.parseInt(jTextFieldForeignId.getText()))){
-                            logic_connection.DataBaseConnection.setCommunity(Integer.valueOf(jLabelID.getText()), jTextFieldName.getText(), Integer.valueOf(jTextFieldForeignId.getText()));
+                    if(id_province > 0){
+                        if (countries.contains(Integer.parseInt(jTextFieldForeignId.getText()))){
+                            logic_connection.DataBaseConnection.setProvince(Integer.valueOf(jLabelID.getText()), jTextFieldName.getText(), Integer.valueOf(jTextFieldForeignId.getText()));
                             dispose();
                         } else {
-                            JOptionPane.showMessageDialog(this, "The canton doesn't exist", "Watch out", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "The country doesn't exist", "Watch out", JOptionPane.WARNING_MESSAGE);
                         }
                     }
                     else{
-                        if (cantons.contains(Integer.parseInt(jTextFieldForeignId.getText()))){
-                            logic_connection.DataBaseConnection.insertCommunity(jTextFieldName.getText(), Integer.valueOf(jTextFieldForeignId.getText()));
+                        if (countries.contains(Integer.parseInt(jTextFieldForeignId.getText()))){
+                            logic_connection.DataBaseConnection.insertProvince(jTextFieldName.getText(), Integer.valueOf(jTextFieldForeignId.getText()));
                             dispose();
                         } else {
-                            JOptionPane.showMessageDialog(this, "The canton doesn't exist", "Watch out", JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "The country doesn't exist", "Watch out", JOptionPane.WARNING_MESSAGE);
                         }
                     }
                 }
@@ -162,7 +165,7 @@ public class InsertCommunity extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
                 }
                 catch (NumberFormatException nfe){
-                    JOptionPane.showMessageDialog(this, "The ID Community box is empty", "Watch out", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "The ID Province box is empty", "Watch out", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else {
