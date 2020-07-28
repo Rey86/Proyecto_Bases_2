@@ -33,7 +33,7 @@ public class TopPricesPerCategory extends javax.swing.JDialog {
     public void initial(){
         try{
             ResultSet c = logic_connection.DataBaseConnection.getCategories();
-            jComboBoxCategories.addItem("0 No aplica"); 
+            jComboBoxCategories.addItem("0 Don't Filter"); 
             while(c.next()){
                 jComboBoxCategories.addItem(String.valueOf(c.getInt("ID_CATEGORY")) + " " + c.getString("NAME"));
             }
