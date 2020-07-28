@@ -16,14 +16,21 @@ BEGIN
 END$$
 -- Procedure to get the top n most expensive purchase, using the category as a filter
 DELIMITER $$
-CREATE PROCEDURE getTopPurchaseAmountPerCategory (n INT, pnID_Category INT) 
+CREATE PROCEDURE getMaxMinPurchaseAmountPerCategory () 
 BEGIN
 	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	Select product, price, category from (Select pr.name product, pr.price price, c.name category from product pr
-    inner join category c on c.ID_Category = pr.ID_category
-    where sold >=1 and pr.ID_category = IFNULL(pnID_Category, pr.ID_category))
-    where rownum <= n;
+	Select  category, max_table.max Max, min_table.min Min from
+    (select c.category_name category, max(pr.price) max from purchase pu
+    inner join productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
+    inner join product pr on pr.ID_Product = pp.ID_Product
+    group by category) as max_table
+    Join
+    (select c.category_name category, min(pr.price) max from purchase pu
+    inner join productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
+    inner join product pr on pr.ID_Product = pp.ID_Product
+    group by category) as min_table
+    group by category;
 END$$
