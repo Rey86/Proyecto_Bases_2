@@ -176,7 +176,7 @@ CREATE TABLE `us`.`userxnationality` (
     REFERENCES `us`.`nationality` (`ID_Nationality`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-COMMENT = 'Table that stores the different nacionalities of each user';
+COMMENT = 'Table that stores the different nationalities of each user';
 
 CREATE TABLE `us`.`phonenumber` (
   `PhoneNumber` INT NOT NULL COMMENT 'The phone number of the user',

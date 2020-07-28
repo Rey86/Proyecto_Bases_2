@@ -19,4 +19,4 @@ CREATE TABLE `adm`.`parameter` (
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
   PRIMARY KEY (`ID_Parameter`))
-COMMENT = 'Table that stores parameters for querys';
+COMMENT = 'Table that stores parameters for queries';
