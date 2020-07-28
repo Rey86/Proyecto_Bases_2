@@ -27,10 +27,10 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton3" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton4" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonProductPercentagePerCategory" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonTotalUsersPerAgePerGender" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonSalesPercentagePerGender" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonPurchaseAmountPercentagePerGender" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonClose" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -43,13 +43,13 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLabel1" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="jButtonProductPercentagePerCategory" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="jButtonTotalUsersPerAgePerGender" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+              <Component id="jButtonSalesPercentagePerGender" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+              <Component id="jButtonPurchaseAmountPercentagePerGender" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButtonClose" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -63,25 +63,37 @@
         <Property name="text" type="java.lang.String" value="Queries for the statistics"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jButtonProductPercentagePerCategory">
       <Properties>
         <Property name="text" type="java.lang.String" value="Total and percentage of products per category"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonProductPercentagePerCategoryActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="jButtonTotalUsersPerAgePerGender">
       <Properties>
         <Property name="text" type="java.lang.String" value="Total and percentage of salesmen per gender and age range"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTotalUsersPerAgePerGenderActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="jButtonSalesPercentagePerGender">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Total of sales per gender"/>
+        <Property name="text" type="java.lang.String" value="Total and percentage of sales per gender"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSalesPercentagePerGenderActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="jButtonPurchaseAmountPercentagePerGender">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Top purchase price per gender"/>
+        <Property name="text" type="java.lang.String" value="Total and percentage of purchase price per gender"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPurchaseAmountPercentagePerGenderActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonClose">
       <Properties>

@@ -73,7 +73,7 @@ CREATE TABLE `us`.`userreview` (
   `Username_Reviewee` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that receives the review',
   `Customer` TINYINT NOT NULL COMMENT 'Boolean that shows if the reviewer is customer',
   `Comment` VARCHAR(140) NOT NULL COMMENT 'Comment of the review',
-  `Stars` INT NOT NULL COMMENT 'Calification of the user',
+  `Stars` INT UNSIGNED NOT NULL COMMENT 'Calification of the user',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',

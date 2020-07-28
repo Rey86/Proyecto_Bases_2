@@ -132,7 +132,8 @@ public class MainAdmin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnQueriesActionPerformed
 
     private void btnStatisticsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatisticsActionPerformed
-        // TODO add your handling code here:
+        Statistics dialog = new Statistics(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnStatisticsActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
