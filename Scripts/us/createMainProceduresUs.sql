@@ -376,6 +376,36 @@ BEGIN
     username_receiver = IFNULL(pcUsernameReceiver, username_receiver);
 END$$
 
+-- ReceiverxSender Table
+-- Procedure to get a receiverxsender with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getConversation (pcUsernameSender VARCHAR(45), pcUsernameReceiver VARCHAR(45)) 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	SELECT username_sender, username_receiver, messagecontent, time
+	FROM RECEIVERXSENDER
+	WHERE username_sender = IFNULL(pcUsernameSender, username_sender) AND
+    username_receiver = IFNULL(pcUsernameReceiver, username_receiver);
+END$$
+
+-- ReceiverxSender Table
+-- Procedure to get a mesage from a receiver with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getLastUserMessages () 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	SELECT u.Username Username, min(rs.MessageContent) MessageContent
+	FROM user u 
+    inner join receiverxsender rs on rs.Username_Receiver = u.Username
+    group by Username;
+END$$
+
 -- Procedure to set a receiverxsender with specific id and the new values wrote by the user  
 DELIMITER $$
 CREATE PROCEDURE setReceiverxSender (pcUsernameSender VARCHAR(45), pcUsernameReceiver VARCHAR(45), 
@@ -408,14 +438,14 @@ END$$
 -- Procedure to insert a new receiverxsender
 DELIMITER $$
 CREATE PROCEDURE insertReceiverxSender (pcUsernameSender VARCHAR(45), pcUsernameReceiver VARCHAR(45), 
-	pcMessageContent VARCHAR(140), pdtTime DATETIME) 
+	pcMessageContent VARCHAR(140)) 
 BEGIN
 	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
     INSERT INTO RECEIVERXSENDER (username_sender, username_receiver, messagecontent, time)
-	VALUES (pcUsernameSender, pcUsernameReceiver, pcMessageContent, pdtTime);
+	VALUES (pcUsernameSender, pcUsernameReceiver, pcMessageContent, now());
 	Commit;
 END$$
 

@@ -1067,15 +1067,13 @@ public class DataBaseConnection {
     }
     
     // Procedure to insert a receiverxsender in the system
-    public static void insertReceiverxSender(String pcUsernameSender, String pcUsernameReceiver, String pcMessageContent,
-            String pdtTime) throws SQLException{
+    public static void insertReceiverxSender(String pcUsernameSender, String pcUsernameReceiver, String pcMessageContent) throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{ call us.insertReceiverxSender(?,?,?,?)}");
+        CallableStatement stmt = con.prepareCall("{ call us.insertReceiverxSender(?,?,?)}");
         
         stmt.setString(1, pcUsernameSender);
         stmt.setString(2, pcUsernameReceiver);
         stmt.setString(3, pcMessageContent);
-        stmt.setString(4, pdtTime);
         stmt.execute();
     }
     
@@ -1344,6 +1342,25 @@ public class DataBaseConnection {
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call sh.getPurchaseAmountPercentagePerGender()}");
 
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getLastUserMessages() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getLastUserMessages()}");
+
+        
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getConversation(String sender, String receiver) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getLastUserMessages()}");
+
+        stmt.setString(1, sender);
+        stmt.setString(1, receiver);
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }

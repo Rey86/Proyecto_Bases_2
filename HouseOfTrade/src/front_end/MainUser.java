@@ -21,6 +21,7 @@ public class MainUser extends javax.swing.JDialog {
         btnExit = new javax.swing.JButton();
         btnEditProfile = new javax.swing.JButton();
         jButtonReview = new javax.swing.JButton();
+        jButtonConversation = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,22 +67,27 @@ public class MainUser extends javax.swing.JDialog {
             }
         });
 
+        jButtonConversation.setText("Conversation Module");
+        jButtonConversation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConversationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(btnQueries)
-                        .addComponent(btnListProducts)
-                        .addComponent(btnPurchaseProducts)
-                        .addComponent(btnEditProfile)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(34, 34, 34)
-                            .addComponent(btnExit)))
-                    .addComponent(jButtonReview))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnExit)
+                    .addComponent(btnEditProfile)
+                    .addComponent(jButtonReview)
+                    .addComponent(jButtonConversation)
+                    .addComponent(btnListProducts)
+                    .addComponent(btnPurchaseProducts)
+                    .addComponent(btnQueries))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -89,15 +95,17 @@ public class MainUser extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnListProducts)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPurchaseProducts)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnQueries)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditProfile)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonReview)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonConversation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -132,12 +140,18 @@ public class MainUser extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonReviewActionPerformed
 
+    private void jButtonConversationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConversationActionPerformed
+        ConversationList dialog = new ConversationList(new javax.swing.JFrame(), true, username);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButtonConversationActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditProfile;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnListProducts;
     private javax.swing.JButton btnPurchaseProducts;
     private javax.swing.JButton btnQueries;
+    private javax.swing.JButton jButtonConversation;
     private javax.swing.JButton jButtonReview;
     // End of variables declaration//GEN-END:variables
 }
