@@ -1236,7 +1236,11 @@ public class DataBaseConnection {
         CallableStatement stmt = con.prepareCall("{ call sh.getTopPricesPerCategory(?, ?)}");
 
         stmt.setInt(1, n);
-        stmt.setInt(2, pnID_Category);
+        if(!pnID_Category.equals(0)){
+            stmt.setInt(1, pnID_Category);
+        } else {
+            stmt.setNull(1, Types.INTEGER);
+        }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
@@ -1284,7 +1288,11 @@ public class DataBaseConnection {
         CallableStatement stmt = con.prepareCall("{ call us.getPurchasesOver1000PerCategory(?, ?)}");
 
         stmt.setString(1, psUsername);
-        stmt.setInt(2, pnID_Category);
+        if(!pnID_Category.equals(0)){
+            stmt.setInt(2, pnID_Category);
+        } else {
+            stmt.setNull(2, Types.INTEGER);
+        }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
@@ -1294,7 +1302,11 @@ public class DataBaseConnection {
         CallableStatement stmt = con.prepareCall("{ call us.getPurhaseHistory(?, ?)}");
 
         stmt.setString(1, psUsername);
-        stmt.setInt(2, month);
+        if(!month.equals(0)){
+            stmt.setInt(2, month);
+        } else {
+            stmt.setNull(2, Types.INTEGER);
+        }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
@@ -1303,7 +1315,11 @@ public class DataBaseConnection {
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call us.getUserAgeRangePerGender(?)}");
 
-        stmt.setInt(1, pnID_Gender);
+        if(!pnID_Gender.equals(0)){
+            stmt.setInt(1, pnID_Gender);
+        } else {
+            stmt.setNull(1, Types.INTEGER);
+        }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
