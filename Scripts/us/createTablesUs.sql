@@ -71,6 +71,7 @@ COMMENT = 'Table that stores data of users';
 CREATE TABLE `us`.`userreview` (
   `Username_Reviewer` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that makes the review',
   `Username_Reviewee` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that receives the review',
+  `Time` DATETIME NOT NULL COMMENT 'Time when the review was published',
   `Customer` TINYINT NOT NULL COMMENT 'Boolean that shows if the reviewer is customer',
   `Comment` VARCHAR(140) NOT NULL COMMENT 'Comment of the review',
   `Stars` INT UNSIGNED NOT NULL COMMENT 'Calification of the user',
@@ -78,8 +79,9 @@ CREATE TABLE `us`.`userreview` (
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
-  PRIMARY KEY (`Username_Reviewer`, `Username_Reviewee`),
+  PRIMARY KEY (`Username_Reviewer`, `Username_Reviewee`, `Time`),
   INDEX `idx_userreview_usernameReviewee` (`Username_Reviewee` ASC) VISIBLE,
+  INDEX `idx_userreview_time` (`Time` ASC) VISIBLE,
   CONSTRAINT `fk_userreview_usernameReviewer`
     FOREIGN KEY (`Username_Reviewer`)
     REFERENCES `us`.`user` (`Username`)
@@ -101,8 +103,9 @@ CREATE TABLE `us`.`receiverxsender` (
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
-  PRIMARY KEY (`Username_Sender`, `Username_Receiver`),
+  PRIMARY KEY (`Username_Sender`, `Username_Receiver`, `Time`),
   INDEX `idx_receiverxsender_usernameSender` (`Username_Receiver` ASC) VISIBLE,
+  INDEX `idx_receiverxsender_time` (`Time` ASC) VISIBLE,
   CONSTRAINT `fk_receiverxsender_usernameSender`
     FOREIGN KEY (`Username_Sender`)
     REFERENCES `us`.`user` (`Username`)

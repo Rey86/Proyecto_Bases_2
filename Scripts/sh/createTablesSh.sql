@@ -89,7 +89,7 @@ COMMENT = 'Table that stores data of products';
 
 CREATE TABLE `sh`.`review` (
   `ID_Review` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the review',
-  `Stars` INT UNSIGNED NOT NULL COMMENT 'Calification of the product that is being reviewed',
+  `Stars` INT UNSIGNED NOT NULL COMMENT 'Qualification of the product that is being reviewed',
   `Comment` VARCHAR(45) NOT NULL COMMENT 'Comment of the product that is being reviewed',
   `ID_Product` INT NOT NULL COMMENT 'Identification number of the product that is being reviewed',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
