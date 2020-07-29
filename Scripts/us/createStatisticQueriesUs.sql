@@ -5,7 +5,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	SELECT l.user_age_range user_age_range, round(100*ratio_to_report(count(*)) , 2) percentage, ratio_to_report(count(*)) total FROM
+	SELECT l.user_age_range user_age_range, round(100*count(user) , 2) percentage, count(user) total FROM
     (SELECT CASE WHEN (sysdate()-u.birthdate)/365 >= 0 and (sysdate()-u.birthdate)/365 <= 18 then '0-18'
         WHEN (sysdate()-u.birthdate)/365 >= 19 and (sysdate()-u.birthdate)/365 <= 30 then '19-30'
         WHEN (sysdate()-u.birthdate)/365 >= 31 and (sysdate()-u.birthdate)/365 <= 45 then '31-45'
