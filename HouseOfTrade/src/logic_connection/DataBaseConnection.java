@@ -546,7 +546,7 @@ public class DataBaseConnection {
             String pcDescription, Integer pnQuantity, String pcUsernameSalesman, Integer pnIdCategory,
             Integer pnIdDeliveryType) throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{ call sh.insertProduct(?,?,?)}");
+        CallableStatement stmt = con.prepareCall("{ call sh.insertProduct(?,?,?,?,?,?,?,?)}");
         
         stmt.setString(1, pcProductName);
         stmt.setInt(2, pnPrice);

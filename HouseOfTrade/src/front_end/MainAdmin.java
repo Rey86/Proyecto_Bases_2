@@ -14,27 +14,28 @@ public class MainAdmin extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnRegisterProduct = new javax.swing.JButton();
-        btnViewProducts = new javax.swing.JButton();
+        btnListProducts = new javax.swing.JButton();
+        btnPurchaseProducts = new javax.swing.JButton();
         btnEditCatalogs = new javax.swing.JButton();
         btnQueries = new javax.swing.JButton();
         btnStatistics = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         btnEditProfile = new javax.swing.JButton();
+        jButtonReview = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnRegisterProduct.setText("Register Product");
-        btnRegisterProduct.addActionListener(new java.awt.event.ActionListener() {
+        btnListProducts.setText("List Products");
+        btnListProducts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegisterProductActionPerformed(evt);
+                btnListProductsActionPerformed(evt);
             }
         });
 
-        btnViewProducts.setText("View Products");
-        btnViewProducts.addActionListener(new java.awt.event.ActionListener() {
+        btnPurchaseProducts.setText("Purchase Products");
+        btnPurchaseProducts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewProductsActionPerformed(evt);
+                btnPurchaseProductsActionPerformed(evt);
             }
         });
 
@@ -73,6 +74,13 @@ public class MainAdmin extends javax.swing.JDialog {
             }
         });
 
+        jButtonReview.setText("Review Customers");
+        jButtonReview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReviewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,22 +88,23 @@ public class MainAdmin extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnRegisterProduct)
+                    .addComponent(btnListProducts)
                     .addComponent(btnEditCatalogs)
-                    .addComponent(btnViewProducts)
+                    .addComponent(btnPurchaseProducts)
                     .addComponent(btnQueries)
                     .addComponent(btnStatistics)
                     .addComponent(btnExit)
-                    .addComponent(btnEditProfile))
+                    .addComponent(btnEditProfile)
+                    .addComponent(jButtonReview))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnRegisterProduct)
+                .addComponent(btnListProducts)
                 .addGap(18, 18, 18)
-                .addComponent(btnViewProducts)
+                .addComponent(btnPurchaseProducts)
                 .addGap(18, 18, 18)
                 .addComponent(btnEditCatalogs)
                 .addGap(18, 18, 18)
@@ -104,7 +113,9 @@ public class MainAdmin extends javax.swing.JDialog {
                 .addComponent(btnStatistics)
                 .addGap(18, 18, 18)
                 .addComponent(btnEditProfile)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jButtonReview)
+                .addGap(18, 18, 18)
                 .addComponent(btnExit)
                 .addContainerGap())
         );
@@ -112,14 +123,14 @@ public class MainAdmin extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegisterProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterProductActionPerformed
-        RegisterProduct dialog = new RegisterProduct(new javax.swing.JFrame(), true);
+    private void btnListProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListProductsActionPerformed
+        ListProduct dialog = new ListProduct(new javax.swing.JFrame(), true, username);
         dialog.setVisible(true);
-    }//GEN-LAST:event_btnRegisterProductActionPerformed
+    }//GEN-LAST:event_btnListProductsActionPerformed
 
-    private void btnViewProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewProductsActionPerformed
+    private void btnPurchaseProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPurchaseProductsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnViewProductsActionPerformed
+    }//GEN-LAST:event_btnPurchaseProductsActionPerformed
 
     private void btnEditCatalogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCatalogsActionPerformed
         EditCatalogs dialog = new EditCatalogs(new javax.swing.JFrame(), true);
@@ -145,13 +156,18 @@ public class MainAdmin extends javax.swing.JDialog {
         dialog.setVisible(true);
     }//GEN-LAST:event_btnEditProfileActionPerformed
 
+    private void jButtonReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReviewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonReviewActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditCatalogs;
     private javax.swing.JButton btnEditProfile;
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnListProducts;
+    private javax.swing.JButton btnPurchaseProducts;
     private javax.swing.JButton btnQueries;
-    private javax.swing.JButton btnRegisterProduct;
     private javax.swing.JButton btnStatistics;
-    private javax.swing.JButton btnViewProducts;
+    private javax.swing.JButton jButtonReview;
     // End of variables declaration//GEN-END:variables
 }

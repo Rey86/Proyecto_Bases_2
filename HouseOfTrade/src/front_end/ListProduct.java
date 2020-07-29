@@ -1,10 +1,40 @@
 package front_end;
 
-public class ListProduct extends javax.swing.JDialog {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-    public ListProduct(java.awt.Frame parent, boolean modal) {
+public class ListProduct extends javax.swing.JDialog {
+    private String username;
+    
+    public ListProduct(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
+        setLocationRelativeTo(null);
+        try{
+            ProductList();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void ProductList() throws SQLException{
+        ResultSet r = logic_connection.DataBaseConnection.getProducts();
+        DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
+        while(r.next()){
+            if(username.equals(r.getString("USERNAME_SALESMAN"))){
+                dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"), r.getString("DESCRIPTION"), 
+                    r.getInt("QUANTITY"), r.getString("CATEGORY_NAME"), r.getString("DELIVERYTYPE_NAME")});
+            }
+        }
+    }
+    
+    public void ProductCleanList(){
+        DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
+        for (int i = dtb.getRowCount()-1;i>=0;i--) dtb.removeRow(i);
     }
 
     @SuppressWarnings("unchecked")
@@ -28,11 +58,11 @@ public class ListProduct extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Name", "Price", "Description", "Quantity", "Salesman", "Category", "Delivery Type"
+                "ID", "Name", "Price", "Description", "Quantity", "Category", "Delivery Type"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -112,11 +142,32 @@ public class ListProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
-        
+        InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true, 0, username);
+        dialog.setVisible(true);
+        try{
+            ProductCleanList();
+            ProductList();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonInsertActionPerformed
 
     private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
-        
+        Integer current_row = jTableProducts.getSelectedRow();
+        if(current_row != -1){
+            InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true, (Integer) jTableProducts.getValueAt(current_row, 0), username);
+            dialog.setVisible(true);
+            try{
+                ProductCleanList();
+                ProductList();
+            }
+            catch (SQLException e){
+                JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a row to edit", "Watch out", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonEditActionPerformed
 
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
@@ -124,7 +175,19 @@ public class ListProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCloseActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        
+        Integer current_row = jTableProducts.getSelectedRow();
+        if(current_row != -1){
+            try{
+                logic_connection.DataBaseConnection.deleteProduct((Integer) jTableProducts.getValueAt(current_row, 0));
+                ProductCleanList();
+                ProductList();
+            }
+            catch (SQLException e){
+                JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a row to delete", "Watch out", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -26,13 +26,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="btnRegisterProduct" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnListProducts" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEditCatalogs" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnViewProducts" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPurchaseProducts" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnQueries" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnStatistics" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnExit" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEditProfile" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonReview" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -42,9 +43,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnRegisterProduct" min="-2" max="-2" attributes="0"/>
+              <Component id="btnListProducts" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="btnViewProducts" min="-2" max="-2" attributes="0"/>
+              <Component id="btnPurchaseProducts" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnEditCatalogs" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -53,7 +54,9 @@
               <Component id="btnStatistics" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnEditProfile" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <Component id="jButtonReview" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnExit" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -61,20 +64,20 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnRegisterProduct">
+    <Component class="javax.swing.JButton" name="btnListProducts">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Register Product"/>
+        <Property name="text" type="java.lang.String" value="List Products"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegisterProductActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListProductsActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnViewProducts">
+    <Component class="javax.swing.JButton" name="btnPurchaseProducts">
       <Properties>
-        <Property name="text" type="java.lang.String" value="View Products"/>
+        <Property name="text" type="java.lang.String" value="Purchase Products"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewProductsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPurchaseProductsActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEditCatalogs">
@@ -115,6 +118,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditProfileActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonReview">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Review Customers"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonReviewActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

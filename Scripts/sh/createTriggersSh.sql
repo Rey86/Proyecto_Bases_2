@@ -64,12 +64,12 @@ CREATE TRIGGER sh.beforeUpdatePurchase
     
 -- Insert and Update Triggers of PRODUCT table.
 
-	CREATE TRIGGER sh.beforeInsertProduct
-		BEFORE INSERT
-		ON sh.product
-		For each row SET
-		new.user_creation:=SYSTEM_USER(),
-		new.date_creation:=SYSDATE();
+CREATE TRIGGER sh.beforeInsertProduct
+	BEFORE INSERT
+	ON sh.product
+	For each row SET
+	new.user_creation:=SYSTEM_USER(),
+	new.date_creation:=SYSDATE();
     
 CREATE TRIGGER sh.beforeUpdateProduct
     BEFORE UPDATE
@@ -135,8 +135,8 @@ CREATE TRIGGER sh.afterInsertProductPrice
     for each row
     BEGIN
 		INSERT INTO adm.generallog
-		(scheme_name, table_name, column_name, modification_date, id_product, current_value)
-		VALUES ('SH', 'PRODUCT', 'PRICE', SYSDATE, new.id_product, new.price);
+		(schemename, tablename, columnname, modificationdate, id_product, current_value)
+		VALUES ('SH', 'PRODUCT', 'PRICE',  SYSDATE(), new.id_product, new.price);
 	END$$
 
 DELIMITER $$
@@ -147,7 +147,7 @@ CREATE TRIGGER sh.afterUpdateProductPrice
     BEGIN
 		IF new.id_product <> old.id_product THEN
 			INSERT INTO adm.generallog
-			(scheme_name, table_name, column_name, modification_date, id_product, previous_value, current_value)
-			VALUES ('SH', 'PRODUCT', 'PRICE', SYSDATE, new.id_product, old.price, new.price);
+			(schemename, tablename, columnname, modificationdate, id_product, previous_value, current_value)
+			VALUES ('SH', 'PRODUCT', 'PRICE', SYSDATE(), new.id_product, old.price, new.price);
 		END IF;
     END$$
