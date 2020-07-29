@@ -34,7 +34,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
     -- check this
-	SELECT g.name gender, round(100*ratio_to_report(count(*)) , 2) percentage, ratio_to_report(count(*)) total 
+	SELECT g.name gender, round(100*sum(pr.price) , 2) percentage, sum(pr.price) total 
     FROM purchase pu
     inner join productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
     inner join product pr on pr.ID_Product =  pp.ID_Product
