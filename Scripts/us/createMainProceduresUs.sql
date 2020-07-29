@@ -472,12 +472,27 @@ BEGIN
 END$$
 
 -- UserxNationality Table
--- Procedure to delete a specific userxnationality
+-- Procedure to get a specific userxnationality
 DELIMITER $$
-CREATE PROCEDURE deleteUserxNationality (pcUsername VARCHAR(45), pnIdNationality INT) 
+CREATE PROCEDURE getUserxNationality (pcUsername VARCHAR(45), pnIdNationality INT)
 BEGIN
 	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
-	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message;
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+    SELECT un.username, un.id_nationality, n.name nationality_name
+    FROM USERXNATIONALITY un
+    INNER JOIN NATIONALITY n
+    ON un.id_nationality = n.id_nationality
+	WHERE un.username = IFNULL(pcUsername, un.username) AND un.id_nationality = IFNULL(pnIdNationality, un.id_nationality);
+	Commit;
+END$$
+
+-- Procedure to delete a specific userxnationality
+DELIMITER $$
+CREATE PROCEDURE deleteUserxNationality (pcUsername VARCHAR(45), pnIdNationality INT)
+BEGIN
+	DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message;
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
     DELETE FROM USERXNATIONALITY
 	WHERE username = pcUsername AND id_nationality = pnIdNationality;

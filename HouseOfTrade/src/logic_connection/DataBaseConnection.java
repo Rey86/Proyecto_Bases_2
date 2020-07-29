@@ -1112,6 +1112,17 @@ public class DataBaseConnection {
     }
     
     // UserxNationality
+    // Function to get a userxnationality of the system
+    public static ResultSet getUserxNationalities(String pcUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getUserxNationality(?,?)}");
+        
+        stmt.setString(1, pcUsername);
+        stmt.setNull(2, Types.INTEGER);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
     // Function to delete a userxnationality of the system
     public static void deleteUserxNationality(String pcUsername, Integer pnIdNationality) throws SQLException{
         Connection con = getConnectionDataBase();
