@@ -132,7 +132,7 @@ public class InsertCategory extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
             }
             catch (NumberFormatException nfe){
-                JOptionPane.showMessageDialog(this, "The ID Category box is empty", "Watch out", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "One of the attributes must be a number", "Watch out", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "The name box is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
