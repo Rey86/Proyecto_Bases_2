@@ -54,7 +54,7 @@ COMMENT = 'Table that stores data of purchases';
 
 CREATE TABLE `sh`.`product` (
   `ID_Product` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the product',
-  `Name` VARCHAR(45) NOT NULL COMMENT 'Date of the product',
+  `Name` VARCHAR(45) NOT NULL COMMENT 'Name of the product',
   `Price` INT UNSIGNED NOT NULL COMMENT 'Price of the product',
   `Sold` INT UNSIGNED NOT NULL COMMENT 'Boolean that shows if the product is sold',
   `Description` VARCHAR(140) NOT NULL COMMENT 'Description of the product',
