@@ -7,11 +7,11 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	Select p.name product, p.price price, p.Quantity Quantity, pm.Name paymentmethod, c.Name category, p.UsernameSalesman Salesman from product p 
+	Select p.id_product id_product, p.name product, p.price price, p.Quantity Quantity, 
+	c.Name category, dt.Name deliverytype, p.UsernameSalesman Salesman from product p 
     inner join category c on c.ID_Category = p.ID_Category
-    inner join review r on r.ID_product = p.ID_Product
-    inner join paymentMethod pm on pm.ID_PaymentMethod = p.ID_PaymentMethod
-    where p.name like ifnull(pvSearchWord, p.name);
+    inner join deliverytype dt on p.id_deliverytype = dt.id_deliverytype
+    where p.name like ifnull(psSearchWord, p.name);
 END$$
 
 

@@ -86,7 +86,7 @@
                 <Column editable="true" title="Product" type="java.lang.String"/>
                 <Column editable="true" title="Price" type="java.lang.Integer"/>
                 <Column editable="true" title="Category" type="java.lang.String"/>
-                <Column editable="true" title="Reviews" type="java.lang.Integer"/>
+                <Column editable="true" title="Stars" type="java.lang.Integer"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

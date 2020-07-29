@@ -1252,8 +1252,11 @@ public class DataBaseConnection {
     public static ResultSet getSearchedProducts(String psSearchWord) throws SQLException{
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call sh.getSearchedProducts(?)}");
-
-        stmt.setString(1, psSearchWord);
+        if(!psSearchWord.equals("")){
+            stmt.setString(1, psSearchWord);
+        } else {
+            stmt.setNull(1, Types.VARCHAR);
+        }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }

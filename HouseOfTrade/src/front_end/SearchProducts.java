@@ -10,8 +10,26 @@ public class SearchProducts extends javax.swing.JDialog {
     public SearchProducts(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
-
+    
+    public void ProductList() throws SQLException{
+        ResultSet r = logic_connection.DataBaseConnection.getSearchedProducts(jTextFieldProductFilter.getText()); 
+        DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
+        while(r.next()){
+            ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
+            while(s.next()){
+                dtb.addRow(new Object[]{r.getString("PRODUCT"), r.getInt("PRICE"), r.getString("CATEGORY"), 
+                    s.getDouble("STARS")});
+            }
+        }
+    }
+    
+    public void ProductCleanList(){
+        DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
+        for (int i = dtb.getRowCount()-1;i>=0;i--) dtb.removeRow(i);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -32,7 +50,7 @@ public class SearchProducts extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Product", "Price", "Category", "Reviews"
+                "Product", "Price", "Category", "Stars"
             }
         ) {
             Class[] types = new Class [] {
@@ -103,15 +121,8 @@ public class SearchProducts extends javax.swing.JDialog {
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
         try{
-            ResultSet r = logic_connection.DataBaseConnection.getSearchedProducts(jTextFieldProductFilter.getText()); 
-            DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
-            while(r.next()){
-                ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
-                while(s.next()){
-                    dtb.addRow(new Object[]{r.getString("PRODUCT"), r.getInt("PRICE"),  
-                        r.getString("CATEGORY"), s.getDouble("STARS")});
-                }
-            }
+            ProductCleanList();
+            ProductList();
         }
         catch (SQLException e){
             JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
