@@ -261,6 +261,22 @@ BEGIN
 	WHERE p.id_product = IFNULL(pnIdProduct, p.id_product);
 END$$
 
+-- Procedure to get a product stars with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getProductStars (pnIdProduct INT) 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQgetSearchedProductsgetSearchedProductsLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	SELECT p.id_product id_product, avg(r.stars) stars
+	FROM PRODUCT p
+	INNER JOIN REVIEW r
+	ON p.id_product = r.id_product
+    WHERE p.id_product = IFNULL(pnIdProduct, p.id_product)
+    GROUP BY p.id_product;
+END$$
+
 -- Procedure to set a product with specific id and the new values wrote by the user  
 DELIMITER $$
 CREATE PROCEDURE setProduct (pnIdProduct INT, pcProductName VARCHAR(45), pnSold INT, 

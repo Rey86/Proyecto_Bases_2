@@ -1,5 +1,10 @@
 package front_end;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class SearchProducts extends javax.swing.JDialog {
     
     public SearchProducts(java.awt.Frame parent, boolean modal) {
@@ -41,6 +46,11 @@ public class SearchProducts extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTableProducts);
 
         jButtonSearch.setText("Search");
+        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchActionPerformed(evt);
+            }
+        });
 
         jButtonClose.setText("Close");
         jButtonClose.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +100,23 @@ public class SearchProducts extends javax.swing.JDialog {
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCloseActionPerformed
+
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+        try{
+            ResultSet r = logic_connection.DataBaseConnection.getSearchedProducts(jTextFieldProductFilter.getText()); 
+            DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
+            while(r.next()){
+                ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
+                while(s.next()){
+                    dtb.addRow(new Object[]{r.getString("PRODUCT"), r.getInt("PRICE"),  
+                        r.getString("CATEGORY"), s.getDouble("STARS")});
+                }
+            }
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClose;

@@ -504,6 +504,16 @@ public class DataBaseConnection {
         return r;
     }
     
+    // Function to get a product of the system
+    public static ResultSet getProductStars(Integer pnIdProduct) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getProductStars(?)}");
+        
+        stmt.setInt(1, pnIdProduct);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
     // Function to set a product of the system
     public static void setProduct(Integer pnIdProduct, String pcProductName, Integer pnSold,
             String pcDescription, Integer pnQuantity, String pcUsernameSalesman, Integer pnIdCategory,

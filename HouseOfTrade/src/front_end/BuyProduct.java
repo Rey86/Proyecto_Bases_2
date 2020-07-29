@@ -1,12 +1,50 @@
 package front_end;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class BuyProduct extends javax.swing.JDialog {
 
     public BuyProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
     }
-
+    
+    public void ProductList() throws SQLException{
+        ResultSet r = logic_connection.DataBaseConnection.getProducts();
+        DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
+        while(r.next()){
+            ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
+            while(s.next()){
+                if (!String.valueOf(r.getInt("QUANTITY")).equals("0"))
+                dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("NAME_PRODUCT"), r.getInt("PRICE"), 
+                    r.getInt("QUANTITY"), r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
+                    r.getString("USERNAME_SALESMAN"), s.getDouble("STARS")});
+            }
+        }
+    }
+    
+    public void ProductCleanList(){
+        DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
+        for (int i = dtb.getRowCount()-1;i>=0;i--) dtb.removeRow(i);
+    }
+    
+    public void ProductCartList() throws SQLException{
+        ResultSet r = logic_connection.DataBaseConnection.getCountries();
+        DefaultTableModel dtb = (DefaultTableModel) jTableProductsCart.getModel();
+        while(r.next()){
+            dtb.addRow(new Object[]{r.getInt("ID_COUNTRY"), r.getString("NAME")});
+        }
+    }
+    
+    public void ProductCartCleanList(){
+        DefaultTableModel dtb = (DefaultTableModel) jTableProductsCart.getModel();
+        for (int i = dtb.getRowCount()-1;i>=0;i--) dtb.removeRow(i);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -17,7 +55,7 @@ public class BuyProduct extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProducts = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jButtonSearch = new javax.swing.JButton();
         jButtonAddToCart = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -29,6 +67,7 @@ public class BuyProduct extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jButtonView = new javax.swing.JButton();
         jButtonWish = new javax.swing.JButton();
+        jButtonWhised = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -57,7 +96,12 @@ public class BuyProduct extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTableProducts);
 
-        jButton1.setText("Search");
+        jButtonSearch.setText("Search");
+        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchActionPerformed(evt);
+            }
+        });
 
         jButtonAddToCart.setText("Add to Cart");
 
@@ -95,6 +139,13 @@ public class BuyProduct extends javax.swing.JDialog {
             }
         });
 
+        jButtonWhised.setText("Wished");
+        jButtonWhised.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonWhisedActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,7 +168,9 @@ public class BuyProduct extends javax.swing.JDialog {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jTextField1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
+                                .addComponent(jButtonSearch)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonWhised))
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButtonAddToCart)
@@ -140,7 +193,8 @@ public class BuyProduct extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonSearch)
+                    .addComponent(jButtonWhised))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,13 +227,22 @@ public class BuyProduct extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonWishActionPerformed
 
+    private void jButtonWhisedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWhisedActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonWhisedActionPerformed
+
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+        
+    }//GEN-LAST:event_jButtonSearchActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddToCart;
     private javax.swing.JButton jButtonClose;
     private javax.swing.JButton jButtonPurchase;
     private javax.swing.JButton jButtonRemove;
+    private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonView;
+    private javax.swing.JButton jButtonWhised;
     private javax.swing.JButton jButtonWish;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
