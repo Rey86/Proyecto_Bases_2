@@ -267,7 +267,7 @@ CREATE PROCEDURE getProductStars (pnIdProduct INT)
 BEGIN
 	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQgetSearchedProductsgetSearchedProductsLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	SELECT p.id_product id_product, avg(r.stars) stars
 	FROM PRODUCT p
