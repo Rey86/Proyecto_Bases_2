@@ -1357,7 +1357,7 @@ public class DataBaseConnection {
     
     public static ResultSet getConversation(String sender, String receiver) throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{ call us.getLastUserMessages()}");
+        CallableStatement stmt = con.prepareCall("{ call us.getLastUserMessages(?, ?)}");
 
         stmt.setString(1, sender);
         stmt.setString(1, receiver);

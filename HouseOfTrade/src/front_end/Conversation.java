@@ -26,7 +26,7 @@ public class Conversation extends javax.swing.JDialog {
         ResultSet r = logic_connection.DataBaseConnection.getConversation(sender, receiver);
         DefaultTableModel dtb = (DefaultTableModel) jTableConversation.getModel();
         while(r.next()){
-            dtb.addRow(new Object[]{r.getInt("USERNAME"), r.getString("MESSAGECONTENT")});
+            dtb.addRow(new Object[]{r.getInt("SENDER"), r.getString("MESSAGECONTENT"),  r.getString("TIME")});
         }
     }
 
@@ -48,7 +48,7 @@ public class Conversation extends javax.swing.JDialog {
 
             },
             new String [] {
-                "User", "Message", "Date"
+                "Sender", "Message", "Date"
             }
         ));
         jScrollPane1.setViewportView(jTableConversation);
