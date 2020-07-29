@@ -30,7 +30,7 @@ COMMENT = 'Table that stores data of payment methods';
 
 CREATE TABLE `sh`.`purchase` (
   `ID_Purchase` INT NOT NULL AUTO_INCREMENT COMMENT 'Identification number of the purchase',
-  `Date` DATE NOT NULL COMMENT 'Date of tcountryhe purchase',
+  `Date` DATE NOT NULL COMMENT 'Date of the purchase',
   `Username_Customer` VARCHAR(45) NOT NULL COMMENT 'Identification name of user that makes the purchase',
   `ID_PaymentMethod` INT NOT NULL COMMENT 'Identification number of the payment method that is being used',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
