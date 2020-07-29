@@ -74,7 +74,7 @@ CREATE TABLE `us`.`userreview` (
   `Time` DATETIME NOT NULL COMMENT 'Time when the review was published',
   `Customer` TINYINT NOT NULL COMMENT 'Boolean that shows if the reviewer is customer',
   `Comment` VARCHAR(140) NOT NULL COMMENT 'Comment of the review',
-  `Stars` INT UNSIGNED NOT NULL COMMENT 'Calification of the user',
+  `Stars` INT UNSIGNED NOT NULL COMMENT 'Qualification of the user',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
