@@ -16,12 +16,15 @@ import javax.swing.DefaultListModel;
 public class Register extends javax.swing.JDialog {
     private String username;
     private String photoDirection;
+    private DefaultListModel<String> listModelNationalities;
     
     public Register(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
         this.username = username;
+        this.listModelNationalities = new DefaultListModel();
         initComponents();
         initial();
+        updateNationalities();
         setLocationRelativeTo(null);
     }
     
@@ -48,6 +51,7 @@ public class Register extends javax.swing.JDialog {
                 jComboBoxNationalities.addItem(String.valueOf(n.getInt("ID_NATIONALITY")) + " " + n.getString("NAME"));
             }
             if(!username.equals("")){
+                txtUsername.setEnabled(false); 
                 ResultSet u = logic_connection.DataBaseConnection.getUser(username);
                 if(u.next()) {
                     ResultSet nationalities = logic_connection.DataBaseConnection.getUserxNationalities(username);
@@ -408,6 +412,11 @@ public class Register extends javax.swing.JDialog {
                                                 }
                                                 else{
                                                     logic_connection.DataBaseConnection.insertUser(txtUsername.getText(), txtEmail.getText(), txtBirthDate.getText(), txtFirstName.getText(), txtFirstLastName.getText(), txtSecondLastName.getText(), String.valueOf(txtPassword.getPassword()), txtID.getText(), photoDirection, id_community, 2, id_gender);
+                                                    for(int i = 0; i < listModelNationalities.getSize(); i++){
+                                                        String nationality = listModelNationalities.getElementAt(i);
+                                                        String[] n = nationality.split(" ");
+                                                        logic_connection.DataBaseConnection.insertUserxNationality(username, Integer.parseInt(n[0]));
+                                                    }
                                                     dispose(); 
                                                 }
                                             }
@@ -448,14 +457,16 @@ public class Register extends javax.swing.JDialog {
 
     private void jButtonDeleteNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteNationalityActionPerformed
         try{
-            if(!"".equals(txtUsername.getText())){
-                String nationality = (String) jComboBoxNationalities.getSelectedItem();
-                String[] n = nationality.split(" ");
+            String nationality = (String) jComboBoxNationalities.getSelectedItem();
+            String[] n = nationality.split(" ");
+            if("".equals(username)){
+                Integer index = jListNationalities.getSelectedIndex();
+                listModelNationalities.remove(index); 
+                jListNationalities.setModel(listModelNationalities);
+            } else {
                 logic_connection.DataBaseConnection.deleteUserxNationality(username, Integer.parseInt(n[0]));
                 updateNationalities();
-            } else {
-                JOptionPane.showMessageDialog(this, "The username box is empty", "Watch out", JOptionPane.ERROR_MESSAGE);
-            }  
+            }
         }
         catch (SQLException e){
             JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
@@ -464,14 +475,17 @@ public class Register extends javax.swing.JDialog {
 
     private void jButtonAddNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNationalityActionPerformed
         try{
-            if(!"".equals(txtUsername.getText())){
-                String nationality = (String) jComboBoxNationalities.getSelectedItem();
-                String[] n = nationality.split(" ");
+            String nationality = (String) jComboBoxNationalities.getSelectedItem();
+            String[] n = nationality.split(" ");
+            if("".equals(username)){
+                if(!listModelNationalities.contains(nationality)){
+                    listModelNationalities.addElement(nationality);
+                    jListNationalities.setModel(listModelNationalities);
+                }
+            } else {
                 logic_connection.DataBaseConnection.insertUserxNationality(username, Integer.parseInt(n[0]));
                 updateNationalities();
-            } else {
-                JOptionPane.showMessageDialog(this, "The username box is empty", "Watch out", JOptionPane.ERROR_MESSAGE);
-            }  
+            }
         }
         catch (SQLException e){
             JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);

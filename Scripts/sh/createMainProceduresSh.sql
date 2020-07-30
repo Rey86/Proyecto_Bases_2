@@ -559,3 +559,18 @@ BEGIN
 	VALUES (pnIdPurchase, pnIdProduct, pnQuantity);
 	Commit;
 END$$
+
+-- Procedure to get the current user last purchase with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getCurrentUserLastPurchase (pcUsername VARCHAR(45)) 
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+	SELECT max(p.id_purchase) max_id
+	FROM US.USER u
+	INNER JOIN PURCHASE p
+	ON u.username = p.username_customer
+	WHERE u.username = IFNULL(pcUsername, u.username);
+END$$

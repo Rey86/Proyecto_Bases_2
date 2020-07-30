@@ -34,7 +34,7 @@ public class InsertProvince extends javax.swing.JDialog {
     public ArrayList<Integer> allforeigns(){
         ArrayList<Integer> countries = new ArrayList<>();
         try{
-            ResultSet r = logic_connection.DataBaseConnection.getProvinces();
+            ResultSet r = logic_connection.DataBaseConnection.getCountries();
             while(r.next()) countries.add(r.getInt("ID_COUNTRY"));
         }
         catch (SQLException e){

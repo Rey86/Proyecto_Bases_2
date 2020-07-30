@@ -54,6 +54,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jButtonRemove" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                      <Component id="jComboBoxPaymentMethod" min="-2" pref="98" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButtonPurchase" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButtonClose" min="-2" max="-2" attributes="0"/>
@@ -123,6 +127,8 @@
                   <Component id="jButtonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonPurchase" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonClose" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboBoxPaymentMethod" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -147,7 +153,7 @@
         <Component class="javax.swing.JTable" name="jTableProducts">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="8" rowCount="0">
+              <Table columnCount="7" rowCount="0">
                 <Column editable="true" title="ID Product" type="java.lang.Object"/>
                 <Column editable="true" title="Name" type="java.lang.Object"/>
                 <Column editable="true" title="Price" type="java.lang.Object"/>
@@ -155,16 +161,10 @@
                 <Column editable="true" title="Delivery Type" type="java.lang.Object"/>
                 <Column editable="true" title="Category" type="java.lang.Object"/>
                 <Column editable="true" title="Salesman" type="java.lang.Object"/>
-                <Column editable="true" title="Stars" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -240,24 +240,18 @@
         <Component class="javax.swing.JTable" name="jTableProductsCart">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="8" rowCount="0">
+              <Table columnCount="7" rowCount="0">
                 <Column editable="true" title="ID_Product" type="java.lang.Object"/>
                 <Column editable="true" title="Name" type="java.lang.Object"/>
                 <Column editable="true" title="Price" type="java.lang.Object"/>
                 <Column editable="true" title="Delivery Type" type="java.lang.Object"/>
                 <Column editable="true" title="Category" type="java.lang.Object"/>
                 <Column editable="true" title="Salesman" type="java.lang.Object"/>
-                <Column editable="true" title="Stars" type="java.lang.Object"/>
                 <Column editable="true" title="Quantity" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
@@ -360,6 +354,24 @@
     <Component class="javax.swing.JButton" name="jButtonDeleteWish">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete to Wish List"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDeleteWishActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBoxPaymentMethod">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Payment Method:"/>
       </Properties>
     </Component>
   </SubComponents>

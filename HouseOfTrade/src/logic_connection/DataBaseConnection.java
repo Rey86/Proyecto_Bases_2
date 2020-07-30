@@ -472,14 +472,12 @@ public class DataBaseConnection {
     }
     
     // Procedure to insert a purchase in the system
-    public static void insertPurchase(String pcPurchaseDate, String pcUsernameCustomer, 
-            Integer pnIdPaymentMethod) throws SQLException{
+    public static void insertPurchase(String pcUsernameCustomer, Integer pnIdPaymentMethod) throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{ call sh.insertPurchase(?,?,?)}");
+        CallableStatement stmt = con.prepareCall("{ call sh.insertPurchase(?,?)}");
         
-        stmt.setString(1, pcPurchaseDate);
-        stmt.setString(2, pcUsernameCustomer);
-        stmt.setInt(3, pnIdPaymentMethod);
+        stmt.setString(1, pcUsernameCustomer);
+        stmt.setInt(2, pnIdPaymentMethod);
         stmt.execute();
     }
     
@@ -1199,7 +1197,11 @@ public class DataBaseConnection {
         CallableStatement stmt = con.prepareCall("{ call us.deleteUserWantsProduct(?,?)}");
         
         stmt.setString(1, pcUsername);
-        stmt.setInt(2, pnIdProduct);
+        if(pnIdProduct == 0){
+            stmt.setNull(2, Types.INTEGER);
+        } else {
+            stmt.setInt(2, pnIdProduct);
+        }
         stmt.execute();
     }
     
@@ -1389,6 +1391,15 @@ public class DataBaseConnection {
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call us.getCustomerList()}");
 
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getCurrentUserLastPurchase(String pcUsername) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getCurrentUserLastPurchase(?)}");
+        
+        stmt.setString(1, pcUsername);
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }

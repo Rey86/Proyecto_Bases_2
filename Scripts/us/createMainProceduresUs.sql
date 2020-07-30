@@ -577,7 +577,7 @@ BEGIN
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
     DELETE FROM USERWANTSPRODUCT
-	WHERE username = pcUsername AND id_product = pnIdProduct;
+	WHERE username = IFNULL(pcUsername, username) AND id_product = IFNULL(pnIdProduct, id_product);
 	Commit;
 END$$
 
@@ -596,7 +596,7 @@ END$$
 
 -- Procedure to get a customer list
 DELIMITER $$
-CREATE PROCEDURE `getCustomerList` ()
+CREATE PROCEDURE getCustomerList()
 BEGIN
 	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
@@ -607,3 +607,10 @@ BEGIN
     inner join sh.productxpurchase pp on pp.ID_Product  = pr.ID_product
     inner join sh.purchase pu on pu.ID_Purchase = pp.ID_Purchase;
 END$$
+
+call us.deleteuserwantsproduct('Rey86', null);
+delete from purchase;
+update product set sold = 0, quantity = 1 where id_product = 30;
+DELETE FROM USERWANTSPRODUCT
+WHERE username = IFNULL('Rey86', username) AND id_product = IFNULL(null, id_product);
+select * from userreview;

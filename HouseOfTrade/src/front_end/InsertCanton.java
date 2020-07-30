@@ -34,7 +34,7 @@ public class InsertCanton extends javax.swing.JDialog {
     public ArrayList<Integer> allforeigns(){
         ArrayList<Integer> provinces = new ArrayList<>();
         try{
-            ResultSet r = logic_connection.DataBaseConnection.getCantons();
+            ResultSet r = logic_connection.DataBaseConnection.getProvinces();
             while(r.next()) provinces.add(r.getInt("ID_PROVINCE"));
         }
         catch (SQLException e){

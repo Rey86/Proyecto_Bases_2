@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,6 +15,7 @@ public class BuyProduct extends javax.swing.JDialog {
         super(parent, modal);
         this.username = username;
         initComponents();
+        initial();
         setLocationRelativeTo(null);
     }
     
@@ -21,14 +23,11 @@ public class BuyProduct extends javax.swing.JDialog {
         ResultSet r = logic_connection.DataBaseConnection.getSearchedProducts(jTextFieldFilter.getText());
         DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
         while(r.next()){
-            ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
-            while(s.next()){
-                if (!String.valueOf(r.getInt("QUANTITY")).equals("0")){
-                    if (!String.valueOf(r.getString("SALESMAN")).equals(username)){
-                        dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT"), r.getInt("PRICE"), 
-                            r.getInt("QUANTITY"), r.getString("DELIVERYTYPE"), r.getString("CATEGORY"), 
-                            r.getString("SALESMAN"), s.getDouble("STARS")});
-                    }
+            if (!String.valueOf(r.getInt("QUANTITY")).equals("0")){
+                if (!String.valueOf(r.getString("SALESMAN")).equals(username)){
+                    dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT"), r.getInt("PRICE"), 
+                        r.getInt("QUANTITY"), r.getString("DELIVERYTYPE"), r.getString("CATEGORY"), 
+                        r.getString("SALESMAN")});
                 }
             }
         }
@@ -38,13 +37,10 @@ public class BuyProduct extends javax.swing.JDialog {
         ResultSet r = logic_connection.DataBaseConnection.getWishProducts(username);
         DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
         while(r.next()){
-            ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
-            while(s.next()){
-                if (!String.valueOf(r.getInt("QUANTITY")).equals("0")){
-                    dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"), 
-                        r.getInt("QUANTITY"), r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
-                        r.getString("USERNAME_SALESMAN"), s.getDouble("STARS")});
-                }
+            if (!String.valueOf(r.getInt("QUANTITY")).equals("0")){
+                dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"), 
+                    r.getInt("QUANTITY"), r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
+                    r.getString("USERNAME_SALESMAN")});
             }
         }
     }
@@ -59,19 +55,16 @@ public class BuyProduct extends javax.swing.JDialog {
         DefaultTableModel dtb = (DefaultTableModel) jTableProductsCart.getModel();
         while(r.next()){
             if(!"".equals(jTextFieldQuantity.getText())){
-                ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
-                while(s.next()){
-                    if (r.getInt("QUANTITY") >= Integer.parseInt(jTextFieldQuantity.getText())){
-                        dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"),
-                            r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
-                            r.getString("USERNAME_SALESMAN"), s.getDouble("STARS"), jTextFieldQuantity.getText()});
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(this, "There aren't enough products", "Warning", JOptionPane.ERROR_MESSAGE);
-                        dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"),
-                            r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
-                            r.getString("USERNAME_SALESMAN"), s.getDouble("STARS"), r.getInt("QUANTITY")});
-                    }
+                if (r.getInt("QUANTITY") >= Integer.parseInt(jTextFieldQuantity.getText())){
+                    dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"),
+                        r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
+                        r.getString("USERNAME_SALESMAN"), jTextFieldQuantity.getText()});
+                }
+                else {
+                    JOptionPane.showMessageDialog(this, "There aren't enough products", "Warning", JOptionPane.ERROR_MESSAGE);
+                    dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"),
+                        r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
+                        r.getString("USERNAME_SALESMAN"), r.getInt("QUANTITY")});
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "The quantity box is empty", "Warning", JOptionPane.ERROR_MESSAGE);
@@ -108,6 +101,8 @@ public class BuyProduct extends javax.swing.JDialog {
         jButtonWish = new javax.swing.JButton();
         jButtonWished = new javax.swing.JButton();
         jButtonDeleteWish = new javax.swing.JButton();
+        jComboBoxPaymentMethod = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,7 +126,7 @@ public class BuyProduct extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID Product", "Name", "Price", "Stock", "Delivery Type", "Category", "Salesman", "Stars"
+                "ID Product", "Name", "Price", "Stock", "Delivery Type", "Category", "Salesman"
             }
         ));
         jScrollPane1.setViewportView(jTableProducts);
@@ -157,7 +152,7 @@ public class BuyProduct extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID_Product", "Name", "Price", "Delivery Type", "Category", "Salesman", "Stars", "Quantity"
+                "ID_Product", "Name", "Price", "Delivery Type", "Category", "Salesman", "Quantity"
             }
         ));
         jScrollPane3.setViewportView(jTableProductsCart);
@@ -207,6 +202,13 @@ public class BuyProduct extends javax.swing.JDialog {
         });
 
         jButtonDeleteWish.setText("Delete to Wish List");
+        jButtonDeleteWish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteWishActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Payment Method:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,6 +221,10 @@ public class BuyProduct extends javax.swing.JDialog {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonRemove)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addGap(13, 13, 13)
+                        .addComponent(jComboBoxPaymentMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonPurchase)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -277,7 +283,9 @@ public class BuyProduct extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonRemove)
                     .addComponent(jButtonPurchase)
-                    .addComponent(jButtonClose))
+                    .addComponent(jButtonClose)
+                    .addComponent(jComboBoxPaymentMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -287,6 +295,12 @@ public class BuyProduct extends javax.swing.JDialog {
     private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
         Integer current_row = jTableProducts.getSelectedRow();
         if(current_row != -1){
+            try{
+                logic_connection.DataBaseConnection.insertUserViewsProduct(username, (Integer) jTableProducts.getValueAt(current_row, 0));
+            }
+            catch (SQLException e){
+                JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }   
             InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true, (Integer) jTableProducts.getValueAt(current_row, 0), "BQP", false);
             dialog.setVisible(true);
         } else {
@@ -295,7 +309,18 @@ public class BuyProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonViewActionPerformed
 
     private void jButtonWishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWishActionPerformed
-        // TODO add your handling code here:
+        Integer current_row = jTableProducts.getSelectedRow();
+        if(current_row != -1){
+            try{
+                logic_connection.DataBaseConnection.insertUserWishesProduct(username, (Integer) jTableProducts.getValueAt(current_row, 0));
+                JOptionPane.showMessageDialog(this, "Product was added successfully to wish list", "Information", JOptionPane.INFORMATION_MESSAGE);
+            }
+            catch (SQLException e){
+                JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a product to add in wish list", "Watch out", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonWishActionPerformed
 
     private void jButtonWishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWishedActionPerformed
@@ -320,9 +345,7 @@ public class BuyProduct extends javax.swing.JDialog {
 
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         try{
-            for(int i = 0; i < jTableProductsCart.getRowCount(); i++){
-                logic_connection.DataBaseConnection.deleteUserWantsProduct(username, (Integer) jTableProducts.getValueAt(i, 0));
-            }
+           logic_connection.DataBaseConnection.deleteUserWantsProduct(username, 0);
         }
         catch (SQLException e){
             JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
@@ -364,25 +387,50 @@ public class BuyProduct extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Select a product to delete of the cart", "Watch out", JOptionPane.WARNING_MESSAGE);
         } 
     }//GEN-LAST:event_jButtonRemoveActionPerformed
-
+    
+    public void initial(){
+        try{
+            ResultSet pm = logic_connection.DataBaseConnection.getPaymentMethods();
+            while(pm.next()){
+                jComboBoxPaymentMethod.addItem(String.valueOf(pm.getInt("ID_PAYMENTMETHOD")) + " " + pm.getString("NAME"));
+            }
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     private void jButtonPurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPurchaseActionPerformed
-        int count= jTableProductsCart.getModel().getRowCount();
+        int count = jTableProductsCart.getModel().getRowCount();
+        String current_paymentmethod = (String) jComboBoxPaymentMethod.getSelectedItem();
+        Integer id_paymentmethod = Integer.valueOf(current_paymentmethod.split(" ")[0]);
         try {
             if(count > 0){
-                logic_connection.DataBaseConnection.insertPurchase(username, username, PROPERTIES);
-                for(int c = count; 0<=c; c--){
+                logic_connection.DataBaseConnection.insertPurchase(username, id_paymentmethod);
+                ResultSet p = logic_connection.DataBaseConnection.getCurrentUserLastPurchase(username);
+                for(int c = 0; c < count; c++){
                     int productID = (Integer) jTableProductsCart.getValueAt( c, 0);
                     ResultSet r = logic_connection.DataBaseConnection.getProduct(productID);
                     while(r.next()){
+                        System.out.println("Hola");
                         logic_connection.DataBaseConnection.setProduct(productID, 
                         (String) jTableProductsCart.getValueAt( c, 1), 
-                        r.getInt("SOLD")+(Integer)jTableProductsCart.getValueAt( c, 7), 
+                        r.getInt("SOLD")+Integer.parseInt((String)jTableProductsCart.getValueAt( c, 6)), 
                         r.getString("DESCRIPTION"), 
-                        r.getInt("QUANTITY")-(Integer)jTableProductsCart.getValueAt( c, 7), 
+                        r.getInt("QUANTITY")-Integer.parseInt((String)jTableProductsCart.getValueAt( c, 6)), 
                         (String) jTableProductsCart.getValueAt( c, 5), 
                         r.getInt("ID_CATEGORY"), r.getInt("ID_DELIVERYTYPE"));
+                        while(p.next()){
+                            logic_connection.DataBaseConnection.insertProductxPurchase(p.getInt("MAX_ID"), 
+                                productID, Integer.parseInt((String)jTableProductsCart.getValueAt(c, 6)));
+                        }
                     }
+                    ReviewUser dialog = new ReviewUser(new javax.swing.JFrame(), true, username, (String) jTableProductsCart.getValueAt( c, 5), 0);
+                    dialog.setVisible(true);
+                    ReviewProduct dialog1 = new ReviewProduct(new javax.swing.JFrame(), true, productID);
+                    dialog1.setVisible(true);
                 }
+                JOptionPane.showMessageDialog(this, "Purchase was made successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
             } else{
                 JOptionPane.showMessageDialog(this, "The cart is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
             }
@@ -390,6 +438,21 @@ public class BuyProduct extends javax.swing.JDialog {
             Logger.getLogger(BuyProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonPurchaseActionPerformed
+
+    private void jButtonDeleteWishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteWishActionPerformed
+        Integer current_row = jTableProducts.getSelectedRow();
+        if(current_row != -1){
+            try{
+                logic_connection.DataBaseConnection.deleteUserWishesProduct(username, (Integer) jTableProducts.getValueAt(current_row, 0));
+                JOptionPane.showMessageDialog(this, "Product was deleted successfully to wish list", "Information", JOptionPane.INFORMATION_MESSAGE);
+            }
+            catch (SQLException e){
+                JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a product to delete in wish list", "Watch out", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonDeleteWishActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddToCart;
@@ -401,9 +464,11 @@ public class BuyProduct extends javax.swing.JDialog {
     private javax.swing.JButton jButtonView;
     private javax.swing.JButton jButtonWish;
     private javax.swing.JButton jButtonWished;
+    private javax.swing.JComboBox<String> jComboBoxPaymentMethod;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
