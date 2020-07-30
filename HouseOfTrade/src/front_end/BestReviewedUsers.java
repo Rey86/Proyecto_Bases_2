@@ -18,7 +18,7 @@ public class BestReviewedUsers extends javax.swing.JDialog {
                 ResultSet r = logic_connection.DataBaseConnection.getBestReviewedUsers(Integer.parseInt(jTextFieldTop.getText())); 
                 DefaultTableModel dtb = (DefaultTableModel) jTableUserReviews.getModel();
                 while(r.next()){
-                    dtb.addRow(new Object[]{r.getString("USERNAME"), r.getInt("AVERAGE_REVIEW")});
+                    dtb.addRow(new Object[]{r.getString("USERNAME"), r.getDouble("AVERAGE_REVIEW")});
                 }
             }
             catch (NumberFormatException nfe){

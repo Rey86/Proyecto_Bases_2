@@ -16,7 +16,7 @@ public class MaxMinPurchaseAmountPerCategory extends javax.swing.JDialog {
         ResultSet r = logic_connection.DataBaseConnection.getMaxMinPurchaseAmountPerCategory(); 
         DefaultTableModel dtb = (DefaultTableModel) jTableMaxMinPurchaseAmount.getModel();
         while(r.next()){
-            dtb.addRow(new Object[]{r.getString("CATEGORY"), r.getInt("MAX"), r.getString("MIN")});
+            dtb.addRow(new Object[]{r.getString("CATEGORY"), r.getInt("MAX"), r.getInt("MIN")});
         }
     }
     

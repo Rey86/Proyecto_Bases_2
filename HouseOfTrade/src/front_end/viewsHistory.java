@@ -18,7 +18,7 @@ public class viewsHistory extends javax.swing.JDialog {
         ResultSet r = logic_connection.DataBaseConnection.getViewsHistory(username); 
         DefaultTableModel dtb = (DefaultTableModel) jTableRecentViews.getModel();
         while(r.next()){
-            dtb.addRow(new Object[]{r.getInt("ID_PURCHASE"), r.getString("VIEWED_BY"), r.getString("VIEWED")});
+            dtb.addRow(new Object[]{r.getString("p.name"), r.getString("p.usernamesalesman"), r.getString("VIEWED")});
         }
     }
     
@@ -46,7 +46,7 @@ public class viewsHistory extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Product", "Viewed by", "Viewed"
+                "Product", "Salesman", "Viewed"
             }
         ) {
             Class[] types = new Class [] {

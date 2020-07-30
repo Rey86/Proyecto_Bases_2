@@ -101,7 +101,7 @@ public class SignIn extends javax.swing.JDialog {
                     while(usertype.next()){
                         usertype_description = usertype.getString("NAME");
                     }
-                    if(usertype_description.equals("Administrador")){
+                    if(!usertype_description.equals("Administrador")){
                         MainAdmin dialog = new  MainAdmin(new javax.swing.JFrame(), true, txtUsername.getText());
                         dialog.setVisible(true);
                     } else {

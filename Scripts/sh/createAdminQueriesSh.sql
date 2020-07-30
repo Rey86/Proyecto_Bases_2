@@ -7,12 +7,12 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	Select product_name, price, category from(Select p.name product_name, p.price price, c.Name category from product p 
+	Select p.name product_name, p.price price, c.Name category from product p 
     inner join category c on c.ID_Category = p.ID_Category
     where p.ID_category = IFNULL(pnID_Category, p.ID_category)
     group by product_name 
-    order by price desc) TopPricesPerCategory
-    where rownum <= n;
+    order by price desc 
+    LIMIT n;
 END$$
 -- Procedure to get the top n most expensive purchase, using the category as a filter
 DELIMITER $$
@@ -22,15 +22,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	Select  category, max_table.max Max, min_table.min Min from
-    (select c.category_name category, max(pr.price) max from purchase pu
-    inner join productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
-    inner join product pr on pr.ID_Product = pp.ID_Product
-    group by category) as max_table
-    Join
-    (select c.category_name category, min(pr.price) max from purchase pu
-    inner join productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
-    inner join product pr on pr.ID_Product = pp.ID_Product
-    group by category) as min_table
+	select c.name category, max(pr.price) max, min(pr.price) min from product pr
+    inner join category c on c.ID_Category = pr.ID_Category
     group by category;
 END$$

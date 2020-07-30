@@ -407,22 +407,22 @@ public class BuyProduct extends javax.swing.JDialog {
         try {
             if(count > 0){
                 logic_connection.DataBaseConnection.insertPurchase(username, id_paymentmethod);
-                ResultSet p = logic_connection.DataBaseConnection.getCurrentUserLastPurchase(username);
                 for(int c = 0; c < count; c++){
                     int productID = (Integer) jTableProductsCart.getValueAt( c, 0);
                     ResultSet r = logic_connection.DataBaseConnection.getProduct(productID);
                     while(r.next()){
-                        System.out.println("Hola");
                         logic_connection.DataBaseConnection.setProduct(productID, 
                         (String) jTableProductsCart.getValueAt( c, 1), 
-                        r.getInt("SOLD")+Integer.parseInt((String)jTableProductsCart.getValueAt( c, 6)), 
+                        r.getInt("SOLD")+Integer.parseInt(String.valueOf(jTableProductsCart.getValueAt( c, 6))), 
                         r.getString("DESCRIPTION"), 
-                        r.getInt("QUANTITY")-Integer.parseInt((String)jTableProductsCart.getValueAt( c, 6)), 
+                        r.getInt("QUANTITY")-Integer.parseInt((String.valueOf(jTableProductsCart.getValueAt( c, 6)))), 
                         (String) jTableProductsCart.getValueAt( c, 5), 
                         r.getInt("ID_CATEGORY"), r.getInt("ID_DELIVERYTYPE"));
+                        ResultSet p = logic_connection.DataBaseConnection.getCurrentUserLastPurchase(username);
                         while(p.next()){
+                            System.out.println("Hola");
                             logic_connection.DataBaseConnection.insertProductxPurchase(p.getInt("MAX_ID"), 
-                                productID, Integer.parseInt((String)jTableProductsCart.getValueAt(c, 6)));
+                                productID, Integer.parseInt(String.valueOf(jTableProductsCart.getValueAt(c, 6))));
                         }
                     }
                     ReviewUser dialog = new ReviewUser(new javax.swing.JFrame(), true, username, (String) jTableProductsCart.getValueAt( c, 5), 0);
@@ -431,6 +431,7 @@ public class BuyProduct extends javax.swing.JDialog {
                     dialog1.setVisible(true);
                 }
                 JOptionPane.showMessageDialog(this, "Purchase was made successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             } else{
                 JOptionPane.showMessageDialog(this, "The cart is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
             }

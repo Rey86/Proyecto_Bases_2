@@ -138,7 +138,8 @@ public class MainUser extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEditProfileActionPerformed
 
     private void jButtonReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReviewActionPerformed
-        // TODO add your handling code here:
+        Customers dialog = new Customers(new javax.swing.JFrame(), true, username);
+        dialog.setVisible(true);
     }//GEN-LAST:event_jButtonReviewActionPerformed
 
     private void jButtonConversationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConversationActionPerformed

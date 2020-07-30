@@ -21,7 +21,7 @@ public class TopPricesPerCategory extends javax.swing.JDialog {
                 ResultSet r = logic_connection.DataBaseConnection.getTopPricesPerCategory(Integer.parseInt(jTextFieldTop.getText()), id_category); 
                 DefaultTableModel dtb = (DefaultTableModel) jTableProductPrice.getModel();
                 while(r.next()){
-                    dtb.addRow(new Object[]{r.getString("PRODUCT"), r.getInt("PRICE"), r.getString("CATEGORY")});
+                    dtb.addRow(new Object[]{r.getString("product_name"), r.getInt("PRICE"), r.getString("CATEGORY")});
                 }
             }
             catch (NumberFormatException nfe){

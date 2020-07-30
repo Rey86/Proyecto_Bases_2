@@ -608,9 +608,3 @@ BEGIN
     inner join sh.purchase pu on pu.ID_Purchase = pp.ID_Purchase;
 END$$
 
-call us.deleteuserwantsproduct('Rey86', null);
-delete from purchase;
-update product set sold = 0, quantity = 1 where id_product = 30;
-DELETE FROM USERWANTSPRODUCT
-WHERE username = IFNULL('Rey86', username) AND id_product = IFNULL(null, id_product);
-select * from userreview;

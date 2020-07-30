@@ -1244,7 +1244,7 @@ public class DataBaseConnection {
     
     public static ResultSet getWorstReviewedUsers(Integer n) throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{ call us.getWorstReviewedUsers()}");
+        CallableStatement stmt = con.prepareCall("{ call us.getWorstReviewedUsers(?)}");
 
         stmt.setInt(1,n);
         ResultSet r = (ResultSet) stmt.executeQuery();
@@ -1256,10 +1256,10 @@ public class DataBaseConnection {
         CallableStatement stmt = con.prepareCall("{ call sh.getTopPricesPerCategory(?, ?)}");
 
         stmt.setInt(1, n);
-        if(!pnID_Category.equals(0)){
-            stmt.setInt(1, pnID_Category);
+        if(0 != pnID_Category){
+            stmt.setInt(2, pnID_Category);
         } else {
-            stmt.setNull(1, Types.INTEGER);
+            stmt.setNull(2, Types.INTEGER);
         }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
@@ -1319,10 +1319,10 @@ public class DataBaseConnection {
     
     public static ResultSet getPurchaseHistory(String psUsername, Integer month) throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{ call us.getPurhaseHistory(?, ?)}");
+        CallableStatement stmt = con.prepareCall("{ call us.getPurchaseHistory(?, ?)}");
 
         stmt.setString(1, psUsername);
-        if(!month.equals(0)){
+        if(month != 0){
             stmt.setInt(2, month);
         } else {
             stmt.setNull(2, Types.INTEGER);
@@ -1335,7 +1335,7 @@ public class DataBaseConnection {
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call us.getUserAgeRangePerGender(?)}");
 
-        if(!pnID_Gender.equals(0)){
+        if(pnID_Gender != 0){
             stmt.setInt(1, pnID_Gender);
         } else {
             stmt.setNull(1, Types.INTEGER);

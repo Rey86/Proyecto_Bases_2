@@ -7,12 +7,12 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-    Select username, sale_quantity 	from (select u.Username username, sum(p.Sold) sale_quantity 
+    select u.Username username, sum(p.Sold) sale_quantity 
     from user u
     inner join sh.product p on p.UsernameSalesman = u.Username
     group by u.Username
-    order by sale_quantity desc) TopUserSales
-    where rownum <= n;
+    order by sale_quantity desc
+    LIMIT n;
 END$$
 
 -- Procedure that gets the top n most expensive purchases made by all users
@@ -23,12 +23,12 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-    Select username, purchase_quantity 	from (select u.username username, count(p.ID_Purchase) purchase_quantity
+	select u.username username, count(p.ID_Purchase) purchase_quantity
     from user u
     inner join sh.purchase p on p.Username_Customer = u.Username
     group by username
-    order by purchase_quantity desc) TopUserPurchases
-    where rownum <= n;
+    order by purchase_quantity desc
+    LIMIT n;
 END$$
 
 -- Procedure that gets a list of the best reviewed users
@@ -39,28 +39,28 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-    Select username, average_review from (select u.username username, avg(r.stars) average_review
+    select u.username username, avg(r.stars) average_review
     from user u
-    inner join userreviews r on r.Username_Reviewee = u.Username
+    inner join userreview r on r.Username_Reviewee = u.Username
     group by username
-    order by average_review desc) 
-    where rownum <= n;
+    order by average_review desc
+    LIMIT n;
 END$$
 
 -- Procedure that gets a list of the worst reviewed users
 DELIMITER $$
-CREATE PROCEDURE getWorstReviewedUsers ()
+CREATE PROCEDURE getWorstReviewedUsers (n Int)
 BEGIN
 	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-    Select username, average_review from (select u.username username, avg(r.stars) average_review
+    select u.username username, avg(r.stars) average_review
     from user u
-    inner join userreviews r on r.Username_Reviewee = u.Username
+    inner join userreview r on r.Username_Reviewee = u.Username
     group by username
-    order by average_review)
-    where rownum <= n;
+    order by average_review
+    LIMIT n;
 END$$
 
 

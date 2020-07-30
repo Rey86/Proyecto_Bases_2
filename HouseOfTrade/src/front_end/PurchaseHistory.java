@@ -15,10 +15,18 @@ public class PurchaseHistory extends javax.swing.JDialog {
     }
 
     public void PurchaseList() throws SQLException{
-        ResultSet r = logic_connection.DataBaseConnection.getPurchaseHistory(username, Integer.parseInt(jTextFieldMonths.getText())); 
-        DefaultTableModel dtb = (DefaultTableModel) jTablePurchaseHistory.getModel();
-        while(r.next()){
-            dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("DATE"), r.getString("PAYMENT_METHOD"), r.getInt("TOTAL_PRICE")});
+        if(!"".equals(jTextFieldMonths.getText())){
+            ResultSet r = logic_connection.DataBaseConnection.getPurchaseHistory(username, Integer.parseInt(jTextFieldMonths.getText())); 
+            DefaultTableModel dtb = (DefaultTableModel) jTablePurchaseHistory.getModel();
+            while(r.next()){
+                dtb.addRow(new Object[]{r.getInt("ID_PURCHASE"), r.getString("DATE"), r.getString("PAYMENT_METHOD"), r.getInt("TOTAL_PRICE")});
+            }
+        } else {
+            ResultSet r = logic_connection.DataBaseConnection.getPurchaseHistory(username, 0); 
+            DefaultTableModel dtb = (DefaultTableModel) jTablePurchaseHistory.getModel();
+            while(r.next()){
+                dtb.addRow(new Object[]{r.getInt("ID_PURCHASE"), r.getString("DATE"), r.getString("PAYMENT_METHOD"), r.getInt("TOTAL_PRICE")});
+            }
         }
     }
     
@@ -138,6 +146,9 @@ public class PurchaseHistory extends javax.swing.JDialog {
         }
         catch (SQLException e){
             JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+        catch (NumberFormatException nfe){
+            JOptionPane.showMessageDialog(this, "The box must be a number", "Warning", JOptionPane.ERROR_MESSAGE);    
         }
     }//GEN-LAST:event_jButtonSearchActionPerformed
 

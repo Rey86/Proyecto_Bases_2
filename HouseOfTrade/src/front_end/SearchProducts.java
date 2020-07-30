@@ -17,11 +17,7 @@ public class SearchProducts extends javax.swing.JDialog {
         ResultSet r = logic_connection.DataBaseConnection.getSearchedProducts(jTextFieldProductFilter.getText()); 
         DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
         while(r.next()){
-            ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
-            while(s.next()){
-                dtb.addRow(new Object[]{r.getString("PRODUCT"), r.getInt("PRICE"), r.getString("CATEGORY"), 
-                    s.getDouble("STARS")});
-            }
+            dtb.addRow(new Object[]{r.getString("PRODUCT"), r.getInt("PRICE"), r.getString("CATEGORY")});
         }
     }
     
@@ -50,11 +46,11 @@ public class SearchProducts extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Product", "Price", "Category", "Stars"
+                "Product", "Price", "Category"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
