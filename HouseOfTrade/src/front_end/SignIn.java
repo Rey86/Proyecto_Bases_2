@@ -91,16 +91,16 @@ public class SignIn extends javax.swing.JDialog {
         String usertype_description = "";
         try{
             ResultSet password = logic_connection.DataBaseConnection.getUserPassword(txtUsername.getText());
+            ResultSet usertype = logic_connection.DataBaseConnection.getCurrentUserType(txtUsername.getText());
             while(password.next()){
                 user_password = password.getString("PASSWORD");
+            }
+            while(usertype.next()){
+                usertype_description = usertype.getString("NAME");
             }
             String current_password = String.valueOf(txtPassword.getPassword());
             if (!current_password.equals("")){
                 if (user_password.equals(current_password)){
-                    ResultSet usertype = logic_connection.DataBaseConnection.getCurrentUserType(txtUsername.getText());
-                    while(usertype.next()){
-                        usertype_description = usertype.getString("NAME");
-                    }
                     if(!usertype_description.equals("Administrador")){
                         MainAdmin dialog = new  MainAdmin(new javax.swing.JFrame(), true, txtUsername.getText());
                         dialog.setVisible(true);

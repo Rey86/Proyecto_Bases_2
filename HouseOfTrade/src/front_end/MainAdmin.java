@@ -22,6 +22,7 @@ public class MainAdmin extends javax.swing.JDialog {
         btnExit = new javax.swing.JButton();
         btnEditProfile = new javax.swing.JButton();
         jButtonReview = new javax.swing.JButton();
+        jButtonConversation = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -81,6 +82,13 @@ public class MainAdmin extends javax.swing.JDialog {
             }
         });
 
+        jButtonConversation.setText("Conversation Module");
+        jButtonConversation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConversationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,8 +97,9 @@ public class MainAdmin extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnListProducts)
-                    .addComponent(btnEditCatalogs)
+                    .addComponent(jButtonConversation)
                     .addComponent(btnPurchaseProducts)
+                    .addComponent(btnEditCatalogs)
                     .addComponent(btnQueries)
                     .addComponent(btnStatistics)
                     .addComponent(btnExit)
@@ -111,11 +120,13 @@ public class MainAdmin extends javax.swing.JDialog {
                 .addComponent(btnQueries)
                 .addGap(18, 18, 18)
                 .addComponent(btnStatistics)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditProfile)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonReview)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonConversation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(btnExit)
                 .addContainerGap())
         );
@@ -162,6 +173,11 @@ public class MainAdmin extends javax.swing.JDialog {
         dialog.setVisible(true);
     }//GEN-LAST:event_jButtonReviewActionPerformed
 
+    private void jButtonConversationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConversationActionPerformed
+        ConversationList dialog = new ConversationList(new javax.swing.JFrame(), true, username);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jButtonConversationActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditCatalogs;
     private javax.swing.JButton btnEditProfile;
@@ -170,6 +186,7 @@ public class MainAdmin extends javax.swing.JDialog {
     private javax.swing.JButton btnPurchaseProducts;
     private javax.swing.JButton btnQueries;
     private javax.swing.JButton btnStatistics;
+    private javax.swing.JButton jButtonConversation;
     private javax.swing.JButton jButtonReview;
     // End of variables declaration//GEN-END:variables
 }

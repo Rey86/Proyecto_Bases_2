@@ -23,12 +23,13 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="btnListProducts" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEditCatalogs" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonConversation" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnPurchaseProducts" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEditCatalogs" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnQueries" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnStatistics" alignment="2" min="-2" max="-2" attributes="0"/>
                   <Component id="btnExit" alignment="2" min="-2" max="-2" attributes="0"/>
@@ -52,11 +53,13 @@
               <Component id="btnQueries" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnStatistics" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btnEditProfile" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jButtonReview" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jButtonConversation" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="10" max="32767" attributes="0"/>
               <Component id="btnExit" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -126,6 +129,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonReviewActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonConversation">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Conversation Module"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConversationActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
