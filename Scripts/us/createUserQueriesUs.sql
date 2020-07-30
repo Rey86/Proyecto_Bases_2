@@ -8,10 +8,10 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
     Select p.name, uv.username viewed_by, up.date_creation viewed from user u
-    inner join sh.product p on p.UsernameSalesman = u.username
+    inner join sh.product p on p.UsernameSalesman = psUsername
     inner join userviewsproduct up on up.ID_Product = p.ID_Product
-    inner join user uv on uv.Username = up.Username
-    where u.Username = psUsername and up.date_creation = sysdate();
+    inner join user uv on uv.Username = psUsername
+    where up.date_creation = sysdate();
 END$$
 
 -- Procedure that gets the list of all products sold by the user
@@ -24,8 +24,8 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
     -- Revisar esta
 	Select p.name product, p.Sold sales from user u 
-    inner join sh.product p on p.UsernameSalesman = u.Username
-    where u.Username = psUsername and sold >= 1;
+    inner join sh.product p on p.UsernameSalesman = psUsername
+    where sold >= 1;
 END$$
 
 -- Procedure that gets a list of all purchases that cost over 1000 per category made by the user
@@ -37,11 +37,11 @@ BEGIN
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
     select pu.ID_Purchase ID_Purchase, pm.Name payment_method, sum(pr.price) Total_Price from user u
-    inner join sh.purchase pu on pu.Username_Customer = u.Username
+    inner join sh.purchase pu on pu.Username_Customer = psUsername
     inner join sh.productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
     inner join sh.product pr on pr.ID_Product = pp.ID_Product
     inner join paymentmethod pm on pm.ID_PaymentMethod = pu.ID_PaymentMethod
-    where u.Username = psUsername and Total_Price >= 1000 and p.ID_category = IFNULL(pnID_Category, p.ID_category);
+    where Total_Price >= 1000 and p.ID_category = IFNULL(pnID_Category, p.ID_category);
 END$$
 
 -- Procedure that gets the list of the most recent purchases
@@ -55,9 +55,9 @@ BEGIN
 	-- Corregir calculo de meses
 	Select pu.ID_Purchase ID_Purchase, pu.Date Date, pm.Name Payment_Method,  sum(pr.price) Total_Price
     from user u
-    inner join sh.purchase pu on pu.Username_Customer = u.Username
+    inner join sh.purchase pu on pu.Username_Customer = psUsername
     inner join sh.productxpurchase pp on pp.ID_Purchase = pu.ID_Purchase
     inner join sh.product pr on pr.ID_Product = pp.ID_Product
     inner join paymentmethod pm on pm.ID_PaymentMethod = pu.ID_PaymentMethod
-    where u.username = psUsername and sysdate()- month(date) = ifnull(month, sysdate()- month(date));
+    where sysdate()- month(date) = ifnull(month, sysdate()- month(date));
 END$$
