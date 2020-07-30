@@ -6,23 +6,43 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class BuyProduct extends javax.swing.JDialog {
-
-    public BuyProduct(java.awt.Frame parent, boolean modal) {
+    private String username;
+    
+    public BuyProduct(java.awt.Frame parent, boolean modal, String username) {
         super(parent, modal);
+        this.username = username;
         initComponents();
         setLocationRelativeTo(null);
     }
     
     public void ProductList() throws SQLException{
-        ResultSet r = logic_connection.DataBaseConnection.getProducts();
+        ResultSet r = logic_connection.DataBaseConnection.getSearchedProducts(jTextFieldFilter.getText());
         DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
         while(r.next()){
             ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
             while(s.next()){
-                if (!String.valueOf(r.getInt("QUANTITY")).equals("0"))
-                dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("NAME_PRODUCT"), r.getInt("PRICE"), 
-                    r.getInt("QUANTITY"), r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
-                    r.getString("USERNAME_SALESMAN"), s.getDouble("STARS")});
+                if (!String.valueOf(r.getInt("QUANTITY")).equals("0")){
+                    if (!String.valueOf(r.getString("SALESMAN")).equals(username)){
+                        dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT"), r.getInt("PRICE"), 
+                            r.getInt("QUANTITY"), r.getString("DELIVERYTYPE"), r.getString("CATEGORY"), 
+                            r.getString("SALESMAN"), s.getDouble("STARS")});
+                    }
+                }
+            }
+        }
+    }
+    
+    public void ProductWishList() throws SQLException{
+        ResultSet r = logic_connection.DataBaseConnection.getWishProducts(username);
+        DefaultTableModel dtb = (DefaultTableModel) jTableProducts.getModel();
+        while(r.next()){
+            ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
+            while(s.next()){
+                if (!String.valueOf(r.getInt("QUANTITY")).equals("0")){
+                    dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"), 
+                        r.getInt("QUANTITY"), r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
+                        r.getString("USERNAME_SALESMAN"), s.getDouble("STARS")});
+                }
             }
         }
     }
@@ -33,10 +53,27 @@ public class BuyProduct extends javax.swing.JDialog {
     }
     
     public void ProductCartList() throws SQLException{
-        ResultSet r = logic_connection.DataBaseConnection.getCountries();
+        ResultSet r = logic_connection.DataBaseConnection.getCartProducts(username);
         DefaultTableModel dtb = (DefaultTableModel) jTableProductsCart.getModel();
         while(r.next()){
-            dtb.addRow(new Object[]{r.getInt("ID_COUNTRY"), r.getString("NAME")});
+            if(!"".equals(jTextFieldQuantity.getText())){
+                ResultSet s = logic_connection.DataBaseConnection.getProductStars(r.getInt("ID_PRODUCT"));
+                while(s.next()){
+                    if (r.getInt("QUANTITY") >= Integer.parseInt(jTextFieldQuantity.getText())){
+                        dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"),
+                            r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
+                            r.getString("USERNAME_SALESMAN"), s.getDouble("STARS"), jTextFieldQuantity.getText()});
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(this, "There aren't enough products", "Warning", JOptionPane.ERROR_MESSAGE);
+                        dtb.addRow(new Object[]{r.getInt("ID_PRODUCT"), r.getString("PRODUCT_NAME"), r.getInt("PRICE"),
+                            r.getString("DELIVERYTYPE_NAME"), r.getString("CATEGORY_NAME"), 
+                            r.getString("USERNAME_SALESMAN"), s.getDouble("STARS"), r.getInt("QUANTITY")});
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "The quantity box is empty", "Warning", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     
@@ -52,7 +89,7 @@ public class BuyProduct extends javax.swing.JDialog {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldFilter = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProducts = new javax.swing.JTable();
         jButtonSearch = new javax.swing.JButton();
@@ -67,7 +104,8 @@ public class BuyProduct extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jButtonView = new javax.swing.JButton();
         jButtonWish = new javax.swing.JButton();
-        jButtonWhised = new javax.swing.JButton();
+        jButtonWished = new javax.swing.JButton();
+        jButtonDeleteWish = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,6 +142,11 @@ public class BuyProduct extends javax.swing.JDialog {
         });
 
         jButtonAddToCart.setText("Add to Cart");
+        jButtonAddToCart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddToCartActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Cart:");
 
@@ -118,10 +161,20 @@ public class BuyProduct extends javax.swing.JDialog {
         jScrollPane3.setViewportView(jTableProductsCart);
 
         jButtonRemove.setText("Remove from cart");
+        jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRemoveActionPerformed(evt);
+            }
+        });
 
         jButtonPurchase.setText("Purchase");
 
         jButtonClose.setText("Close");
+        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Quantity:");
 
@@ -139,12 +192,14 @@ public class BuyProduct extends javax.swing.JDialog {
             }
         });
 
-        jButtonWhised.setText("Wished");
-        jButtonWhised.addActionListener(new java.awt.event.ActionListener() {
+        jButtonWished.setText("Wished");
+        jButtonWished.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonWhisedActionPerformed(evt);
+                jButtonWishedActionPerformed(evt);
             }
         });
+
+        jButtonDeleteWish.setText("Delete to Wish List");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,11 +221,11 @@ public class BuyProduct extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1))
+                                    .addComponent(jTextFieldFilter))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonSearch)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonWhised))
+                                .addComponent(jButtonWished))
                             .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButtonAddToCart)
@@ -181,7 +236,9 @@ public class BuyProduct extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonView)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButtonWish)))
+                                .addComponent(jButtonWish)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonDeleteWish)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -192,9 +249,9 @@ public class BuyProduct extends javax.swing.JDialog {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonSearch)
-                    .addComponent(jButtonWhised))
+                    .addComponent(jButtonWished))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,7 +260,8 @@ public class BuyProduct extends javax.swing.JDialog {
                     .addComponent(jTextFieldQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jButtonView)
-                    .addComponent(jButtonWish))
+                    .addComponent(jButtonWish)
+                    .addComponent(jButtonDeleteWish))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,30 +278,96 @@ public class BuyProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
-        // TODO add your handling code here:
+        Integer current_row = jTableProducts.getSelectedRow();
+        if(current_row != -1){
+            InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true, (Integer) jTableProducts.getValueAt(current_row, 0), "BQP", false);
+            dialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a product to view", "Watch out", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonViewActionPerformed
 
     private void jButtonWishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWishActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonWishActionPerformed
 
-    private void jButtonWhisedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWhisedActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonWhisedActionPerformed
+    private void jButtonWishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWishedActionPerformed
+        try{
+            ProductCleanList();
+            ProductWishList();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonWishedActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-        
+        try{
+            ProductCleanList();
+            ProductList();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonSearchActionPerformed
+
+    private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
+        try{
+            for(int i = 0; i < jTableProductsCart.getRowCount(); i++){
+                logic_connection.DataBaseConnection.deleteUserWantsProduct(username, (Integer) jTableProducts.getValueAt(i, 0));
+            }
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+        dispose();
+    }//GEN-LAST:event_jButtonCloseActionPerformed
+
+    private void jButtonAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddToCartActionPerformed
+        Integer current_row = jTableProducts.getSelectedRow();
+        if(current_row != -1){
+            try{
+                logic_connection.DataBaseConnection.insertUserWantsProduct(username, (Integer) jTableProducts.getValueAt(current_row, 0));
+                ProductCartCleanList();
+                ProductCartList();
+            }
+            catch (SQLException e){
+                JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }
+            catch (NumberFormatException nfe){
+                JOptionPane.showMessageDialog(this, "Quantity box must be a number", "Warning", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a product to add into the cart", "Watch out", JOptionPane.WARNING_MESSAGE);
+        } 
+    }//GEN-LAST:event_jButtonAddToCartActionPerformed
+
+    private void jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveActionPerformed
+        Integer current_row = jTableProductsCart.getSelectedRow();
+        if(current_row != -1){
+            try{
+                logic_connection.DataBaseConnection.deleteUserWantsProduct(username, (Integer) jTableProductsCart.getValueAt(current_row, 0));
+                ProductCartCleanList();
+                ProductCartList();
+            }
+            catch (SQLException e){
+                JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Select a product to delete of the cart", "Watch out", JOptionPane.WARNING_MESSAGE);
+        } 
+    }//GEN-LAST:event_jButtonRemoveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddToCart;
     private javax.swing.JButton jButtonClose;
+    private javax.swing.JButton jButtonDeleteWish;
     private javax.swing.JButton jButtonPurchase;
     private javax.swing.JButton jButtonRemove;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonView;
-    private javax.swing.JButton jButtonWhised;
     private javax.swing.JButton jButtonWish;
+    private javax.swing.JButton jButtonWished;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -253,7 +377,7 @@ public class BuyProduct extends javax.swing.JDialog {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableProducts;
     private javax.swing.JTable jTableProductsCart;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextFieldFilter;
     private javax.swing.JTextField jTextFieldQuantity;
     // End of variables declaration//GEN-END:variables
 }

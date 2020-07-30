@@ -261,6 +261,46 @@ BEGIN
 	WHERE p.id_product = IFNULL(pnIdProduct, p.id_product);
 END$$
 
+-- Procedure to get a wish products with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getWishProducts (pcUsername VARCHAR(45)) 
+BEGIN
+	SELECT p.id_product id_product, p.name product_name, p.price price, p.sold sold, 
+    p.description description, p.quantity quantity, usernamesalesman username_salesman, 
+    p.id_category id_category, c.name category_name, p.id_deliverytype id_deliverytype, 
+    dt.name deliverytype_name
+	FROM PRODUCT p
+	INNER JOIN CATEGORY c
+	ON p.id_category = c.id_category
+    INNER JOIN DELIVERYTYPE dt
+    ON p.id_deliverytype = dt.id_deliverytype
+    INNER JOIN us.USERWISHESPRODUCT uwp
+    ON p.id_product = uwp.id_product
+    INNER JOIN us.USER u
+    ON u.username = uwp.username
+	WHERE u.username = IFNULL(pcUsername, u.username);
+END$$
+SELECT * FROM US.USER;
+-- Procedure to get a cart products with specific id to show it in the screen  
+DELIMITER $$
+CREATE PROCEDURE getCartProducts (pcUsername VARCHAR(45)) 
+BEGIN
+	SELECT p.id_product id_product, p.name product_name, p.price price, p.sold sold, 
+    p.description description, p.quantity quantity, usernamesalesman username_salesman, 
+    p.id_category id_category, c.name category_name, p.id_deliverytype id_deliverytype, 
+    dt.name deliverytype_name
+	FROM PRODUCT p
+	INNER JOIN CATEGORY c
+	ON p.id_category = c.id_category
+    INNER JOIN DELIVERYTYPE dt
+    ON p.id_deliverytype = dt.id_deliverytype
+    INNER JOIN us.USERWANTSPRODUCT uwp
+    ON p.id_product = uwp.id_product
+    INNER JOIN us.USER u
+    ON u.username = uwp.username
+	WHERE u.username = IFNULL(pcUsername, u.username);
+END$$
+
 -- Procedure to get a product stars with specific id to show it in the screen  
 DELIMITER $$
 CREATE PROCEDURE getProductStars (pnIdProduct INT) 

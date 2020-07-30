@@ -10,7 +10,7 @@ public class SearchProducts extends javax.swing.JDialog {
     public SearchProducts(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);
+         setLocationRelativeTo(null);
     }
     
     public void ProductList() throws SQLException{

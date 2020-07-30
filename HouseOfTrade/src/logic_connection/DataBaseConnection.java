@@ -504,6 +504,26 @@ public class DataBaseConnection {
         return r;
     }
     
+    // Function to get a cart product list of the system
+    public static ResultSet getWishProducts(String username) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getWishProducts(?)}");
+        
+        stmt.setString(1, username);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    // Function to get a wish product list of the system
+    public static ResultSet getCartProducts(String username) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call sh.getCartProducts(?)}");
+        
+        stmt.setString(1, username);
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
     // Function to get a product of the system
     public static ResultSet getProductStars(Integer pnIdProduct) throws SQLException{
         Connection con = getConnectionDataBase();
@@ -1253,7 +1273,7 @@ public class DataBaseConnection {
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call sh.getSearchedProducts(?)}");
         if(!psSearchWord.equals("")){
-            stmt.setString(1, psSearchWord);
+            stmt.setString(1, psSearchWord+"%");
         } else {
             stmt.setNull(1, Types.VARCHAR);
         }

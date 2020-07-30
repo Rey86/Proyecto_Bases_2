@@ -7,11 +7,13 @@ import javax.swing.JOptionPane;
 public class InsertProduct extends javax.swing.JDialog {
     private Integer id_product;
     private String username;
+    private Boolean editable;
     
-    public InsertProduct(java.awt.Frame parent, boolean modal, Integer id_product, String username) {
+    public InsertProduct(java.awt.Frame parent, boolean modal, Integer id_product, String username, Boolean editable) {
         super(parent, modal);
         this.id_product = id_product;
         this.username = username;
+        this.editable = editable;
         initComponents();
         initial();
         setLocationRelativeTo(null);
@@ -40,6 +42,15 @@ public class InsertProduct extends javax.swing.JDialog {
                     jComboBoxCategories.setSelectedItem(current_category);
                     jComboBoxDeliveryTypes.setSelectedItem(current_deliverytype);
                 }
+            }
+            if(!editable){
+                jTextFieldName.setEnabled(false); 
+                jTextFieldQuantity.setEnabled(false);
+                jTextFieldPrice.setEnabled(false); 
+                jTextAreaDescription.setEnabled(false);
+                jComboBoxCategories.setEnabled(false);
+                jComboBoxDeliveryTypes.setEnabled(false);
+                jButtonAccept.setEnabled(false);
             }
         }
         catch (SQLException e){

@@ -142,7 +142,7 @@ public class ListProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertActionPerformed
-        InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true, 0, username);
+        InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true, 0, username, true);
         dialog.setVisible(true);
         try{
             ProductCleanList();
@@ -156,7 +156,7 @@ public class ListProduct extends javax.swing.JDialog {
     private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditActionPerformed
         Integer current_row = jTableProducts.getSelectedRow();
         if(current_row != -1){
-            InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true, (Integer) jTableProducts.getValueAt(current_row, 0), username);
+            InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true, (Integer) jTableProducts.getValueAt(current_row, 0), username, true);
             dialog.setVisible(true);
             try{
                 ProductCleanList();
