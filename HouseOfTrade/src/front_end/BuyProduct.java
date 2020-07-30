@@ -368,17 +368,20 @@ public class BuyProduct extends javax.swing.JDialog {
     private void jButtonPurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPurchaseActionPerformed
         int count= jTableProductsCart.getModel().getRowCount();
         try {
-            ResultSet r = logic_connection.DataBaseConnection.getProducts();
             if(count > 0){
+                logic_connection.DataBaseConnection.insertPurchase(username, username, PROPERTIES);
                 for(int c = count; 0<=c; c--){
                     int productID = (Integer) jTableProductsCart.getValueAt( c, 0);
-                    logic_connection.DataBaseConnection.setProduct(productID, 
-                            (String) jTableProductsCart.getValueAt( c, 1), 
-                            r.getInt("SOLD")+(Integer)jTableProductsCart.getValueAt( c, 7), 
-                            r.getString("DESCRIPTION"), 
-                            r.getInt("QUANTITY")-(Integer)jTableProductsCart.getValueAt( c, 7), 
-                            (String) jTableProductsCart.getValueAt( c, 5), 
-                            r.getInt("ID_CATEGORY"), r.getInt("ID_DELIVERYTYPE"));
+                    ResultSet r = logic_connection.DataBaseConnection.getProduct(productID);
+                    while(r.next()){
+                        logic_connection.DataBaseConnection.setProduct(productID, 
+                        (String) jTableProductsCart.getValueAt( c, 1), 
+                        r.getInt("SOLD")+(Integer)jTableProductsCart.getValueAt( c, 7), 
+                        r.getString("DESCRIPTION"), 
+                        r.getInt("QUANTITY")-(Integer)jTableProductsCart.getValueAt( c, 7), 
+                        (String) jTableProductsCart.getValueAt( c, 5), 
+                        r.getInt("ID_CATEGORY"), r.getInt("ID_DELIVERYTYPE"));
+                    }
                 }
             } else{
                 JOptionPane.showMessageDialog(this, "The cart is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
