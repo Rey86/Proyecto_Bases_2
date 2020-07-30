@@ -1087,15 +1087,13 @@ public class DataBaseConnection {
     }
     
     // Procedure to insert a receiverxsender in the system
-    public static void insertReceiverxSender(String pcUsernameSender, String pcUsernameReceiver, String pcMessageContent,
-            String pdtTime) throws SQLException{
+    public static void insertReceiverxSender(String pcUsernameSender, String pcUsernameReceiver, String pcMessageContent) throws SQLException{
         Connection con = getConnectionDataBase();
-        CallableStatement stmt = con.prepareCall("{ call us.insertReceiverxSender(?,?,?,?)}");
+        CallableStatement stmt = con.prepareCall("{ call us.insertReceiverxSender(?,?,?)}");
         
         stmt.setString(1, pcUsernameSender);
         stmt.setString(2, pcUsernameReceiver);
         stmt.setString(3, pcMessageContent);
-        stmt.setString(4, pdtTime);
         stmt.execute();
     }
     
@@ -1256,7 +1254,11 @@ public class DataBaseConnection {
         CallableStatement stmt = con.prepareCall("{ call sh.getTopPricesPerCategory(?, ?)}");
 
         stmt.setInt(1, n);
-        stmt.setInt(2, pnID_Category);
+        if(!pnID_Category.equals(0)){
+            stmt.setInt(1, pnID_Category);
+        } else {
+            stmt.setNull(1, Types.INTEGER);
+        }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
@@ -1304,7 +1306,11 @@ public class DataBaseConnection {
         CallableStatement stmt = con.prepareCall("{ call us.getPurchasesOver1000PerCategory(?, ?)}");
 
         stmt.setString(1, psUsername);
-        stmt.setInt(2, pnID_Category);
+        if(!pnID_Category.equals(0)){
+            stmt.setInt(2, pnID_Category);
+        } else {
+            stmt.setNull(2, Types.INTEGER);
+        }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
@@ -1314,7 +1320,11 @@ public class DataBaseConnection {
         CallableStatement stmt = con.prepareCall("{ call us.getPurhaseHistory(?, ?)}");
 
         stmt.setString(1, psUsername);
-        stmt.setInt(2, month);
+        if(!month.equals(0)){
+            stmt.setInt(2, month);
+        } else {
+            stmt.setNull(2, Types.INTEGER);
+        }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
@@ -1323,7 +1333,11 @@ public class DataBaseConnection {
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call us.getUserAgeRangePerGender(?)}");
 
-        stmt.setInt(1, pnID_Gender);
+        if(!pnID_Gender.equals(0)){
+            stmt.setInt(1, pnID_Gender);
+        } else {
+            stmt.setNull(1, Types.INTEGER);
+        }
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
@@ -1348,6 +1362,25 @@ public class DataBaseConnection {
         Connection con = getConnectionDataBase();
         CallableStatement stmt = con.prepareCall("{ call sh.getPurchaseAmountPercentagePerGender()}");
 
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getLastUserMessages() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getLastUserMessages()}");
+
+        
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
+    
+    public static ResultSet getConversation(String sender, String receiver) throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getLastUserMessages(?, ?)}");
+
+        stmt.setString(1, sender);
+        stmt.setString(1, receiver);
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }

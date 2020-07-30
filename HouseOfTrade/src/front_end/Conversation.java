@@ -1,10 +1,33 @@
 package front_end;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 
 public class Conversation extends javax.swing.JDialog {
+    private String receiver;
+    private String sender;
 
-    public Conversation(java.awt.Frame parent, boolean modal) {
+    public Conversation(java.awt.Frame parent, boolean modal, String receiver,String sender) {
         super(parent, modal);
+        this.receiver = receiver;
+        this.sender = sender;
         initComponents();
+        setLocationRelativeTo(null);
+        try{
+            MessageList();
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this, e.toString(), "Warning", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void MessageList() throws SQLException{
+        ResultSet r = logic_connection.DataBaseConnection.getConversation(sender, receiver);
+        DefaultTableModel dtb = (DefaultTableModel) jTableConversation.getModel();
+        while(r.next()){
+            dtb.addRow(new Object[]{r.getInt("SENDER"), r.getString("MESSAGECONTENT"),  r.getString("TIME")});
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -25,7 +48,7 @@ public class Conversation extends javax.swing.JDialog {
 
             },
             new String [] {
-                "User", "Message", "Date"
+                "Sender", "Message", "Date"
             }
         ));
         jScrollPane1.setViewportView(jTableConversation);
@@ -38,6 +61,11 @@ public class Conversation extends javax.swing.JDialog {
         });
 
         jButtonSend.setText("Send");
+        jButtonSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSendActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Conversation");
 
@@ -80,6 +108,19 @@ public class Conversation extends javax.swing.JDialog {
     private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCloseActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCloseActionPerformed
+
+    private void jButtonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendActionPerformed
+        try {
+            if (!jTextFieldMessage.getText().equals("")){
+                logic_connection.DataBaseConnection.insertReceiverxSender(sender, receiver, jTextFieldMessage.getText());
+            }
+            else {
+                    JOptionPane.showMessageDialog(this, "The message box is empty", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+        } catch (SQLException e){
+                JOptionPane.showMessageDialog(this, e.toString(), "Watch out", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonSendActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonClose;
