@@ -385,7 +385,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
     DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	SELECT username_sender, username_receiver, messagecontent, time
+	SELECT username_sender SENDER , username_receiver RECEIVER, messagecontent, time
 	FROM RECEIVERXSENDER
 	WHERE username_sender = IFNULL(pcUsernameSender, username_sender) AND
     username_receiver = IFNULL(pcUsernameReceiver, username_receiver);
