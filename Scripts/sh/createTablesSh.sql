@@ -127,11 +127,12 @@ CREATE TABLE `sh`.`productxpurchase` (
   `ID_Product` INT NOT NULL COMMENT 'Identification number of the product',
   `ID_Purchase` INT NOT NULL COMMENT 'Identification number of the purchase',
   `Quantity` INT UNSIGNED NOT NULL COMMENT 'Quantity of the products in the purchase',
+  `Time` DATETIME NOT NULL COMMENT 'Exact time of the purchase of the product',
   `date_creation` DATE NOT NULL COMMENT 'Date of creation',
   `user_creation` VARCHAR(45) NOT NULL COMMENT 'User who created it',
   `date_last_modification` DATE NULL COMMENT 'Date of the last modification',
   `user_last_modification` VARCHAR(45) NULL COMMENT 'Last user who modified it',
-  PRIMARY KEY (`ID_Product`, `ID_Purchase`),
+  PRIMARY KEY (`ID_Product`, `ID_Purchase`, `Time`),
   INDEX `fk_productxpurchase_idPurchase_idx` (`ID_Purchase` ASC) VISIBLE,
   CONSTRAINT `fk_productxpurchase_idProduct`
     FOREIGN KEY (`ID_Product`)
