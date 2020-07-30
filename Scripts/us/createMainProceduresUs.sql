@@ -593,3 +593,17 @@ BEGIN
 	VALUES (pcUsername, pnIdProduct);
 	Commit;
 END$$
+
+-- Procedure to get a customer list
+DELIMITER $$
+CREATE PROCEDURE `getCustomerList` ()
+BEGIN
+	DECLARE EXIT HANDLER FOR 1062 SELECT 'Duplicate keys error encountered' Message; 
+    DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+    DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
+    SELECT pu.Username_Customer Customer from user u
+    inner join sh.product pr on pr.UsernameSalesman = u.username
+    inner join sh.productxpurchase pp on pp.ID_Product  = pr.ID_product
+    inner join sh.purchase pu on pu.ID_Purchase = pp.ID_Purchase;
+END$$
