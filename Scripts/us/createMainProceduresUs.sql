@@ -356,8 +356,8 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-    INSERT INTO USERREVIEW (username_reviewer, username_reviewee, customer, comment, stars)
-	VALUES (pcUsernameReviewer, pcUsernameReviewee, pnCustomer, pcComment, pnStars);
+    INSERT INTO USERREVIEW (username_reviewer, username_reviewee, time, customer, comment, stars)
+	VALUES (pcUsernameReviewer, pcUsernameReviewee, now(), pnCustomer, pcComment, pnStars);
 	Commit;
 END$$
 
