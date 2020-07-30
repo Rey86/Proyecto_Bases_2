@@ -2,6 +2,8 @@ package front_end;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -168,6 +170,11 @@ public class BuyProduct extends javax.swing.JDialog {
         });
 
         jButtonPurchase.setText("Purchase");
+        jButtonPurchase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPurchaseActionPerformed(evt);
+            }
+        });
 
         jButtonClose.setText("Close");
         jButtonClose.addActionListener(new java.awt.event.ActionListener() {
@@ -357,6 +364,29 @@ public class BuyProduct extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Select a product to delete of the cart", "Watch out", JOptionPane.WARNING_MESSAGE);
         } 
     }//GEN-LAST:event_jButtonRemoveActionPerformed
+
+    private void jButtonPurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPurchaseActionPerformed
+        int count= jTableProductsCart.getModel().getRowCount();
+        try {
+            ResultSet r = logic_connection.DataBaseConnection.getProducts();
+            if(count > 0){
+                for(int c = count; 0<=c; c--){
+                    int productID = (Integer) jTableProductsCart.getValueAt( c, 0);
+                    logic_connection.DataBaseConnection.setProduct(productID, 
+                            (String) jTableProductsCart.getValueAt( c, 1), 
+                            r.getInt("SOLD")+(Integer)jTableProductsCart.getValueAt( c, 7), 
+                            r.getString("DESCRIPTION"), 
+                            r.getInt("QUANTITY")-(Integer)jTableProductsCart.getValueAt( c, 7), 
+                            (String) jTableProductsCart.getValueAt( c, 5), 
+                            r.getInt("ID_CATEGORY"), r.getInt("ID_DELIVERYTYPE"));
+                }
+            } else{
+                JOptionPane.showMessageDialog(this, "The cart is empty", "Watch out", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuyProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonPurchaseActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAddToCart;

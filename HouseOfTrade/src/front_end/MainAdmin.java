@@ -158,7 +158,8 @@ public class MainAdmin extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEditProfileActionPerformed
 
     private void jButtonReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReviewActionPerformed
-        // TODO add your handling code here:
+        Customers dialog = new Customers(new javax.swing.JFrame(), true, username);
+        dialog.setVisible(true);
     }//GEN-LAST:event_jButtonReviewActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1384,4 +1384,12 @@ public class DataBaseConnection {
         ResultSet r = (ResultSet) stmt.executeQuery();
         return r;
     }
+    
+    public static ResultSet getCustomerList() throws SQLException{
+        Connection con = getConnectionDataBase();
+        CallableStatement stmt = con.prepareCall("{ call us.getCustomerList()}");
+
+        ResultSet r = (ResultSet) stmt.executeQuery();
+        return r;
+    }
 }

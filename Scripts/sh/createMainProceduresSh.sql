@@ -229,14 +229,14 @@ END$$
 
 -- Procedure to insert a new purchase
 DELIMITER $$
-CREATE PROCEDURE insertPurchase (pcPurchaseDate DATE, pcUsernameCustomer VARCHAR(45), pnIdPaymentMethod INT) 
+CREATE PROCEDURE insertPurchase (pcUsernameCustomer VARCHAR(45), pnIdPaymentMethod INT) 
 BEGIN
 	DECLARE EXIT HANDLER FOR 1232 SELECT 'Incorrect argument type to variable' Message;
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
-	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
+	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message;
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
 	INSERT INTO PURCHASE (date, username_customer, id_paymentmethod)
-	VALUES (pcPurchaseDate, pcUsernameCustomer, pnIdPaymentMethod);
+	VALUES (SYSDATE(), pcUsernameCustomer, pnIdPaymentMethod);
 	Commit;
 END$$
 
