@@ -555,7 +555,7 @@ BEGIN
     DECLARE EXIT HANDLER FOR 1118  SELECT 'Row size too large' Message;
 	DECLARE EXIT HANDLER FOR SQLEXCEPTION SELECT 'SQLException encountered' Message; 
     DECLARE EXIT HANDLER FOR SQLSTATE '23000' SELECT 'SQLSTATE 23000' ErrorCode;
-	INSERT INTO PRODUCTXPURCHASE (id_purchase, id_product, quantity)
-	VALUES (pnIdPurchase, pnIdProduct, pnQuantity);
+	INSERT INTO PRODUCTXPURCHASE (id_purchase, id_product, quantity, time)
+	VALUES (pnIdPurchase, pnIdProduct, pnQuantity, now());
 	Commit;
 END$$
